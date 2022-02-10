@@ -34,7 +34,7 @@
         <ul class="list">
             <li><a href="">PC</a></li>
             <li><a href="">PlayStation</a></li>
-            <li><a href="">Switch</a></li>
+            <li><a href="">Nintendo</a></li>
             <li><a href="">Xbox</a></li>
         </ul>
     </nav>
