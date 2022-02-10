@@ -9,22 +9,33 @@
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
+<div>
+    <nav id="firstNav" >
+        <ul>
+            <li><a href="">Jeux</a>
+                <ul class="little">
+                    <li><a href="">News</a></li>
+                    <li><a href="">Tests</a></li>
+                    <li><a href="">Soluce</a></li>
+                    <li><a href="">Calendrier des sorties</a></li>
+                </ul>
+            </li>
+            <li><a href="">Série et film</a></li>
+            <input type="search" placeholder="Recherche">
+            <li><a href="">Forum</a></li>
+            <li><a href="">Sondages</a></li>
+            <li><a href="">Connexion / Inscription</a></li>
+        </ul>
+    </nav>
+</div>
 
-<nav>
-    <ul>
-        <li>Jeux
-        <li>News</li>
-        <li>Tests</li>
-        <li>Soluce</li>
-        <li>Calendrier des sorties</li>
-        </li>
-        <li>Série et film</li>
-        <li>PC</li>
-        <li>PlayStation</li>
-        <li>Switch</li>
-        <li>Xbox</li>
-        <li>Forum</li>
-        <li>Sondages</li>
-        <input type="search" placeholder="Recherche">
-    </ul>
-</nav>
+<div>
+    <nav id="second-nav">
+        <ul>
+            <li><a href="">PC</a></li>
+            <li><a href="">PlayStation</a></li>
+            <li><a href="">Switch</a></li>
+            <li><a href="">Xbox</a></li>
+        </ul>
+    </nav>
+</div>
