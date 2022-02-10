@@ -11,7 +11,7 @@
 <body>
 <div>
     <nav id="firstNav" >
-        <ul>
+        <ul class="list">
             <li><a href="">Jeux</a>
                 <ul class="little">
                     <li><a href="">News</a></li>
@@ -31,7 +31,7 @@
 
 <div>
     <nav id="second-nav">
-        <ul>
+        <ul class="list">
             <li><a href="">PC</a></li>
             <li><a href="">PlayStation</a></li>
             <li><a href="">Switch</a></li>
