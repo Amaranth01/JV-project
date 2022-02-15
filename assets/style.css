@@ -74,6 +74,18 @@ nav > ul li:hover .little {
     color: white;
 }
 
+/*
+Footer
+ */
+
+footer {
+    background-color: blue;
+    color: white;
+    padding: 0.5rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
 /**
 Home page
  */
@@ -103,12 +115,60 @@ h2 {
 }
 
 /*
-Footer
+Forms style
  */
 
-footer {
-    background-color: blue;
-    color: white;
+form {
+    text-align: center;
+    font-size: 2rem;
+}
+
+label {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+input {
+    width: 15%;
+    padding: 0.3rem;
+}
+
+#login-button{
+    font-size: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.button {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
     padding: 0.5rem;
-    width: 100%;
+    border: blue 1px solid;
+    color: blue;
+    border-radius: 10px;
+    background-color: white;
+}
+
+#login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+
+}
+
+#button-create {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    border: blue 1px solid;
+    color: blue;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.subtitle {
+    font-size: 2.5rem;
 }

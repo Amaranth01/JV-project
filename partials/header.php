@@ -25,7 +25,7 @@
             <input type="search" placeholder="Recherche">
             <li><a href="/public/pages/forum.php">Forum</a></li>
             <li><a href="/public/pages/poll.php">Sondages</a></li>
-            <li><a href="/public/pages/connexion.php">Connexion / Inscription</a></li>
+            <li><a href="/public/pages/login.php">Connexion</a></li>
         </ul>
     </nav>
 </div>
