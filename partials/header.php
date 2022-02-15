@@ -11,31 +11,32 @@
 <body>
 <div>
     <nav id="firstNav" >
+        <img src="/assets/img/Capture%20d’écran%202022-02-15%20112818.png" alt="Le logo du site">
         <ul class="list">
-            <li><a href="">Jeux</a>
+            <li><a href="/public/pages/game.php">Jeux</a>
                 <ul class="little">
-                    <li><a href="">News</a></li>
-                    <li><a href="">Tests</a></li>
-                    <li><a href="">Soluce</a></li>
-                    <li><a href="">Calendrier des sorties</a></li>
+                    <li><a href="/public/pages/news.php">News</a></li>
+                    <li><a href="/public/pages/tests.php">Tests</a></li>
+                    <li><a href="/public/pages/help.php">Soluce</a></li>
+                    <li><a href="/public/pages/nextGame.php">Calendrier des sorties</a></li>
                 </ul>
             </li>
-            <li><a href="">Série et film</a></li>
+            <li><a href="/public/pages/series.php">Série et film</a></li>
             <input type="search" placeholder="Recherche">
-            <li><a href="">Forum</a></li>
-            <li><a href="">Sondages</a></li>
-            <li><a href="">Connexion / Inscription</a></li>
+            <li><a href="/public/pages/forum.php">Forum</a></li>
+            <li><a href="/public/pages/poll.php">Sondages</a></li>
+            <li><a href="/public/pages/connexion.php">Connexion / Inscription</a></li>
         </ul>
     </nav>
 </div>
 
 <div>
-    <nav id="second-nav">
-        <ul class="list">
-            <li><a href="">PC</a></li>
-            <li><a href="">PlayStation</a></li>
-            <li><a href="">Nintendo</a></li>
-            <li><a href="">Xbox</a></li>
+    <nav >
+        <ul class="list" id="second-nav">
+            <li><a href="/public/pages/pc.php">PC</a></li>
+            <li><a href="/public/pages/playstation.php">PlayStation</a></li>
+            <li><a href="/public/pages/nintendo.php">Nintendo</a></li>
+            <li><a href="/public/pages/xbox.php">Xbox</a></li>
         </ul>
     </nav>
 </div>
