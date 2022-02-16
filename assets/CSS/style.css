@@ -8,6 +8,19 @@ html {
     font-size: 65.5%;
 }
 
+/*
+dark mode
+ */
+
+.dark-mode {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+.dark-mode a {
+    color: white;
+}
+
 /**
 Menu
  */

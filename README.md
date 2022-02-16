@@ -2,7 +2,7 @@
 
 Faire un formulaire d'inscription / connexion 
 
-Mettre en place toutes les sécurtiés nécessaires de partout (PHP, JS HTML dans cet ordre)
+Mettre en place toutes les sécurités nécessaires de partout (PHP, JS HTML dans cet ordre)
 
 Créer espaces admin rédacteur et utilisateur avec des classes
 
@@ -13,3 +13,5 @@ Voir comment push les nouveaux articles publiés et les mettre par catégorie
 Voir comment créer un sondage
 
 Mettre un mode nuit avec les cookies
+
+Ajouter un thème clair sombre avec des cookies
