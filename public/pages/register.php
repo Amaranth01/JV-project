@@ -1,9 +1,19 @@
 <?php
     require __DIR__ . '/../../partials/header.php';
+
+    //The parameter must be present the 1 means it is a success
+    if(isset($_GET['success']) && intval($_GET['success']) === 1 ) { ?>
+        <div class="success">Les données ont bien été envoyées.</div> <?php
+    }
+    //Parameter must be present 0 means there is an error
+    elseif(isset($_GET['success']) && intval($_GET['success'] === 0)) { ?>
+        <div class="error">Une erreur est survenue lors du traitement de vos données.</div> <?php
+    }
 ?>
 <!--A form to register-->
 <div>
     <h2 class="subtitle">Inscrivez-vous</h2>
+
     <form action="/forms/form-register.php" method="post">
 
         <div>
