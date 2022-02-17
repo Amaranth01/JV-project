@@ -1,3 +1,7 @@
+<?php
+    require __DIR__ . '/../cookies/theme.php';
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -27,7 +31,7 @@
             <input type="search" placeholder="Recherche">
             <li><a href="/public/pages/forum.php">Forum</a></li>
             <li><a href="/public/pages/poll.php">Sondages</a></li>
-            <a id="theme"><i class="fas fa-adjust"></i></a>
+            <button class="dark-mode"><i class="fas fa-adjust"></i></button>
             <li><a href="/public/pages/login.php">Connexion</a></li>
         </ul>
     </nav>

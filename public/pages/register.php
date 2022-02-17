@@ -9,6 +9,9 @@
     elseif(isset($_GET['success']) && intval($_GET['success'] === 0)) { ?>
         <div class="error">Une erreur est survenue lors du traitement de vos données.</div> <?php
     }
+    elseif(isset($_GET['success']) && intval($_GET['success']) === -1) { ?>
+        <div class="error1">Votre mot de passe doit contenir au moins une lettre en majuscule et un chiffre</div> <?php
+    }
 ?>
 <!--A form to register-->
 <div>
