@@ -1,0 +1,26 @@
+Roles --> user
+      --> writer
+      --> admin
+
+User :
+
+Système de connexion, déconnexion. Lire un article. Poster un commentaire.
+
+Writer :
+
+Ajouter, éditer un article et commentaire.
+
+Admin :
+
+Supprimer un utilisateur ou rédacteur.
+
+Envoyer un token en cas de nouvelle inscription pour vérifier l'adresse mail.
+
+------------------------------------------------------
+
+Article par catégorie un article aura deux catégories:
+
+catégorie Game console
+
+catégorie type of
+

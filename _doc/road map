@@ -1,0 +1,19 @@
+3 niveaux d'accès (3 rôles) : user , admin et editor.
+
+user , admin et editor ---> Savoir se connecter, déconnecter, lire un article, poster un commentaire.
+
+editor ---> ajouter un article, éditer un article, éditer un commentaire
+
+admin ---> supprimer un utilisateur, supprimer un article
+
+Articles répertoriés en catégorie par console et par genre.
+
+Un utilisateur doit pouvoir mettre à jour son profil.
+
+Envoyer un token lors de l'inscription.
+
+Afficher des statistics
+
+barre de recherche
+
+tchat

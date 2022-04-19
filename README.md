@@ -13,5 +13,3 @@ Voir comment push les nouveaux articles publiés et les mettre par catégorie
 Voir comment créer un sondage
 
 Mettre un mode nuit avec les cookies
-
-Ajouter un thème clair sombre avec des cookies
