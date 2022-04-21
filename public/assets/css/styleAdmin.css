@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 65.5%;
+}
+
+.addArticle {
+    margin-left: 2rem;
+    font-size: 2rem;
+}
+
+.addArticle > a > span {
+    font-size: 5rem;
+    font-weight: bold;
+    background-color: blue;
+    border-radius: 50%;
+    padding: 0.5rem;
+    color: white;
+    margin-left: 3vw;
+}

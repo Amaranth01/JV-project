@@ -6,7 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JV Project</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/styleMenu.css">
+    <link rel="stylesheet" href="/assets/css/styleForm.css">
+    <link rel="stylesheet" href="/assets/css/styleAdmin.css">
 </head>
 <body>
 <?php
@@ -57,7 +59,7 @@ if(isset($_SESSION['success'])) {
 
             <li><a href="/index.php?c=home&a=login">Connexion/Inscription</a></li>
             <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
-            <li><a href="">Espace des rédacteurs</a></li>
+            <li><a href="/index.php?c=admin&a=index">Espace des rédacteurs</a></li>
         </ul>
     </nav>
 </div>
