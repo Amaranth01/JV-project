@@ -41,20 +41,20 @@ if(isset($_SESSION['success'])) {
     <nav id="firstNav" >
         <img src="/assets/img/Capture%20d’écran%202022-02-15%20112818.png" alt="Le logo du site">
         <ul class="list">
-            <li><a href="/public/pages/game.php">Jeux</a>
+            <li>Jeux
                 <ul class="little">
-                    <li><a href="">News</a></li>
-                    <li><a href="">Tests</a></li>
-                    <li><a href="">Soluce</a></li>
-                    <li><a href="">Calendrier des sorties</a></li>
+                    <li><a href="/index.php?c=home&a=news">News</a></li>
+                    <li><a href="/index.php?c=home&a=tests">Tests</a></li>
+                    <li><a href="/index.php?c=home&a=help">Soluces</a></li>
+                    <li><a href="/index.php?c=home&a=nextgame">Calendrier des sorties</a></li>
                 </ul>
             </li>
-            <li><a href="">Série et film</a></li>
+            <li><a href="/index.php?c=home&a=series">Série et film</a></li>
             <input type="search" placeholder="Recherche">
-            <li><a href="">Tchat</a></li>
-            <li><a href="">Sondages</a></li>
+            <li><a href="/index.php?c=home&a=tchat">Tchat</a></li>
+            <li><a href="/index.php?c=home&a=poll">Sondages</a></li>
             <button class="dark-mode"><i class="fas fa-adjust"></i></button>
-            <li><a href="">Connexion</a></li>
+            <li><a href="/index.php?c=home&a=login">Connexion/Inscription</a></li>
         </ul>
     </nav>
 </div>
@@ -63,10 +63,10 @@ if(isset($_SESSION['success'])) {
 <div>
     <nav >
         <ul class="list" id="second-nav">
-            <li><a href="">PC</a></li>
-            <li><a href="">PlayStation</a></li>
-            <li><a href="">Nintendo</a></li>
-            <li><a href="">Xbox</a></li>
+            <li><a href="/index.php?c=home&a=pc">PC</a></li>
+            <li><a href="/index.php?c=home&a=playstation">PlayStation</a></li>
+            <li><a href="/index.php?c=home&a=nintendo">Nintendo</a></li>
+            <li><a href="/index.php?c=home&a=xbox">Xbox</a></li>
         </ul>
     </nav>
 </div>
@@ -75,6 +75,7 @@ if(isset($_SESSION['success'])) {
     <?=$html?>
 </main>
 
+<script src="https://kit.fontawesome.com/25d98733ec.js"></script>
 <script src="/asset/js/app.js"></script>
 <script src="/asset/js/theme.js"></script>
 </body>
