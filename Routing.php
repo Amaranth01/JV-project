@@ -2,7 +2,8 @@
 
 namespace App;
 
-use AbstractController;
+use App\Controller\AbstractController;
+use App\Controller\ErrorController;
 
 class Routing
 {
@@ -49,11 +50,10 @@ class Routing
      */
     private static function guessController(string $controller)
     {
-        $controller = ucfirst($controller) . 'Controller';
+        $controller = "App\Controller\\" . ucfirst($controller) . 'Controller';
         if (class_exists($controller)) {
             return new $controller();
         }
-        var_dump($controller);
         return new ErrorController();
 
     }

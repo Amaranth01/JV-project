@@ -1,3 +1,7 @@
 <?php
 
-header ("Location: /public/home.php");
+use App\Routing;
+
+require __DIR__ . '/../includes.php';
+
+Routing::route();
