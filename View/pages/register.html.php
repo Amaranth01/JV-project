@@ -1,9 +1,7 @@
 <h1>Inscrivez-vous</h1>
 <!--A form to register-->
 <div>
-
-
-    <form action="/forms/form-register.php" method="post">
+    <form action="" method="post">
 
         <div>
             <label for="username-register">Votre pseudo</label>

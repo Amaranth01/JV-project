@@ -14,16 +14,14 @@
                 </div>
 
                 <div>
-                    <input type="submit" name="submit" value="Connexion">
+                    <input type="submit" name="submit" value="Connexion" class="button">
                 </div>
             </form>
     </div>
 
 
     <!--    A button to bring up the login form-->
-    <div id="login-button">
-        <span>Pas de compte? Créez en un gratuitement !</span>
-        <a href="">
-            <button id="button-create"> Créer un compte </button>
-        </a>
+    <div>
+        <p>Pas de compte? Créez en un gratuitement ! <a href="/index.php?c=home&a=register">Créer un compte</a></p>
+
     </div>

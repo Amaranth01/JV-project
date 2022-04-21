@@ -39,7 +39,7 @@ if(isset($_SESSION['success'])) {
 <!--First menu-->
 <div>
     <nav id="firstNav" >
-        <img src="/assets/img/Capture%20d’écran%202022-02-15%20112818.png" alt="Le logo du site">
+        <a href="/index.php?c=home&a=index"><img src="/assets/img/Capture%20d’écran%202022-02-15%20112818.png" alt="Le logo du site"></a>
         <ul class="list">
             <li>Jeux
                 <ul class="little">
@@ -54,7 +54,10 @@ if(isset($_SESSION['success'])) {
             <li><a href="/index.php?c=home&a=tchat">Tchat</a></li>
             <li><a href="/index.php?c=home&a=poll">Sondages</a></li>
             <button class="dark-mode"><i class="fas fa-adjust"></i></button>
+
             <li><a href="/index.php?c=home&a=login">Connexion/Inscription</a></li>
+            <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
+            <li><a href="">Espace des rédacteurs</a></li>
         </ul>
     </nav>
 </div>
