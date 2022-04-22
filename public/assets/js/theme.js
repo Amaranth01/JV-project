@@ -1,49 +1,9 @@
-function darkMode_init()
-{
-    let darkmodeSwitch = document.querySelector('header .darkMode');
-
-    let darkModeCookie = {
-
-        set:function(key,value,time,path,secure=false)
-        {
-            let expires = new Date();
-            expires.setTime(expires.getTime() + time);
-            let pathValue;
-
-
-            document.cookie = key + '=' + value + ';' + path + 'expires=' + expires.toUTCString() + secure;
-        },
-        get:function()
-        {
-            let keyValue = document.cookie.match('(^|;) ?darkMode=([^;]*)(;|$)');
-            return keyValue ? keyValue[2] : null;
-        },
-        remove:function()
-        {
-            document.cookie = 'darkMode=; Max-Age=0; path=/';
-        }
-    };
-
-
-    if(darkmodeCookie.get() === 'true')
-    {
-        darkmodeSwitch.classList.add('active');
-        document.body.classList.add('darkmode');
+//Change theme on click
+$(".darkMode").click(function(){
+    if ($("body").hasClass("dark")){
+        $("body").removeClass("dark");
     }
-
-
-    darkmodeSwitch.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.target.classList.toggle('active');
-        document.body.classList.toggle('darkmode');
-
-        if(document.body.classList.contains('darkmode'))
-        {
-            darkmodeCookie.set('darkmode','true',2628000000,'/',false);
-        }
-        else
-        {
-            darkmodeCookie.remove();
-        }
-    });
-}
+    else{
+        $("body").addClass("dark");
+    }
+});

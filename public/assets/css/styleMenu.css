@@ -12,12 +12,12 @@ html {
 dark mode
  */
 
-.dark-mode {
-    background-color: #1a1a1a;
+.dark {
+    background-color: black;
     color: white;
 }
 
-.dark-mode a {
+.dark a {
     color: white;
 }
 
@@ -61,7 +61,6 @@ li{
     position: absolute;
     width: 10%;
     z-index: 2;
-    background-color: white;
     margin-top: 2rem;
 }
 

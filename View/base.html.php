@@ -37,6 +37,16 @@ if(isset($_SESSION['success'])) {
     </div> <?php
 }
 ?>
+<div>
+    <nav >
+        <ul class="list" id="second-nav">
+            <li><a href="/index.php?c=home&a=pc">PC</a></li>
+            <li><a href="/index.php?c=home&a=playstation">PlayStation</a></li>
+            <li><a href="/index.php?c=home&a=nintendo">Nintendo</a></li>
+            <li><a href="/index.php?c=home&a=xbox">Xbox</a></li>
+        </ul>
+    </nav>
+</div>
 
 <!--First menu-->
 <div>
@@ -55,7 +65,7 @@ if(isset($_SESSION['success'])) {
             <input type="search" placeholder="Recherche">
             <li><a href="/index.php?c=home&a=tchat">Tchat</a></li>
             <li><a href="/index.php?c=home&a=poll">Sondages</a></li>
-            <button class="dark-mode"><i class="fas fa-adjust"></i></button>
+            <button class="darkMode"><i class="fas fa-adjust"></i></button>
 
             <li><a href="/index.php?c=home&a=login">Connexion/Inscription</a></li>
             <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
@@ -65,23 +75,15 @@ if(isset($_SESSION['success'])) {
 </div>
 
 <!--Second menu-->
-<div>
-    <nav >
-        <ul class="list" id="second-nav">
-            <li><a href="/index.php?c=home&a=pc">PC</a></li>
-            <li><a href="/index.php?c=home&a=playstation">PlayStation</a></li>
-            <li><a href="/index.php?c=home&a=nintendo">Nintendo</a></li>
-            <li><a href="/index.php?c=home&a=xbox">Xbox</a></li>
-        </ul>
-    </nav>
-</div>
+
 
 <main class="container">
     <?=$html?>
 </main>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/25d98733ec.js"></script>
-<script src="/asset/js/app.js"></script>
-<script src="/asset/js/theme.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/theme.js"></script>
 </body>
 </html>
