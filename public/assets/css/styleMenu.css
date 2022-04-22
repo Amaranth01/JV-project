@@ -8,13 +8,18 @@ html {
     font-size: 65.5%;
 }
 
+body {
+    transition: background 0.5s ease;
+}
+
 /*
 dark mode
  */
 
 .dark {
-    background-color: black;
+    background-color: #343434;
     color: white;
+    transition: background 0.5s ease;
 }
 
 .dark a {

@@ -1,14 +1,14 @@
 <h1>L'espace de rédaction</h1>
 
-<div>
-    <div>
+<div class="content">
+    <div class="left">
         <p>Les derniers articles :</p>
 
 
 
     </div>
     <div>
-        <p class=addArticle>
+        <p class="addArticle">
             <a href="/index.php?c=admin&a=add-article">
                 <span id="more">+</span>
                 <br>
@@ -17,25 +17,30 @@
         </p>
     </div>
     <div>
-        <p class="allArticle">
-            <a href="/index.php?c=admin&a=edit-article"></a>
-            <br>
-            Tous les articles
+        <p class="addArticle">
+            <a href="/index.php?c=admin&a=list-article">
+                <img src="assets/img/allArt.png" alt="image de copie" id="allArtImg">
+                <br>
+                Tous les articles
+            </a>
         </p>
     </div>
 </div>
 
-<div>
-    <div>
+<div class="content">
+    <div class="left">
         <p>Les derniers commentaires :</p>
 
 
 
     </div>
     <div>
-        <p>
-            <a href=""></a>
-            <p>Tous les commentaires</p>
+        <p class="addArticle">
+            <a href="/index.php?c=comment&a=all-comment">
+                <img src="assets/img/allCom.png" alt="image de bulle de dialogue" id="allComImg">
+                <br>
+                Tous les commentaires
+            </a>
         </p>
     </div>
 </div>

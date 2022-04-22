@@ -7,9 +7,8 @@
 html {
     font-size: 65.5%;
 }
-
+/*admin writer*/
 .addArticle {
-    margin-left: 2rem;
     font-size: 2rem;
 }
 
@@ -17,8 +16,34 @@ html {
     font-size: 5rem;
     font-weight: bold;
     background-color: blue;
-    border-radius: 50%;
-    padding: 0.5rem;
+    border-radius: 5px;
+    padding: 0.3rem;
     color: white;
     margin-left: 3vw;
+}
+
+#allArtImg, #allComImg {
+    width: 5rem;
+}
+
+.addArticle > a > img {
+    margin-left: 3vw;
+}
+
+/*list article*/
+table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 9rem;
+}
+
+th {
+    border: #9097fd 2px solid;
+    padding: 0.5rem;
 }

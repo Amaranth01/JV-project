@@ -1,18 +1,18 @@
-<h1>Tous les articles publiés</h1>
+<h1>Tous les commentaires</h1>
 
 <table>
     <tr>
-        <td>Titre</td>
+        <td>Contenu</td>
         <td>Auteur</td>
-        <td>Catégorie</td>
+        <td>Article</td>
         <td>Edition</td>
         <td>Suppression</td>
     </tr>
 
     <tr>
-        <th>Hey</th>
+        <th>Trop contente</th>
         <th>Lui/Elle</th>
-        <th>RPG</th>
+        <th>Beurkl</th>
         <th>Lien</th>
         <th>Lien</th>
     </tr>
