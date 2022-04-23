@@ -83,7 +83,10 @@ if(isset($_SESSION['success'])) {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/25d98733ec.js"></script>
+
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/theme.js"></script>
+<script src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="/assets/js/wysiwyg.js"></script>
 </body>
 </html>
