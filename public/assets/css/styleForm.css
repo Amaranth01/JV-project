@@ -38,6 +38,7 @@ input {
 .button {
     font-size: 1.5rem;
     margin-top: 1.5rem;
+    margin-bottom: 2rem;
     padding: 0.5rem;
     border: blue 1px solid;
     color: blue;

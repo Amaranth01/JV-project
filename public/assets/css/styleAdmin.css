@@ -47,3 +47,33 @@ th {
     border: #9097fd 2px solid;
     padding: 0.5rem;
 }
+
+/*checkbox style */
+#category, #platformGame {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 75vw;
+}
+
+#category > input, #platformGame > input {
+    width: 5%;
+}
+
+#platformGame {
+    margin-top: 1rem;
+}
+
+#platformGame > p, #category > p {
+    text-align: center;
+    margin-bottom: 1rem;
+    width: 100%;
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-top: 0.5rem;
+}
+
+
