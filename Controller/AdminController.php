@@ -23,4 +23,9 @@ class AdminController extends AbstractController
     {
         $this->render('writer/listArticle');
     }
+
+    public function adminSpace()
+    {
+        $this->render('admin/adminSpace');
+    }
 }

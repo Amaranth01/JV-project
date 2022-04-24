@@ -12,6 +12,14 @@ body {
     transition: background 0.5s ease;
 }
 
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    font-family: Arial, serif;
+    color: blue;
+    margin-bottom: 1rem;
+}
+
 /*
 dark mode
  */
@@ -85,6 +93,7 @@ nav > ul li:hover .little {
     margin-top: 1rem;
     background-color: blue;
     padding: 0.5rem;
+    font-family: Arial, serif;
 }
 
 #second-nav > li > a {
@@ -130,3 +139,12 @@ h2 {
     justify-content: center;
     align-items: center;
 }
+
+/*logo user space style*/
+#userSpace {
+    width: 4.3rem;
+    margin-top: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+

@@ -75,4 +75,9 @@ class HomeController extends AbstractController
     {
         $this->render('pages/game/xbox');
     }
+
+    public function userSpace()
+    {
+        $this->render('user/userSpace');
+    }
 }

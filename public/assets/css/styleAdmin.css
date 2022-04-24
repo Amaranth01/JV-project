@@ -76,4 +76,29 @@ th {
     margin-top: 0.5rem;
 }
 
+#admin {
+    font-size:2rem;
+    text-align: right;
+    margin-right: 1.5rem;
+}
+
+/*admin space style*/
+#admin > a > img {
+    width: 5rem;
+}
+
+#userStatus, #delUser {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+
+#userStatus > p, #delUser > p {
+    color: red;
+    font-weight: bold;
+}
+
+
+
 

@@ -45,4 +45,10 @@
     </div>
 </div>
 
-
+<div id="admin">
+    <a href="/index.php?c=admin&a=admin-space">
+        <img src="/assets/img/adminSpace.png" alt="">
+        <br>
+        Espace d'administration
+    </a>
+</div>

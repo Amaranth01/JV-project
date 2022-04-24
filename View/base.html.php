@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/assets/css/styleMenu.css">
     <link rel="stylesheet" href="/assets/css/styleForm.css">
     <link rel="stylesheet" href="/assets/css/styleAdmin.css">
+    <link rel="stylesheet" href="/assets/css/styleUserSpace.css">
 </head>
 <body>
 <?php
@@ -37,6 +38,7 @@ if(isset($_SESSION['success'])) {
     </div> <?php
 }
 ?>
+<!--First menu-->
 <div>
     <nav >
         <ul class="list" id="second-nav">
@@ -45,10 +47,13 @@ if(isset($_SESSION['success'])) {
             <li><a href="/index.php?c=home&a=nintendo">Nintendo</a></li>
             <li><a href="/index.php?c=home&a=xbox">Xbox</a></li>
         </ul>
+        <a href="/index.php?c=home&a=user-space">
+            <img src="/assets/img/userSpace.png" alt="Accès à l'espace utilisateur" id="userSpace">
+        </a>
     </nav>
 </div>
 
-<!--First menu-->
+<!--Second menu-->
 <div>
     <nav id="firstNav" >
         <a href="/index.php?c=home&a=index"><img src="/assets/img/Capture%20d’écran%202022-02-15%20112818.png" alt="Le logo du site"></a>
@@ -74,7 +79,7 @@ if(isset($_SESSION['success'])) {
     </nav>
 </div>
 
-<!--Second menu-->
+
 
 
 <main class="container">
