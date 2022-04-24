@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-class ErrorController
+class ErrorController extends AbstractController
 {
 
     public function error404(?string $paramController)
     {
-        echo "fail";
+        $this->render('error/404');
     }
 }

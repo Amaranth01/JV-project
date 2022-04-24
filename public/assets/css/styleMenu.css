@@ -147,4 +147,9 @@ h2 {
     margin-right: 0.5rem;
 }
 
+/*Error page*/
 
+#error {
+    font-size: 3rem;
+    margin-left: 4rem;
+}
