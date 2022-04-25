@@ -47,7 +47,7 @@ class UserManager
      */
     public static function getUserByMail(string $email)
     {
-        $stmt = DB::getPDO()->prepare("SELECT * FROM jvp_user WHERE email = :email");
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE email = '$email'");
         return $stmt ? self::mailExist($stmt->fetch()) : null;
     }
 
@@ -84,10 +84,24 @@ class UserManager
         return $stmt ? $stmt->fetch() : null;
     }
 
-    public static function usernameExist(string $username)
+    /**
+     * @param string $username
+     * @return User|null
+     */
+    public static function getUserByName(string $username): ?User
     {
         $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE username = '$username'");
-        return $stmt ? $stmt->fetch() : null;
+        return $stmt ? self::usernameExist($stmt->fetch()['username']) : null;
+    }
+
+    /**
+     * @param string $username
+     * @return User|null
+     */
+    public static function usernameExist(string $username): ?User
+    {
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE username = '$username'");
+        return $stmt ? self::createUser($stmt->fetch()) : null;
     }
 
     /**

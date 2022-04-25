@@ -2,7 +2,7 @@
 <!--A form to login-->
     <div>
 
-            <form action="" method="post">
+            <form action="/index.php?c=user&a=connexion" method="post">
                 <div>
                     <label for="username-login">Votre pseudo</label>
                     <input type="text" name="username" id="username-login">
