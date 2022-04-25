@@ -74,6 +74,7 @@ class User extends AbstractEntity
 
     /**
      * @param string $token
+     * @return User
      */
     public function setToken(string $token): self
     {

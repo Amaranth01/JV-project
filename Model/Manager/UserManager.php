@@ -16,8 +16,10 @@ class UserManager
     {
         return (new User())
             ->setId($data['id'])
-            ->setUsername($data['email'])
+            ->setUsername($data['username'])
+            ->setEmail($data['email'])
             ->setPassword($data['password'])
+            ->setToken($data['token'])
             ->setRole(RoleManager::getRoleById($data['role_id']))
             ;
     }
@@ -57,7 +59,7 @@ class UserManager
     public static function mailExist(string $email)
     {
         $stmt = DB::getPDO()->query("SELECT count(*) FROM jvp_user WHERE email = '$email'");
-        return $stmt ? $stmt->fetch() : null;
+        return $stmt ? $stmt->fetch()['count(*)'] : null;
     }
 
     /**
@@ -102,7 +104,7 @@ class UserManager
         $stmt->bindValue('username', $user->getUsername());
         $stmt->bindValue('email', $user->getEmail());
         $stmt->bindValue('password', $user->getPassword());
-        $stmt->bindValue('token', $user->getToken());
+        $stmt->bindValue('token', 'getToken()');
         $stmt->bindValue('role_id', $user->getRole()->getId());
 
         $stmt = $stmt->execute();

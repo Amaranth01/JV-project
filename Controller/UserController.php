@@ -59,7 +59,9 @@ class UserController extends AbstractController
                     ->setRole($role)
                 ;
                 //If no email is found, we launch the addUser function
+
                 if(0 == UserManager::getUserByMail($user->getEmail())) {
+
                     UserManager::addUser($user);
                     //If the ID is not null, we pass the user in the session
                     if (null!== $user->getId()) {
