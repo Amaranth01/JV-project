@@ -20,6 +20,8 @@ require __DIR__ . '/Model/Entity/Platform.php';
 require __DIR__ . '/Model/Entity/Role.php';
 require __DIR__ . '/Model/Entity/User.php';
 
+require __DIR__ . '/Model/Manager/RoleManager.php';
+require __DIR__ . '/Model/Manager/UserManager.php';
 
 require __DIR__ . '/Routing.php';
 

@@ -1,7 +1,7 @@
 <h1>Inscrivez-vous</h1>
 <!--A form to register-->
 <div>
-    <form action="" method="post">
+    <form action="/index.php?c=user&a=register" method="post">
 
         <div>
             <label for="username-register">Votre pseudo</label>
@@ -19,8 +19,8 @@
         </div>
 
         <div>
-            <label for="password-register-repeat">Répétez votre mot de passe</label>
-            <input type="password" name="password-repeat" id="password-register-repeat">
+            <label for="passwordRegisterRepeat">Répétez votre mot de passe</label>
+            <input type="password" name="passwordR" id="passwordRegisterRepeat">
         </div>
 
         <div>
