@@ -63,7 +63,7 @@
         <label for="ps">PlayStation</label>
         <input type="checkbox" name="plateform" id="ps" value="ps">
 
-        <label for="xbox">XBox</label>
+        <label for="xbox">Xbox</label>
         <input type="checkbox" name="plateform" id="xbox" value="xbox">
 
         <label for="nintendo">Nintendo</label>

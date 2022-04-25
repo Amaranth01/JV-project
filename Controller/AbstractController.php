@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
+
 class AbstractController
 {
     /**
@@ -53,5 +55,35 @@ class AbstractController
             return (null === $default) ? '' : $default;
         }
         return $_POST[$field];
+    }
+
+    /**
+     * Checks if a user is already logged in
+     * @return bool
+     */
+    public static function userConnected(): bool
+    {
+        return isset($_SESSION['user']) && null !== ($_SESSION['user'])->getId();
+    }
+
+    /**
+     * Returns a logged-in user, or null if not logged in.
+     * @return User|null
+     */
+    public function getConnectedUser(): ?User
+    {
+        if(!self::userConnected()) {
+            return null;
+        }
+        return ($_SESSION['user']);
+    }
+
+    /**
+     * Checks if an admin is already logged in
+     * @return bool
+     */
+    public static function adminConnected(): bool
+    {
+        return $_SESSION['user']->getRole()->getRoleName() === 'admin';
     }
 }

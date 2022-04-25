@@ -10,11 +10,16 @@
     <link rel="stylesheet" href="/assets/css/styleForm.css">
     <link rel="stylesheet" href="/assets/css/styleAdmin.css">
     <link rel="stylesheet" href="/assets/css/styleUserSpace.css">
+    <link rel="stylesheet" href="/assets/css/styleError.css">
 </head>
 <body>
 <?php
 
 // Handling error messages.
+use App\Controller\UserController;
+use App\Model\Entity\User;
+use App\Model\Manager\UserManager;
+
 if(isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
     $errors = $_SESSION['errors'];
     unset($_SESSION['errors']);
@@ -37,7 +42,6 @@ if(isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
-var_dump($_SESSION['user']);
 ?>
 <!--First menu-->
 <div>
@@ -48,9 +52,13 @@ var_dump($_SESSION['user']);
             <li><a href="/index.php?c=home&a=nintendo">Nintendo</a></li>
             <li><a href="/index.php?c=home&a=xbox">Xbox</a></li>
         </ul>
+        <?php if (UserController::userConnected()) {?>
         <a href="/index.php?c=home&a=user-space">
-            <img src="/assets/img/userSpace.png" alt="Accès à l'espace utilisateur" id="userSpace">
+            <img src="/assets/img/sonic.png" alt="Accès à l'espace utilisateur" id="userSpace">
         </a>
+        <?php
+            }
+        ?>
     </nav>
 </div>
 
@@ -73,8 +81,15 @@ var_dump($_SESSION['user']);
             <li><a href="/index.php?c=home&a=poll">Sondages</a></li>
             <button class="darkMode"><i class="fas fa-adjust"></i></button>
 
-            <li><a href="/index.php?c=home&a=login">Connexion/Inscription</a></li>
+
+            <?php if (UserController::userConnected()) {?>
             <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
+                <?php
+            }
+            else { ?>
+                <li><a href="/index.php?c=home&a=login">Connexion/Inscription</a></li>
+            <?php }
+            ?>
             <li><a href="/index.php?c=admin&a=index">Espace des rédacteurs</a></li>
         </ul>
     </nav>
@@ -94,5 +109,6 @@ var_dump($_SESSION['user']);
 <script src="/assets/js/theme.js"></script>
 <script src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="/assets/js/wysiwyg.js"></script>
+<script src="/assets/js/button.js"></script>
 </body>
 </html>

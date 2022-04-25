@@ -7,6 +7,7 @@ class User extends AbstractEntity
     private string $username;
     private string $email;
     private string $password;
+    private string $image;
     private string $token;
     private Role $role;
 
@@ -61,6 +62,23 @@ class User extends AbstractEntity
     public function setPassword(string $password): self
     {
         $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
         return $this;
     }
 

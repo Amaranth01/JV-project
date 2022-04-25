@@ -19,6 +19,7 @@ class UserManager
             ->setUsername($data['username'])
             ->setEmail($data['email'])
             ->setPassword($data['password'])
+            ->setImage($data['image'])
             ->setToken($data['token'])
             ->setRole(RoleManager::getRoleById($data['role_id']))
             ;

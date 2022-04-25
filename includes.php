@@ -22,6 +22,10 @@ require __DIR__ . '/Model/Entity/User.php';
 
 require __DIR__ . '/Model/Manager/RoleManager.php';
 require __DIR__ . '/Model/Manager/UserManager.php';
+require __DIR__ . '/Model/Manager/ArticleManager.php';
+require __DIR__ . '/Model/Manager/CategoryManager.php';
+require __DIR__ . '/Model/Manager/CommentManager.php';
+require __DIR__ . '/Model/Manager/PlatformManager.php';
 
 require __DIR__ . '/Routing.php';
 

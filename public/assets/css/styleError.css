@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 65.5%;
+}
+
+.message {
+    width: 15vw;
+    font-size: 1.5rem;
+    padding: 1rem;
+    color: white;
+}
+
+.success {
+    background-color: blue;
+}
+
+.error {
+    background-color: red;
+}
