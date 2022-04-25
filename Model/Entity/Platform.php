@@ -18,7 +18,7 @@ class Platform extends AbstractEntity
      * @param string $plateformeName
      * @return Platform
      */
-    public function setPlateformeName(string $plateformeName): self
+    public function setPlatformName(string $plateformeName): self
     {
         $this->plateformeName = $plateformeName;
         return $this;
