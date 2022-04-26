@@ -1,6 +1,6 @@
 <h1>Ajouter un article</h1>
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="/index.php?c=article&a=add-article" method="post" enctype="multipart/form-data">
 
     <label for="image">Image de couverture : </label>
     <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
@@ -54,20 +54,39 @@
     <div id="platformGame">
         <p>Plateformes</p>
 
-        <label for="news">News</label>
-        <input type="checkbox" name="plateform" id="news" value="news">
-
         <label for="pc">PC</label>
-        <input type="checkbox" name="plateform" id="pc" value="pc">
+        <input type="checkbox" name="platform" id="pc" value="pc">
 
         <label for="ps">PlayStation</label>
-        <input type="checkbox" name="plateform" id="ps" value="ps">
+        <input type="checkbox" name="platform" id="ps" value="ps">
 
         <label for="xbox">Xbox</label>
-        <input type="checkbox" name="plateform" id="xbox" value="xbox">
+        <input type="checkbox" name="platform" id="xbox" value="xbox">
 
         <label for="nintendo">Nintendo</label>
-        <input type="checkbox" name="plateform" id="nintendo" value="Nintendo">
+        <input type="checkbox" name="platform" id="nintendo" value="Nintendo">
+
+        <label for="others">Autres</label>
+        <input type="checkbox" name="platform" id="others" value="autres">
+    </div>
+
+    <div id="section">
+        <p>Sections</p>
+
+        <label for="news">News</label>
+        <input type="checkbox" name="section" id="news" value="News">
+
+        <label for="test">Test</label>
+        <input type="checkbox" name="section" id="test" value="test">
+
+        <label for="answer">Soluce</label>
+        <input type="checkbox" name="answer" id="answer" value="soluce">
+
+        <label for="calendar">Calendrier</label>
+        <input type="checkbox" name="section" id="calendar" value="test">
+
+        <label for="series">Séries & film</label>
+        <input type="checkbox" name="section" id="series" value="series">
     </div>
 
     <input type="submit" name="submit" value="Envoyer" class="button">

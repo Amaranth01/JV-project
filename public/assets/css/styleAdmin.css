@@ -49,7 +49,7 @@ th {
 }
 
 /*checkbox style */
-#category, #platformGame {
+#category, #platformGame, #section {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -59,7 +59,7 @@ th {
     width: 75vw;
 }
 
-#category > input, #platformGame > input {
+#category > input, #platformGame > input, #section > input {
     width: 5%;
 }
 
@@ -67,7 +67,7 @@ th {
     margin-top: 1rem;
 }
 
-#platformGame > p, #category > p {
+#platformGame > p, #category > p, #section > p {
     text-align: center;
     margin-bottom: 1rem;
     width: 100%;

@@ -8,7 +8,7 @@ use App\Model\Entity\Platform;
 class PlatformManager
 {
 
-    public function getPlatformByName(string $platformName): Platform
+    public static function getPlatformByName(string $platformName): Platform
     {
         $platform = new Platform();
         $stmt  = DB::getPDO()->query("

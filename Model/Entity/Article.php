@@ -9,10 +9,11 @@ class Article extends AbstractEntity
     private string $title;
     private string $content;
     private string $image;
-    private \DateTime $date;
+    private DateTime $date;
     private User $user;
     private Platform $platform;
     private Category $category;
+    private Section $section;
 
     /**
      * @return string
@@ -140,5 +141,22 @@ class Article extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return Section
+     */
+    public function getSection(): Section
+    {
+        return $this->section;
+    }
+
+    /**
+     * @param Section $section
+     * @return Article
+     */
+    public function setSection(Section $section): self
+    {
+        $this->section = $section;
+        return $this;
+    }
 
 }
