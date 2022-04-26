@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\AbstractController;
+use App\Model\Manager\ArticleManager;
 
 class HomeController extends AbstractController
 {
@@ -23,6 +24,7 @@ class HomeController extends AbstractController
 
     public function news()
     {
+
         $this->render('pages/news');
     }
 
@@ -63,7 +65,12 @@ class HomeController extends AbstractController
 
     public function playstation()
     {
-        $this->render('pages/game/playstation');
+        $data = [];
+        $articles = ArticleManager::articleCategory(2);
+        foreach ($articles as $article) {
+            $data [] = ['article' => $article];
+        }
+        $this->render('pages/game/playstation', $data);
     }
 
     public function tests()

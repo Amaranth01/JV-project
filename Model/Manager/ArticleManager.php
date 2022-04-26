@@ -32,7 +32,7 @@ class ArticleManager
                     ->setTitle($articleData['title'])
                     ->setContent($articleData['content'])
                     ->setImage($articleData['image'])
-                    ->setDate($articleData['date'])
+//                    ->setDate($articleData['date'])
                     ->setUser($userManager->getUserById($articleData['user_id']))
                     ->setCategory($categoryManager->getCategoryByName($articleData['category_id']))
                     ->setPlatform($platformManager->getPlatformByName($articleData['platform_id']))
@@ -48,14 +48,14 @@ class ArticleManager
     public static function addArticle(Article $article): bool
     {
         $stmt= DB::getPDO()->prepare("
-            INSERT INTO jvp_article (title, content, image, date, user_id, platform_id, category_id, section_id) 
-            VALUES (:title, :content, :image, :date, :user_id, :platform_id, :category_id, :section_id )
+            INSERT INTO jvp_article (title, content, image, user_id, platform_id, category_id, section_id) 
+            VALUES (:title, :content, :image, :user_id, :platform_id, :category_id, :section_id )
         ");
 
         $stmt->bindValue('title', $article->getTitle());
         $stmt->bindValue('content', $article->getContent());
         $stmt->bindValue('image', $article->getImage());
-        $stmt->bindValue('date', $article->getDate());
+//        $stmt->bindValue('date', $article->getDate());
         $stmt->bindValue('user_id', $article->getUser()->getId());
         $stmt->bindValue('category_id', $article->getCategory()->getId());
         $stmt->bindValue('platform_id', $article->getPlatform()->getId());

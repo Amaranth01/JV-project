@@ -8,12 +8,20 @@
         <td>Edition</td>
         <td>Suppression</td>
     </tr>
+<?php
 
+use App\Model\Manager\ArticleManager;
+
+foreach (ArticleManager::getArticleById() as $article) {
+    ?>
     <tr>
-        <th>Hey</th>
-        <th>Lui/Elle</th>
-        <th>RPG</th>
+        <th><?= $article->getTitle() ?></th>
+        <th><?= $article->getContent() ?></th>
+        <th><?= $article->getCategorie() ?></th>
         <th>Lien</th>
         <th>Lien</th>
     </tr>
+<?php
+}
+?>
 </table>

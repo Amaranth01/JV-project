@@ -8,9 +8,8 @@
     <label for="title">Titre : </label>
     <input type="text" name="title" id="title" >
 
-
     <label for="editor">Contenu : </label>
-    <textarea name="textarea" id="editor" cols="30" rows="10"></textarea>
+    <textarea name="content" id="editor" cols="30" rows="10" ></textarea>
 
     <div id="category">
         <p>Genre</p>

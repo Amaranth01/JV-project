@@ -71,18 +71,7 @@ class UserManager
     public static function getUserById(int $id): ?User
     {
         $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE id = '$id'");
-        return $stmt ? self::userExists($stmt->fetch()) : null;
-    }
-
-    /**
-     * Check if the user exist by mail
-     * @param string $email
-     * @return mixed|null
-     */
-    public static function userExists(string $email)
-    {
-        $stmt = DB::getPDO()->query("SELECT count(*) FROM jvp_user WHERE email = '$email'");
-        return $stmt ? $stmt->fetch() : null;
+        return $stmt ? self::mailExist($stmt->fetch()) : null;
     }
 
     /**
@@ -144,9 +133,9 @@ class UserManager
      * @return bool
      */
     public static function deleteUser(User $user): bool {
-        if(self::userExists($user->getId())) {
+        if(self::getUserByMail($user->getEmail())) {
             return DB::getPDO()->exec("
-            DELETE FROM jvp_user WHERE id = {$user->getId()}
+            DELETE FROM jvp_user WHERE email = {$user->getEmail()}
         ");
         }
         return false;
