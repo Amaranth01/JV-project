@@ -9,6 +9,7 @@ class Article extends AbstractEntity
     private string $title;
     private string $content;
     private string $image;
+    private string $resume;
     private DateTime $date;
     private User $user;
     private Platform $platform;
@@ -48,6 +49,24 @@ class Article extends AbstractEntity
     public function setContent(string $content): self
     {
         $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResume(): string
+    {
+        return $this->resume;
+    }
+
+    /**
+     * @param string $resume
+     * @return Article
+     */
+    public function setResume(string $resume): self
+    {
+        $this->resume = $resume;
         return $this;
     }
 

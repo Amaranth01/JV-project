@@ -88,5 +88,10 @@
         <input type="checkbox" name="section" id="series" value="series">
     </div>
 
+    <div id="resume">
+        <label for="resume">Résumé de l'article</label>
+        <textarea name="resume" id="resume" cols="60" rows="10"></textarea>
+    </div>
+
     <input type="submit" name="submit" value="Envoyer" class="button">
 </form>

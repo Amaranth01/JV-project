@@ -8,7 +8,7 @@ foreach ($data as $article) {
                 <p><?= $article['article']->getTitle()?></p>
             </div>
             <div>
-                <p><?= $article['article']->getcontent()?></p>
+                <p><?= $article['article']->getResume()?></p>
             </div>
         </div>
 <?php

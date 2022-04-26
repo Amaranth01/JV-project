@@ -31,6 +31,7 @@ class ArticleManager
                     ->setId($articleData['id'])
                     ->setTitle($articleData['title'])
                     ->setContent($articleData['content'])
+                    ->setResume($articleData['resume'])
                     ->setImage($articleData['image'])
 //                    ->setDate($articleData['date'])
                     ->setUser($userManager->getUserById($articleData['user_id']))
@@ -48,12 +49,13 @@ class ArticleManager
     public static function addArticle(Article $article): bool
     {
         $stmt= DB::getPDO()->prepare("
-            INSERT INTO jvp_article (title, content, image, user_id, platform_id, category_id, section_id) 
-            VALUES (:title, :content, :image, :user_id, :platform_id, :category_id, :section_id )
+            INSERT INTO jvp_article (title, content, resume, image, user_id, platform_id, category_id, section_id) 
+            VALUES (:title, :content, :resume, :image, :user_id, :platform_id, :category_id, :section_id )
         ");
 
         $stmt->bindValue('title', $article->getTitle());
         $stmt->bindValue('content', $article->getContent());
+        $stmt->bindValue('resume', $article->getResume());
         $stmt->bindValue('image', $article->getImage());
 //        $stmt->bindValue('date', $article->getDate());
         $stmt->bindValue('user_id', $article->getUser()->getId());
@@ -84,6 +86,7 @@ class ArticleManager
             ->setId($articleData['id'])
             ->setTitle($articleData['title'])
             ->setContent($articleData['content'])
+            ->setResume($articleData['resume'])
             ->setImage($articleData['image'])
             ;
         }

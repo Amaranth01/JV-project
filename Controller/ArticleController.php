@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Config;
 use App\Model\Entity\Article;
 use App\Model\Manager\ArticleManager;
 use App\Model\Manager\CategoryManager;
@@ -15,7 +16,8 @@ class ArticleController extends AbstractController
     public function addArticle()
     {
         $title = $this->clean($this->getFormField('title'));
-        $content = $this->clean($this->getFormField('content'));
+        $content = $this->clean($this->getFormField('content'), Config::ALLOWED_TAGS);
+        $resume = $this->clean($this->getFormField('resume'));
 //        $date = date("j,n,Y");
 
         $article = new Article();
@@ -26,6 +28,7 @@ class ArticleController extends AbstractController
 
         $article->setTitle($title);
         $article->setContent($content);
+        $article->setResume($resume);
         $article->setImage($this->addImage());
 //        $article->setDate($date);
         $article->setUser($user);

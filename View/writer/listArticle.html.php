@@ -16,7 +16,7 @@ foreach (ArticleManager::getArticleById() as $article) {
     ?>
     <tr>
         <th><?= $article->getTitle() ?></th>
-        <th><?= $article->getContent() ?></th>
+        <th><?= $article->getResume() ?></th>
         <th><?= $article->getCategorie() ?></th>
         <th>Lien</th>
         <th>Lien</th>
