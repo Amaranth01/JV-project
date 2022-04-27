@@ -14,9 +14,9 @@ class AdminController extends AbstractController
         $this->render('writer/addArticle');
     }
 
-    public function editArticle()
+    public function updateArticle($id)
     {
-        $this->render('writer/editArticle');
+        $this->render('writer/updateArticle', $data=[$id]);
     }
 
     public function listArticle()

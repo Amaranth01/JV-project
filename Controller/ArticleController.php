@@ -13,6 +13,12 @@ use Exception;
 
 class ArticleController extends AbstractController
 {
+
+    public function index()
+    {
+        $this->render('writer/writer');
+    }
+
     public function addArticle()
     {
         $title = $this->clean($this->getFormField('title'));
@@ -87,5 +93,38 @@ class ArticleController extends AbstractController
         return bin2hex($bytes) . '.' . $infos['extension'];
     }
 
+    public function editArticle($id)
+    {
+        self::userConnected();
+        $_SESSION['errors'] = "Seul un rédacteur peut modifier un article";
+        $this->render('home/index');
+
+        if(!isset($_POST['title'])&& !isset($_POST['content'])) {
+            $this->render('home/index');
+            exit();
+        }
+
+        $newTitle = $this->clean($this->getFormField('title'));
+        $newContent = $this->clean($this->getFormField('content'));
+
+        $article= new ArticleManager($newTitle, $newContent, $id);
+        $article->updateArticle($newTitle, $newContent, $id);
+        $this->render('writer/writer');
+    }
+
+    public function deleteArticle(int $id)
+    {
+        //Verify that the user has admin status
+//        if(self::adminConnected()) {
+//            $errorMessage = "Seul un administrateur peut supprimer un article";
+//            $_SESSION['errors'] [] = $errorMessage;
+//            $this->render('home/index');
+//        }
+        //Check that the article exists
+        if(ArticleManager::articleExist($id)) {
+            $deleted = ArticleManager::deleteArticle($id);
+            $this->render('page/admin');
+        }
+    }
 
 }

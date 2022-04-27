@@ -3,8 +3,7 @@
 <table>
     <tr>
         <td>Titre</td>
-        <td>Auteur</td>
-        <td>Catégorie</td>
+        <td>Résumé</td>
         <td>Edition</td>
         <td>Suppression</td>
     </tr>
@@ -17,9 +16,8 @@ foreach (ArticleManager::findAllArticle() as $article) {
     <tr>
         <th><?= $article->getTitle() ?></th>
         <th><?= $article->getResume() ?></th>
-        <th><?= $article->getCategorie() ?></th>
-        <th><a href="">Editer</a></th>
-        <th><a href="">Supprimer</a></th>
+        <th><a href="/index.php?c=admin&a=update-article&id=<?=$article->getId()?>">Editer</a></th>
+        <th><a href="/index.php?c=article&a=delete-article&id=<?=$article->getId()?>">Supprimer</a></th>
     </tr>
 <?php
 }

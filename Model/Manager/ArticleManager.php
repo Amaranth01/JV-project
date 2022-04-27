@@ -116,13 +116,25 @@ class ArticleManager
         return $article;
     }
 
-    public static function updateArticle()
+    public static function updateArticle($newTitle, $newContent, $id)
     {
+        $stmt = DB::getPDO()->prepare("UPDATE jvp_article 
+        SET content = :newContent, title = :newTitle WHERE id = :id");
 
+        $stmt->bindParam('newTitle', $newTitle);
+        $stmt->bindParam('newContent', $newContent);
+        $stmt->bindParam('id', $id);
+
+        $stmt->execute();
     }
 
-    public static function deleteArticle()
+    public static function deleteArticle($id)
     {
-
+        if (self::articleExist($id)) {
+            return DB::getPDO()->exec(
+                "DELETE FROM jvp_article WHERE id = '$id'
+            ");
+        }
+        return false;
     }
 }

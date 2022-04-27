@@ -43,7 +43,7 @@ if(isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
-//var_dump($_SESSION['user']);
+var_dump($_SESSION['user']);
 ?>
 <!--First menu-->
 <div>
