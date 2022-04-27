@@ -12,11 +12,11 @@ class PlatformManager
     {
         $platform = new Platform();
         $stmt  = DB::getPDO()->query("
-            SELECT * FROM jvp_platform WHERE plateform_name = '".$platformName."'
+            SELECT * FROM jvp_platform WHERE platform_name = '".$platformName."'
         ");
         if ($stmt && $platformData = $stmt->fetch()) {
             $platform->setId($platformData['id']);
-            $platform->setPlatformName($platformData['category_name']);
+            $platform->setPlatformName($platformData['platform_name']);
         }
         return $platform;
     }

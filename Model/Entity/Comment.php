@@ -5,7 +5,6 @@ namespace App\Model\Entity;
 class Comment extends AbstractEntity
 {
     private String $content;
-    private Article $article;
     private User $user;
 
     /**
@@ -27,24 +26,6 @@ class Comment extends AbstractEntity
     }
 
     /**
-     * @return Article
-     */
-    public function getArticle(): Article
-    {
-        return $this->article;
-    }
-
-    /**
-     * @param Article $article
-     * @return Comment
-     */
-    public function setArticle(Article $article): self
-    {
-        $this->article = $article;
-        return $this;
-    }
-
-    /**
      * @return User
      */
     public function getUser(): User
@@ -61,6 +42,5 @@ class Comment extends AbstractEntity
         $this->user = $user;
         return $this;
     }
-
 
 }

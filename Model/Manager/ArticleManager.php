@@ -68,8 +68,8 @@ class ArticleManager
     public static function addArticle(Article $article): bool
     {
         $stmt= DB::getPDO()->prepare("
-            INSERT INTO jvp_article (title, content, resume, image, date, user_id, platform_id, category_id, section_id) 
-            VALUES (:title, :content, :resume, :image, :date, :user_id, :platform_id, :category_id, :section_id )
+            INSERT INTO jvp_article (title, content, resume, image, user_id, platform_id, category_id, section_id) 
+            VALUES (:title, :content, :resume, :image, :user_id, :platform_id, :category_id, :section_id )
         ");
 
         $stmt->bindValue('title', $article->getTitle());

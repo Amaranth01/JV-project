@@ -47,7 +47,7 @@ class ArticleController extends AbstractController
         $error = [];
         if(isset($_FILES['img']) && $_FILES['img']['error'] === 0){
 
-            $allowedMimeTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+            $allowedMimeTypes = ['jpg', 'jpeg', 'png'];
             if(in_array($_FILES['img']['type'], $allowedMimeTypes)) {
 
                 $maxSize = 1024 * 1024;

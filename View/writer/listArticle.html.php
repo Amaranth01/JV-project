@@ -18,8 +18,8 @@ foreach (ArticleManager::findAllArticle() as $article) {
         <th><?= $article->getTitle() ?></th>
         <th><?= $article->getResume() ?></th>
         <th><?= $article->getCategorie() ?></th>
-        <th>Lien</th>
-        <th>Lien</th>
+        <th><a href="">Editer</a></th>
+        <th><a href="">Supprimer</a></th>
     </tr>
 <?php
 }
