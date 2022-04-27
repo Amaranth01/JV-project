@@ -16,7 +16,7 @@ class ArticleController extends AbstractController
 
     public function index()
     {
-        $this->render('writer/writer');
+        //$this->render('writer/writer');
     }
 
     public function addArticle()
@@ -104,8 +104,8 @@ class ArticleController extends AbstractController
             exit();
         }
 
-        $newTitle = $this->clean($this->getFormField('title'));
-        $newContent = $this->clean($this->getFormField('content'));
+        $newTitle = $this->clean($_POST['title']);
+        $newContent = $this->clean($_POST['content']);
 
         $article= new ArticleManager($newTitle, $newContent, $id);
         $article->updateArticle($newTitle, $newContent, $id);
