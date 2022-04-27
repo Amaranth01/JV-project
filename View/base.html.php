@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/css/styleAdmin.css">
     <link rel="stylesheet" href="/assets/css/styleUserSpace.css">
     <link rel="stylesheet" href="/assets/css/styleError.css">
+    <link rel="stylesheet" href="/assets/css/styleArticle.css">
 </head>
 <body>
 <?php
@@ -42,6 +43,7 @@ if(isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
+var_dump($_SESSION['user']);
 ?>
 <!--First menu-->
 <div>

@@ -87,4 +87,9 @@ class HomeController extends AbstractController
     {
         $this->render('user/userSpace');
     }
+
+    public function viewArticle($id)
+    {
+        $this->render('pages/viewArticle', $data=[$id]);
+    }
 }

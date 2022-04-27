@@ -3,7 +3,7 @@
 <form action="/index.php?c=article&a=add-article" method="post" enctype="multipart/form-data">
 
     <label for="image">Image de couverture : </label>
-    <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
+    <input type="file" name="image" id="field" accept=".jpg, .jpeg, .png">
 
     <label for="title">Titre : </label>
     <input type="text" name="title" id="title" >

@@ -14,14 +14,15 @@ class UserManager
      */
     public static function createUser(array $data): User
     {
+        $role = RoleManager::getRoleById($data['role_id']);
         return (new User())
             ->setId($data['id'])
             ->setUsername($data['username'])
             ->setEmail($data['email'])
             ->setPassword($data['password'])
-            ->setImage($data['image'])
+//            ->setImage($data['image'])
             ->setToken($data['token'])
-            ->setRole(RoleManager::getRoleById($data['role_id']))
+            ->setRole($role)
             ;
     }
 
@@ -115,6 +116,17 @@ class UserManager
         $user->setId(DB::getPDO()->lastInsertId());
 
         return $stmt;
+    }
+
+    /**
+     * Return a user based on its id.
+     * @param int $id
+     * @return User
+     */
+    public static function getUser(int $id): ?User
+    {
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE id = '$id'");
+        return $stmt ? self::createUser($stmt->fetch()) : null;
     }
 
     private static function updateUser()

@@ -18,7 +18,7 @@ class ArticleController extends AbstractController
         $title = $this->clean($this->getFormField('title'));
         $content = $this->clean($this->getFormField('content'), Config::ALLOWED_TAGS);
         $resume = $this->clean($this->getFormField('resume'));
-//        $date = date("j,n,Y");
+//        $date = date("j,m,Y");
 
         $article = new Article();
         $user = self::getConnectedUser();

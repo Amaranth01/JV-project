@@ -11,7 +11,7 @@ class ArticleManager
      * @param int $limit
      * @return array
      */
-    public static function getArticleById(int $limit = 0): array
+    public static function findAllArticle(int $limit = 0): array
     {
         $articles = [];
 
@@ -34,12 +34,31 @@ class ArticleManager
                     ->setResume($articleData['resume'])
                     ->setImage($articleData['image'])
 //                    ->setDate($articleData['date'])
-                    ->setUser($userManager->getUserById($articleData['user_id']))
+                    ->setUser($userManager->getUser($articleData['user_id']))
                     ->setCategory($categoryManager->getCategoryByName($articleData['category_id']))
                     ->setPlatform($platformManager->getPlatformByName($articleData['platform_id']))
                     ;
         }
         return $articles;
+    }
+
+    /**
+     * Select an article by its id
+     * @param int $id
+     * @return Article
+     */
+    public static function getArticle(int $id): Article
+    {
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE id = '$id'");
+        $stmt = $stmt->fetch();
+        return (new Article())
+            ->setId($id)
+            ->setContent($stmt ['content'])
+            ->setTitle($stmt['title'])
+            ->setImage($stmt['image'])
+//            ->setDate($stmt['date'])
+            ->setUser(UserManager::getUser($stmt['user_id']))
+            ;
     }
 
     /**
@@ -49,8 +68,8 @@ class ArticleManager
     public static function addArticle(Article $article): bool
     {
         $stmt= DB::getPDO()->prepare("
-            INSERT INTO jvp_article (title, content, resume, image, user_id, platform_id, category_id, section_id) 
-            VALUES (:title, :content, :resume, :image, :user_id, :platform_id, :category_id, :section_id )
+            INSERT INTO jvp_article (title, content, resume, image, date, user_id, platform_id, category_id, section_id) 
+            VALUES (:title, :content, :resume, :image, :date, :user_id, :platform_id, :category_id, :section_id )
         ");
 
         $stmt->bindValue('title', $article->getTitle());
@@ -76,6 +95,10 @@ class ArticleManager
         return $stmt ? $stmt->fetch(): 0;
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public static function articleCategory(int $id): array
     {
         $article = [];

@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 65.5%;
+}
+
+#article {
+    border: blue double 6px;
+    width: 80vw;
+    margin: 0 auto;
+    background-color: #f1e2e2;
+}
+
+#titleArticle {
+    font-size: 3rem;
+}
+
+#contentArticle {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+}
+
+#infoArticle {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+}

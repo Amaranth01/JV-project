@@ -34,10 +34,10 @@ class RoleManager
     public static function getRoleByName(string $roleName): Role
     {
         $role = new Role();
-        $request = DB::getPDO()->query("
+        $stmt = DB::getPDO()->query("
             SELECT * FROM jvp_role WHERE role_name = '".$roleName."'
         ");
-        if($request && $roleData = $request->fetch()) {
+        if($stmt && $roleData = $stmt->fetch()) {
             $role->setId($roleData['id']);
             $role->setRoleName($roleData['role_name']);
         }

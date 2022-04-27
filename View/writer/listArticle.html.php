@@ -12,7 +12,7 @@
 
 use App\Model\Manager\ArticleManager;
 
-foreach (ArticleManager::getArticleById() as $article) {
+foreach (ArticleManager::findAllArticle() as $article) {
     ?>
     <tr>
         <th><?= $article->getTitle() ?></th>

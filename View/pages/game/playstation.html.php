@@ -1,14 +1,17 @@
 <h1>L'univers PlayStation</h1>
 
 <?php
-foreach ($data as $article) {
+
+use App\Model\Manager\ArticleManager;
+
+foreach (ArticleManager::findAllArticle() as $article) {
     ?>
         <div>
             <div>
-                <p><?= $article['article']->getTitle()?></p>
+                <a href="/index.php?c=home&a=view-article&id=<?=$article->getId()?>"><p><?= $article->getTitle()?></p></a>
             </div>
             <div>
-                <p><?= $article['article']->getResume()?></p>
+                <p><?= $article->getResume()?></p>
             </div>
         </div>
 <?php

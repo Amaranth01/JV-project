@@ -8,7 +8,7 @@ foreach ($data as $article) {
     <div class="article">
 
         <div>
-            <p class="img"><img src="/asset/uploads/<?= $article['jvp_article']->getImage()?>"  alt=""></p>
+            <p class="img"><img src="/asset/uploads/<?= $article['jvp_article']->getImage()?>" alt=""></p>
         </div>
         <p class="textContent"><?=$article['jvp_article']->getContent() ?></p>
     </div>
