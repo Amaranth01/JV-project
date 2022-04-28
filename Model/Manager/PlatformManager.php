@@ -20,4 +20,17 @@ class PlatformManager
         }
         return $platform;
     }
+
+    public static function getAllPlatforms()
+    {
+        $stmt = DB::getPDO()->query("SELECT *FROM jvp_platform");
+        $platforms = [];
+        foreach ($stmt->fetchAll() as $data) {
+            $platforms = (new Platform())
+                ->setId($data['id'])
+                ->setPlatformName($data['platform_name'])
+            ;
+        }
+        return $platforms;
+    }
 }

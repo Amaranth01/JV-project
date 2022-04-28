@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Manager\CategoryManager;
+use App\Model\Manager\PlatformManager;
 
 class AdminController extends AbstractController
 {
@@ -14,7 +15,8 @@ class AdminController extends AbstractController
     public function addArticle()
     {
         $this->render('writer/addArticle', [
-            "categories"=>CategoryManager::getAllCategories()
+            "categories"=>CategoryManager::getAllCategories(),
+            "platforms"=>PlatformManager::getAllPlatforms(),
         ]);
     }
 

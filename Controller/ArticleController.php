@@ -37,8 +37,9 @@ class ArticleController extends AbstractController
         $article->setUser($user);
         $article->setSection($section);
 
-            ArticleManager::addArticle($article);
-        $categorie = CategoryManager::getAllCategories();
+        ArticleManager::addArticle($article);
+        CategoryManager::getAllCategories();
+        PlatformManager::getAllPlatforms();
         $this->render('writer/writer');
     }
 

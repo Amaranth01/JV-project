@@ -19,6 +19,7 @@
          */
 
         use App\Model\Entity\Category;
+        use App\Model\Entity\Platform;
 
         foreach ($data['categories'] as $category) { ?>
                 <label for="cat_<?=$category->getId() ?>"><?=$category->getCategoryName() ?></label>
@@ -30,21 +31,31 @@
 
     <div id="platform">
         <p>Plateformes</p>
+<?php
+        /**
+         * @var Platform $platform
+         */
 
-        <label for="pc">PC</label>
-        <input type="checkbox" name="platform" id="pc" value="pc">
-
-        <label for="playstation">PlayStation</label>
-        <input type="checkbox" name="platform" id="playstation" value="playstation">
-
-        <label for="xbox">Xbox</label>
-        <input type="checkbox" name="platform" id="xbox" value="xbox">
-
-        <label for="nintendo">Nintendo</label>
-        <input type="checkbox" name="platform" id="nintendo" value="Nintendo">
-
-        <label for="others">Autres</label>
-        <input type="checkbox" name="platform" id="others" value="autres">
+        foreach ($data['platforms'] as $platform) { ?>
+                <label for="plat_<?=$platform->getId()?>"><?=$platform->getPlatformName()?></label>
+                <input type="checkbox" name="plat_<?=$platform->getId()?>" value="<?=$platform->getId()?>">
+            <?php
+            }
+        ?>
+<!--        <label for="pc">PC</label>-->
+<!--        <input type="checkbox" name="platform" id="pc" value="pc">-->
+<!---->
+<!--        <label for="playstation">PlayStation</label>-->
+<!--        <input type="checkbox" name="platform" id="playstation" value="playstation">-->
+<!---->
+<!--        <label for="xbox">Xbox</label>-->
+<!--        <input type="checkbox" name="platform" id="xbox" value="xbox">-->
+<!---->
+<!--        <label for="nintendo">Nintendo</label>-->
+<!--        <input type="checkbox" name="platform" id="nintendo" value="Nintendo">-->
+<!---->
+<!--        <label for="others">Autres</label>-->
+<!--        <input type="checkbox" name="platform" id="others" value="autres">-->
     </div>
 
     <div id="section">

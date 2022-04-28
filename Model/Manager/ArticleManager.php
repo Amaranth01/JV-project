@@ -82,24 +82,27 @@ class ArticleManager
         $article->setID(DB::getPDO()->lastInsertId());
 
         if($result) {
-//            $platform = PlatformManager::getPlatformByName($_POST['platform']);
-//            $resultArticlePlatform = DB::getPDO()->exec("
-//               INSERT INTO jvp_platform_article (jvp_article_id, jvp_plateform_id) VALUES (".$article->getId().",
-//               ".$platform->getId().")
-//            ");
+            $platformFromDb = PlatformManager::getAllPlatforms();
+            foreach ($platformFromDb as $data) {
+                if (isset($_POST['plat_' . $data->getId()])) {
+                    $resultArticlePlatform = DB::getPDO()->exec("
+                    INSERT INTO jvp_platform_article (jvp_article_id, jvp_plateform_id) VALUES (" . $article->getId() . ",
+                    " . $data->getId() . ")
+                    ");
+                }
+            }
 
             $categoryFromDb = CategoryManager::getAllCategories();
             foreach ($categoryFromDb as $data) {
                 if (isset($_POST['cat_' . $data->getId()])) {
                     $resultArticleCategory = DB::getPDO()->exec("
-                INSERT INTO jvp_category_article (jvp_article_id, jvp_category_id) VALUES (" . $article->getId() . ", 
-                " . $data->getId() . ")
+                    INSERT INTO jvp_category_article (jvp_article_id, jvp_category_id) VALUES (" . $article->getId() . ", 
+                    " . $data->getId() . ")
             ");
                 }
             }
-
         }
-        return $result && $resultArticleCategory;
+        return $result && $resultArticlePlatform && $resultArticleCategory  ;
     }
 
     /**
