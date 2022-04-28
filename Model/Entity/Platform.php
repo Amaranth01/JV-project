@@ -4,23 +4,23 @@ namespace App\Model\Entity;
 
 class Platform extends AbstractEntity
 {
-    private string $plateformeName;
+    private string $platformName;
 
     /**
      * @return string
      */
-    public function getPlateformeName(): string
+    public function getPlatformName(): string
     {
-        return $this->plateformeName;
+        return $this->platformName;
     }
 
     /**
-     * @param string $plateformeName
+     * @param string $platformName
      * @return Platform
      */
-    public function setPlatformName(string $plateformeName): self
+    public function setPlatformName(string $platformName): self
     {
-        $this->plateformeName = $plateformeName;
+        $this->platformName = $platformName;
         return $this;
     }
 

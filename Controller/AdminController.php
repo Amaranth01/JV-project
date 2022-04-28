@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Manager\CategoryManager;
+
 class AdminController extends AbstractController
 {
     public function index()
@@ -11,7 +13,9 @@ class AdminController extends AbstractController
 
     public function addArticle()
     {
-        $this->render('writer/addArticle');
+        $this->render('writer/addArticle', [
+            "categories"=>CategoryManager::getAllCategories()
+        ]);
     }
 
     public function updateArticle($id)

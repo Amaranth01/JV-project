@@ -19,4 +19,17 @@ class CategoryManager
         }
         return $category;
     }
+
+    public static function getAllCategories()
+    {
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_category");
+        $categories = [];
+        foreach ($stmt->fetchAll() as $data) {
+            $categories[] = (new Category())
+                ->setId($data['id'])
+                ->setCategoryName($data['category_name'])
+            ;
+        }
+        return $categories;
+    }
 }

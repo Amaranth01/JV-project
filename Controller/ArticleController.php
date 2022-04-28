@@ -8,7 +8,6 @@ use App\Model\Manager\ArticleManager;
 use App\Model\Manager\CategoryManager;
 use App\Model\Manager\PlatformManager;
 use App\Model\Manager\SectionManager;
-use App\Model\Manager\UserManager;
 use Exception;
 
 class ArticleController extends AbstractController
@@ -16,7 +15,7 @@ class ArticleController extends AbstractController
 
     public function index()
     {
-        //$this->render('writer/writer');
+        $this->render('writer/writer');
     }
 
     public function addArticle()
@@ -28,8 +27,6 @@ class ArticleController extends AbstractController
 
         $article = new Article();
         $user = self::getConnectedUser();
-        $category = CategoryManager::getCategoryByName($_POST['category']);
-        $platform = PlatformManager::getPlatformByName($_POST['platform']);
         $section = SectionManager::getSectionByName($_POST['section']);
 
         $article->setTitle($title);
@@ -38,12 +35,10 @@ class ArticleController extends AbstractController
         $article->setImage($this->addImage());
 //        $article->setDate($date);
         $article->setUser($user);
-        $article->setCategory($category);
-        $article->setPlatform($platform);
         $article->setSection($section);
 
-        ArticleManager::addArticle($article);
-
+            ArticleManager::addArticle($article);
+        $categorie = CategoryManager::getAllCategories();
         $this->render('writer/writer');
     }
 
@@ -105,7 +100,7 @@ class ArticleController extends AbstractController
         }
 
         $newTitle = $this->clean($_POST['title']);
-        $newContent = $this->clean($_POST['content']);
+        $newContent = $this->clean($_POST['content'], Config::ALLOWED_TAGS);
 
         $article= new ArticleManager($newTitle, $newContent, $id);
         $article->updateArticle($newTitle, $newContent, $id);
@@ -122,8 +117,9 @@ class ArticleController extends AbstractController
 //        }
         //Check that the article exists
         if(ArticleManager::articleExist($id)) {
-            $deleted = ArticleManager::deleteArticle($id);
-            $this->render('page/admin');
+            $article = ArticleManager::getArticle($id);
+            $deleted = ArticleManager::deleteArticle($article);
+            $this->render('writer/writer');
         }
     }
 

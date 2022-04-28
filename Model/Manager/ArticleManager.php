@@ -35,8 +35,6 @@ class ArticleManager
                     ->setImage($articleData['image'])
 //                    ->setDate($articleData['date'])
                     ->setUser($userManager->getUser($articleData['user_id']))
-                    ->setCategory($categoryManager->getCategoryByName($articleData['category_id']))
-                    ->setPlatform($platformManager->getPlatformByName($articleData['platform_id']))
                     ;
         }
         return $articles;
@@ -68,8 +66,8 @@ class ArticleManager
     public static function addArticle(Article $article): bool
     {
         $stmt= DB::getPDO()->prepare("
-            INSERT INTO jvp_article (title, content, resume, image, user_id, platform_id, category_id, section_id) 
-            VALUES (:title, :content, :resume, :image, :user_id, :platform_id, :category_id, :section_id )
+            INSERT INTO jvp_article (title, content, resume, image, user_id, section_id) 
+            VALUES (:title, :content, :resume, :image, :user_id, :section_id )
         ");
 
         $stmt->bindValue('title', $article->getTitle());
@@ -78,11 +76,30 @@ class ArticleManager
         $stmt->bindValue('image', $article->getImage());
 //        $stmt->bindValue('date', $article->getDate());
         $stmt->bindValue('user_id', $article->getUser()->getId());
-        $stmt->bindValue('category_id', $article->getCategory()->getId());
-        $stmt->bindValue('platform_id', $article->getPlatform()->getId());
         $stmt->bindValue('section_id', $article->getSection()->getId());
 
-        return $stmt->execute();
+        $result = $stmt->execute();
+        $article->setID(DB::getPDO()->lastInsertId());
+
+        if($result) {
+//            $platform = PlatformManager::getPlatformByName($_POST['platform']);
+//            $resultArticlePlatform = DB::getPDO()->exec("
+//               INSERT INTO jvp_platform_article (jvp_article_id, jvp_plateform_id) VALUES (".$article->getId().",
+//               ".$platform->getId().")
+//            ");
+
+            $categoryFromDb = CategoryManager::getAllCategories();
+            foreach ($categoryFromDb as $data) {
+                if (isset($_POST['cat_' . $data->getId()])) {
+                    $resultArticleCategory = DB::getPDO()->exec("
+                INSERT INTO jvp_category_article (jvp_article_id, jvp_category_id) VALUES (" . $article->getId() . ", 
+                " . $data->getId() . ")
+            ");
+                }
+            }
+
+        }
+        return $result && $resultArticleCategory;
     }
 
     /**
@@ -102,20 +119,42 @@ class ArticleManager
     public static function articleCategory(int $id): array
     {
         $article = [];
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE category_id = '$id' ORDER BY id DESC");
+        $stmt = DB::getPDO()->query("
+            SELECT * FROM jvp_category_article WHERE jvp_category_id = '$id' ORDER BY id DESC
+        ");
 
         foreach ($stmt->fetchAll() as $articleData) {
             $article[] = (new Article())
             ->setId($articleData['id'])
-            ->setTitle($articleData['title'])
-            ->setContent($articleData['content'])
-            ->setResume($articleData['resume'])
-            ->setImage($articleData['image'])
             ;
         }
         return $article;
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
+    public static function articlePlatform(int $id): array
+    {
+        $article = [];
+        $stmt = DB::getPDO()->query("
+            SELECT * FROM jvp_platform_article WHERE jvp_plateform_id = '$id' ORDER BY id DESC
+         ");
+
+        foreach ($stmt->fetchAll() as $articleData) {
+            $article[] = (new Article())
+                ->setId($articleData['id'])
+            ;
+        }
+        return $article;
+    }
+
+    /**
+     * @param $newTitle
+     * @param $newContent
+     * @param $id
+     */
     public static function updateArticle($newTitle, $newContent, $id)
     {
         $stmt = DB::getPDO()->prepare("UPDATE jvp_article 
@@ -128,11 +167,15 @@ class ArticleManager
         $stmt->execute();
     }
 
-    public static function deleteArticle($id)
+    /**
+     * @param Article $article
+     * @return false|int
+     */
+    public static function deleteArticle(Article $article): bool
     {
-        if (self::articleExist($id)) {
+        if (self::articleExist($article->getId())) {
             return DB::getPDO()->exec(
-                "DELETE FROM jvp_article WHERE id = '$id'
+                "DELETE FROM jvp_article WHERE id = {$article->getId()}
             ");
         }
         return false;

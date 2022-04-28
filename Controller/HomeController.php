@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AbstractController;
 use App\Model\Manager\ArticleManager;
+use App\Model\Manager\PlatformManager;
 
 class HomeController extends AbstractController
 {
@@ -53,34 +54,49 @@ class HomeController extends AbstractController
         $this->render('pages/game/nextgame');
     }
 
-    public function nintendo()
-    {
-        $this->render('pages/game/nintendo');
-    }
-
     public function pc()
     {
-        $this->render('pages/game/pc');
+        $data = [];
+        $articles = ArticleManager::articlePlatform(1);
+        foreach ($articles as $article) {
+            $data [] = ['article' => $article];
+        }
+        $this->render('pages/game/pc', $data);
     }
 
     public function playstation()
     {
         $data = [];
-        $articles = ArticleManager::articleCategory(2);
+        $articles = PlatformManager::getPlatformByName('playstation');
         foreach ($articles as $article) {
             $data [] = ['article' => $article];
         }
         $this->render('pages/game/playstation', $data);
     }
 
+    public function xbox()
+    {
+        $data = [];
+        $articles = ArticleManager::articlePlatform(3);
+        foreach ($articles as $article) {
+            $data [] = ['article' => $article];
+        }
+        $this->render('pages/game/xbox', $data);
+    }
+
+    public function nintendo()
+    {
+        $data = [];
+        $articles = PlatformManager::getPlatformByName('nintendo');
+        foreach ($articles as $article) {
+            $data [] = ['article' => $article];
+        }
+        $this->render('pages/game/nintendo', $data);
+    }
+
     public function tests()
     {
         $this->render('pages/game/tests');
-    }
-
-    public function xbox()
-    {
-        $this->render('pages/game/xbox');
     }
 
     public function userSpace()
