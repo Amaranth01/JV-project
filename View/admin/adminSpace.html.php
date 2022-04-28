@@ -21,10 +21,10 @@
 <div id="delUser">
     <p>Supprimer un utilisateur</p>
 <!--Rechercher le nom pour supprimer un utilisateur-->
-    <form action="" method="post">
+    <form action="/index.php?c=user&a=delete-user" method="post">
         <label for="username">Nom de l'utilisateur</label>
         <input type="text" name="username" id="username">
         <br>
-        <input type="submit" name="submit" value="Mettre à jour" class="button">
+        <input type="submit" name="submit" value="Supprimer" class="button">
     </form>
 </div>

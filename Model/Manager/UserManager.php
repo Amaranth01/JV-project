@@ -129,12 +129,20 @@ class UserManager
         return $stmt ? self::createUser($stmt->fetch()) : null;
     }
 
-    private static function updateUser()
+    public static function updateUser($newUsername, $newPassword, $newEmail, $id)
     {
+        $stmt = DB::getPDO()->prepare("UPDATE jvp_user 
+            SET username = :newUsersame, password = :newPassword, email= :newEmail WHERE id = :id");
 
+        $stmt->bindParam('newUsername', $newUsername);
+        $stmt->bindParam('newPassword', $newPassword);
+        $stmt->bindParam('newEmail', $newEmail);
+        $stmt->bindParam('id', $id);
+
+        $stmt->execute();
     }
 
-    private static function updateRoleUser()
+    public static function updateRoleUser($newRole)
     {
 
     }

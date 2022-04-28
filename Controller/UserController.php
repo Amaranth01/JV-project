@@ -118,5 +118,48 @@ class UserController extends AbstractController
             $_SESSION['success'] = $successMessage;
             $this->render('home/index');
         }
+    public function deleteUser($mail)
+    {
+        //Verify that the user has admin status
+//        if(self::adminConnected()) {
+//            $errorMessage = "Seul un administrateur peut supprimer un article";
+//            $_SESSION['errors'] [] = $errorMessage;
+//            $this->render('home/index');
+//        }
 
+        if(UserManager::getUserByMail($mail)){
+            $user = UserManager::getUser($mail);
+            $delete = UserManager::deleteUser($user);
+            $this->render('admin/adminSpace');
+        }
+    }
+
+    public function updateUser($id)
+    {
+        if (!isset($_POST['username']) || !isset($_POST['password']) || !isset($_POST['email'])) {
+            $this->render('home/index');
+            exit();
+        }
+
+        $newUsername = $this->clean($_POST['username']);
+        $newEmail =  $this->clean($_POST['email']);
+
+        $newPassword = $this->getFormField('password');
+        $newPasswordR = $this->getFormField('passwordR');
+
+        if (!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $newPassword)) {
+            $error[] = "Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial";
+        }
+
+        // Passwords do not match
+        if ($newPassword !== $newPasswordR) {
+            $error[] = "Les mots de passe ne correspondent pas";
+        }
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $user = new UserManager();
+        $user->updateUser($newUsername, $newPassword, $newEmail, $id);
+
+        $this->render('home/index');
+    }
 }
