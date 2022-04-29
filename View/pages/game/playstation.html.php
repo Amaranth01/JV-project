@@ -5,7 +5,7 @@
 use App\Model\Manager\ArticleManager;
 use App\Model\Manager\PlatformManager;
 
-foreach (PlatformManager::getPlatformById(2) as $article) {
+foreach (ArticleManager::getArticleByPlatformId(2) as $article) {var_dump($article->getImage(), $article->getId());
     ?>
         <div>
             <div>

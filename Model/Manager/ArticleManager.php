@@ -138,18 +138,24 @@ class ArticleManager
      * @param int $id
      * @return array
      */
-    public static function articlePlatform(int $id): array
+    public static function getArticleByPlatformId(int $id): array
     {
         $article = [];
         $stmt = DB::getPDO()->query("
-            SELECT * FROM jvp_platform_article WHERE jvp_plateform_id = '$id' ORDER BY id DESC
+            SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title FROM jvp_platform_article
+             INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_plateform_id
+            = '$id' ORDER BY jvp_article.id DESC
          ");
 
-        foreach ($stmt->fetchAll() as $articleData) {
+        foreach ($stmt->fetchAll() as $data) {
             $article[] = (new Article())
-                ->setId($articleData['id'])
+                ->setId($data['id'])
+                ->setTitle($data['title'])
+                ->setImage($data['image'])
+                ->setResume($data['resume'])
             ;
         }
+
         return $article;
     }
 
