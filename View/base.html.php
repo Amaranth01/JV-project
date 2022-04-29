@@ -21,16 +21,14 @@ use App\Controller\UserController;
 use App\Model\Entity\User;
 use App\Model\Manager\UserManager;
 
-if(isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
+if(isset($_SESSION['errors'])) {
     $errors = $_SESSION['errors'];
     unset($_SESSION['errors']);
-
-    foreach($errors as $error) { ?>
+     ?>
         <div class="message error">
             <button name="button" class="close">X</button>
-            <?= $error ?>
+            <?= $errors ?>
         </div> <?php
-    }
 }
 
 // Handling success messages.

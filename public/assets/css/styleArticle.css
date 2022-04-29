@@ -8,6 +8,11 @@ html {
     font-size: 65.5%;
 }
 
+h2 {
+    font-size: 2.5rem;
+    margin-top: 0.5rem;
+}
+
 #article {
     border: blue double 6px;
     width: 80vw;
@@ -16,7 +21,8 @@ html {
 }
 
 #titleArticle {
-    font-size: 3rem;
+    margin-top: 1.5rem;
+    font-size: 5rem;
 }
 
 #contentArticle {
@@ -27,4 +33,26 @@ html {
 #infoArticle {
     margin-top: 2rem;
     font-size: 1.5rem;
+}
+
+#article > p, #article  > blockquote >p > span {
+    font-size: 2rem;
+    text-align: justify;
+    padding: 0.8rem;
+}
+
+#article  > blockquote >p > span {
+    background-color: #d7cece;
+}
+
+#article > p > img {
+    margin: auto 0;
+}
+
+#article > ul > li {
+    font-size: 2rem;
+}
+
+#imgCover {
+    margin-left: 6vw;
 }

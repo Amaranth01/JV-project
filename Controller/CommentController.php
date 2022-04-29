@@ -14,28 +14,42 @@ class CommentController extends AbstractController
         $this->render('comment/allComment');
     }
 
-    public function addComment()
+    /**
+     * @param int $id
+     */
+    public function addComment(int $id)
     {
         $content = $this->clean($this->getFormField('content'));
-
-        //Checks if the user is logged in
-        $user = self::getConnectedUser();
-        $errorMessage = "Il faut être connecter pour pouvoir écrire un commentaire";
-        $_SESSION['errors'] = $errorMessage;
-
-        //Creating a new comment object
-        $comment = (new Comment())
-            ->setContent($content)
-            ->setUser($user)
-        ;
 
         //Check that the fields are free, otherwise we exit
         $errorMessage = "Le champ doit être rempli";
         if(empty($content)) {
             $_SESSION['errors'] = $errorMessage;
             $this->render('home/index');
+            echo "le champ doit être rempli";
             exit();
         }
+
+        //Checks if the user is logged in
+        $user = self::getConnectedUser();
+        if($user === null) {
+            $errorMessage = "Il faut être connecter pour pouvoir écrire un commentaire";
+            $_SESSION['errors'] = $errorMessage;
+            $this->render('home/index');
+        }
+
+        //checking that the article exists by its ID
+        $article = ArticleManager::articleExist($id);
+        if($article === false) {
+            $this->render('home/index');
+            exit();
+        }
+        //Creating a new comment object
+        $comment = (new Comment())
+            ->setContent($content)
+            ->setUser($user)
+            ->setArticle(ArticleManager::getArticle($id))
+        ;
 
         $commentManager = new CommentManager();
         $commentManager->addNewComment($comment);

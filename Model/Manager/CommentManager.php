@@ -11,12 +11,12 @@ class CommentManager
     public function addNewComment(Comment $comment): bool
     {
         $stmt = DB::getPDO()->prepare("
-           INSERT INTO jvp_comment(content, user_id) VALUES (:content, :user_id) 
+           INSERT INTO jvp_comment(content, article_id ,user_id) VALUES (:content, :article_id ,:user_id) 
         ");
 
         $stmt->bindValue('content', $comment->getContent());
         $stmt->bindValue('user_id', $comment->getUser()->getId());
-
+        $stmt->bindValue('article_id', $comment->getArticle()->getId());
         return $stmt->execute();
     }
 
@@ -38,6 +38,7 @@ class CommentManager
                     ->setId($data['id'])
                     ->setContent($data['content'])
                     ->setUser(UserManager::getUser($data['user_id']))
+                    ->setArticle(ArticleManager::getArticle($data['article_id']))
                 ;
             }
         }

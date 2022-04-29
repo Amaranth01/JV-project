@@ -34,6 +34,12 @@ dark mode
     color: white;
 }
 
+.dark #article {
+    background-color: #343434;
+    color: white;
+    transition: background 0.5s ease;
+}
+
 /**
 Menu
  */

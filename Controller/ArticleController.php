@@ -21,21 +21,22 @@ class ArticleController extends AbstractController
     public function addArticle()
     {
         $title = $this->clean($this->getFormField('title'));
-        $content = $this->clean($this->getFormField('content'), Config::ALLOWED_TAGS);
+        $content = $this->getFormField('content');
         $resume = $this->clean($this->getFormField('resume'));
 //        $date = date("j,m,Y");
 
-        $article = new Article();
         $user = self::getConnectedUser();
         $section = SectionManager::getSectionByName($_POST['section']);
 
-        $article->setTitle($title);
-        $article->setContent($content);
-        $article->setResume($resume);
-        $article->setImage($this->addImage());
-//        $article->setDate($date);
-        $article->setUser($user);
-        $article->setSection($section);
+        $article = (new Article())
+            ->setTitle($title)
+            ->setContent($content)
+            ->setResume($resume)
+            ->setImage($this->addImage())
+//          ->setDate($date)
+            ->setUser($user)
+            ->setSection($section)
+        ;
 
         ArticleManager::addArticle($article);
         CategoryManager::getAllCategories();
@@ -49,7 +50,7 @@ class ArticleController extends AbstractController
         $error = [];
         if(isset($_FILES['img']) && $_FILES['img']['error'] === 0){
 
-            $allowedMimeTypes = ['jpg', 'jpeg', 'png'];
+            $allowedMimeTypes = ['image/jpg', 'image/jpeg', 'image/png'];
             if(in_array($_FILES['img']['type'], $allowedMimeTypes)) {
 
                 $maxSize = 1024 * 1024;
@@ -58,9 +59,9 @@ class ArticleController extends AbstractController
                     $name = $this->getRandomName($_FILES['img']['name']);
 
                     if(!is_dir('uploads')){
-                        mkdir('uploads', '0755');
+                        mkdir('uploads');
                     }
-                    move_uploaded_file($tmp_name,'../public/asset/uploads/' . $name);
+                    move_uploaded_file($tmp_name,'../public/uploads/' . $name);
                 }
                 else {
                     $error[] =  "Le poids est trop lourd, maximum autorisé : 1 Mo";
@@ -101,7 +102,7 @@ class ArticleController extends AbstractController
         }
 
         $newTitle = $this->clean($_POST['title']);
-        $newContent = $this->clean($_POST['content'], Config::ALLOWED_TAGS);
+        $newContent = $_POST['content'];
 
         $article= new ArticleManager($newTitle, $newContent, $id);
         $article->updateArticle($newTitle, $newContent, $id);
