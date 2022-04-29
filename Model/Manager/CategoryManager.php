@@ -22,7 +22,7 @@ class CategoryManager
 
     public static function getAllCategories()
     {
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_category");
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_category ORDER BY id");
         $categories = [];
         foreach ($stmt->fetchAll() as $data) {
             $categories[] = (new Category())

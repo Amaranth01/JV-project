@@ -42,20 +42,6 @@
             <?php
             }
         ?>
-<!--        <label for="pc">PC</label>-->
-<!--        <input type="checkbox" name="platform" id="pc" value="pc">-->
-<!---->
-<!--        <label for="playstation">PlayStation</label>-->
-<!--        <input type="checkbox" name="platform" id="playstation" value="playstation">-->
-<!---->
-<!--        <label for="xbox">Xbox</label>-->
-<!--        <input type="checkbox" name="platform" id="xbox" value="xbox">-->
-<!---->
-<!--        <label for="nintendo">Nintendo</label>-->
-<!--        <input type="checkbox" name="platform" id="nintendo" value="Nintendo">-->
-<!---->
-<!--        <label for="others">Autres</label>-->
-<!--        <input type="checkbox" name="platform" id="others" value="autres">-->
     </div>
 
     <div id="section">

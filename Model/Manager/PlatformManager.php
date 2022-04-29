@@ -23,10 +23,10 @@ class PlatformManager
 
     public static function getAllPlatforms()
     {
-        $stmt = DB::getPDO()->query("SELECT *FROM jvp_platform");
+        $stmt = DB::getPDO()->query("SELECT *FROM jvp_platform ORDER BY id");
         $platforms = [];
         foreach ($stmt->fetchAll() as $data) {
-            $platforms = (new Platform())
+            $platforms[] = (new Platform())
                 ->setId($data['id'])
                 ->setPlatformName($data['platform_name'])
             ;
