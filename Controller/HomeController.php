@@ -87,7 +87,7 @@ class HomeController extends AbstractController
     public function nintendo()
     {
         $data = [];
-        $articles = PlatformManager::getPlatformByName('nintendo');
+        $articles = PlatformManager::getPlatformByName('Nintendo');
         foreach ($articles as $article) {
             $data [] = ['article' => $article];
         }

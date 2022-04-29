@@ -42,7 +42,8 @@ h2 {
 }
 
 #article  > blockquote >p > span {
-    background-color: #d7cece;
+    font-style: italic;
+    font-weight: bold;
 }
 
 #article > p > img {
@@ -55,4 +56,14 @@ h2 {
 
 #imgCover {
     margin-left: 6vw;
+}
+
+.userComment, .commentContent {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+#artImage {
+    width: 9vw;
 }

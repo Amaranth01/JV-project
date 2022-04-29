@@ -44,4 +44,26 @@ class CommentManager
         }
         return $comment;
     }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public static function getCommentByArticleId($id): array
+    {
+        $comment = [];
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_comment WHERE article_id = '$id'");
+
+        if($stmt) {
+            foreach ($stmt->fetchAll() as $data) {
+                $comment[] = (new Comment())
+                    ->setId($data['id'])
+                    ->setContent($data['content'])
+                    ->setUser(UserManager::getUser($data['user_id']))
+                    ->setArticle(ArticleManager::getArticle($data['article_id']))
+                ;
+            }
+        }
+        return $comment;
+    }
 }

@@ -3,8 +3,9 @@
 <?php
 
 use App\Model\Manager\ArticleManager;
+use App\Model\Manager\PlatformManager;
 
-foreach (ArticleManager::findAllArticle() as $article) {
+foreach (PlatformManager::getPlatformById(2) as $article) {
     ?>
         <div>
             <div>

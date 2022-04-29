@@ -25,9 +25,9 @@ use App\Model\Manager\CommentManager;
             <input type="submit" name="submit" value="Envoyer" class="button">
         </form>
 
-        <?php foreach (CommentManager::findAllComment() as $comment) {?>
-            <p id="userComment">Ecrit par : <?=$comment->getUser()->getUsername() ?><p>
-            <p id="commentContent"><?= $comment->getContent()?></p>
+        <?php foreach (CommentManager::getCommentByArticleId($data[0]) as $comment) {?>
+            <p class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?><p>
+            <p class="commentContent"><?= $comment->getContent()?></p>
 
     </div>
     <?php } ?>

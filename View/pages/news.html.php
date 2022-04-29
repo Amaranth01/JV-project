@@ -1,18 +1,19 @@
 <h1>Toutes les news</h1>
-
 <?php
-foreach ($data as $article) {
+
+use App\Model\Manager\ArticleManager;
+
+foreach (ArticleManager::findAllArticle() as $article) {
     ?>
-<div id="content">
-    <p class="artTitle"><?= $article['jvp_article']->getTitle()?></p>
-    <div class="article">
-
         <div>
-            <p class="img"><img src="/asset/uploads/<?= $article['jvp_article']->getImage()?>" alt=""></p>
+            <div>
+                <a href="/index.php?c=home&a=view-article&id=<?=$article->getId()?>">
+                    <img src="/uploads/<?=$article->getImage()?>" alt="Image de couverture de l'article" id="artImage">
+                    <p><?= $article->getTitle()?></p></a>
+            </div>
+            <div>
+                <p><?= $article->getResume()?></p>
+            </div>
         </div>
-        <p class="textContent"><?=$article['jvp_article']->getContent() ?></p>
-    </div>
-</div>
 <?php
-    }
-?>
+}
