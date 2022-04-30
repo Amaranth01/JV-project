@@ -37,13 +37,16 @@ table {
     align-items: center;
     font-size: 2rem;
     border-collapse: collapse;
+    margin-top: 2rem;
 }
 
 td {
-    padding: 9rem;
+
 }
 
-th {
+th, td {
+    text-align: center;
+    background-color: #cbc7c7;
     border: #9097fd 2px solid;
     padding: 0.5rem;
 }
@@ -93,12 +96,24 @@ th {
     margin-top: 1.5rem;
 }
 
-
 #userStatus > p, #delUser > p {
     color: red;
     font-weight: bold;
 }
 
+.contentComment {
+    background-color: #cbc7c7;
+    border: blue 1px solid;
+    margin-top: 1rem;
+    font-size: 2rem;
+    margin-left: -5vw;
+    width: 51.5rem;
+}
+
+.commentWriter {
+    font-weight: bold;
+    font-style: italic;
+}
 
 
 

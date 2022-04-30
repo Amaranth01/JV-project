@@ -20,12 +20,10 @@ class ArticleManager
             $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC ");
         }
         else {
-            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC LIMIT" . $limit);
+            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC LIMIT 4");
         }
 
             $userManager = new UserManager();
-            $categoryManager = new CategoryManager();
-            $platformManager = new PlatformManager();
 
             foreach ($stmt->fetchAll() as $articleData) {
                 $articles[] = (new Article())
@@ -123,7 +121,7 @@ class ArticleManager
     public static function getArticleBySectionId(int $id): array
     {
         $article = [];
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE section_id = '$id'");
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE section_id = '$id' ORDER BY id DESC ");
 
         if($stmt) {
             foreach ($stmt->fetchAll() as $data) {

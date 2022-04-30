@@ -65,7 +65,9 @@ var_dump($_SESSION['user']);
 <!--Second menu-->
 <div>
     <nav id="firstNav" >
-        <a href="/index.php?c=home&a=index"><img src="/assets/img/Capture%20d’écran%202022-02-15%20112818.png" alt="Le logo du site"></a>
+        <a href="/index.php?c=home&a=index">
+            <img src="/assets/img/Capture%20d’écran%202022-02-15%20112818.png" alt="Le logo du site" id="logo">
+        </a>
         <ul class="list">
             <li>Jeux
                 <ul class="little">
@@ -75,7 +77,7 @@ var_dump($_SESSION['user']);
                     <li><a href="/index.php?c=home&a=nextgame">Calendrier des sorties</a></li>
                 </ul>
             </li>
-            <li><a href="/index.php?c=home&a=series">Série et film</a></li>
+            <li><a href="/index.php?c=home&a=series">Séries et films</a></li>
             <input type="search" placeholder="Recherche">
             <li><a href="/index.php?c=home&a=tchat">Tchat</a></li>
             <li><a href="/index.php?c=home&a=poll">Sondages</a></li>
