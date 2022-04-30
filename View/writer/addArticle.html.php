@@ -53,8 +53,8 @@
         <label for="test">Test</label>
         <input type="checkbox" name="section" id="test" value="test">
 
-        <label for="answer">Soluce</label>
-        <input type="checkbox" name="section" id="answer" value="soluce">
+        <label for="help">Soluce</label>
+        <input type="checkbox" name="section" id="help" value="help">
 
         <label for="calendar">Calendrier</label>
         <input type="checkbox" name="section" id="calendar" value="test">

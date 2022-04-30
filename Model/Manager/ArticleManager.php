@@ -123,17 +123,15 @@ class ArticleManager
     public static function getArticleBySectionId(int $id): array
     {
         $article = [];
-        $stmt = DB::getPDO()->query("
-            SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title
-            FROM jvp_article INNER JOIN jvp_section ON jvp_article.section_id WHERE jvp_section.section_name = '$id'
-            ORDER BY jvp_article.id DESC
-        ");
+        $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE section_id = '$id'");
 
         if($stmt) {
             foreach ($stmt->fetchAll() as $data) {
-                $article [] = (new Section())
+                $article [] = (new Article())
                     ->setId($data['id'])
-                    ->setSectionName($data['section_id'])
+                    ->setTitle($data['title'])
+                    ->setImage($data['image'])
+                    ->setResume($data['resume'])
                 ;
             }
         }
