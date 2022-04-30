@@ -9,11 +9,21 @@
         <td>Suppression</td>
     </tr>
 
+    <?php
+        use App\Model\Manager\CommentManager;
+
+        foreach (CommentManager::findAllComment() as $comment ) {
+            ?>
     <tr>
-        <th>Trop contente</th>
-        <th>Lui/Elle</th>
-        <th>Beurkl</th>
-        <th>Lien</th>
+        <th><?=$comment->getContent()?></th>
+        <th><?=$comment->getUser()->getUsername()?></th>
+        <th><?=$comment->getArticle()->getTitle()?></th>
+        <th><a href="/index.php?c=comment&a=update-comment&id=<?=$comment->getId()?>">Editer</a></th>
         <th>Lien</th>
     </tr>
+
+     <?php
+        }
+    ?>
+
 </table>

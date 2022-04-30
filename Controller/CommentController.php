@@ -14,6 +14,11 @@ class CommentController extends AbstractController
         $this->render('comment/allComment');
     }
 
+    public function updateComment(int $id)
+    {
+        $this->render('comment/editComment', $data=[$id]);
+    }
+
     /**
      * @param int $id
      */
@@ -54,5 +59,35 @@ class CommentController extends AbstractController
         $commentManager = new CommentManager();
         $commentManager->addNewComment($comment);
         $this->render('home/index');
+    }
+
+    public function editComment($id)
+    {
+//        self::userConnected();
+        if(!isset($_POST['content'])) {
+            $this->render('home/index');
+            exit();
+        }
+
+        $newContent = $_POST['content'];
+
+        $comment = new CommentManager($newContent, $id);
+        $comment->editComment($newContent, $id);
+        $this->render('pages/viewArticle');
+    }
+
+    public function deleteComment(int $id)
+    {
+        //        if(self::adminConnected()) {
+//            $errorMessage = "Seul un administrateur peut supprimer un article";
+//            $_SESSION['errors'] [] = $errorMessage;
+//            $this->render('home/index');
+//        }
+
+        if(CommentManager::commentExist($id)) {
+            $comment = CommentManager::getComment($id);
+            $deleted = CommentManager::deleteComment($comment);
+            $this->render('home/index');
+        }
     }
 }
