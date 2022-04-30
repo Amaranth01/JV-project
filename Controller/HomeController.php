@@ -56,42 +56,23 @@ class HomeController extends AbstractController
 
     public function pc()
     {
-        $data = [];
-        $articles = ArticleManager::articlePlatform(1);
-        foreach ($articles as $article) {
-            $data [] = ['article' => $article];
-        }
-        $this->render('pages/game/pc', $data);
+        $this->render('pages/game/pc');
     }
 
     public function playstation()
     {
-        $data = [];
-        $articles = PlatformManager::getPlatformByName('playstation');
-        foreach ($articles as $article) {
-            $data [] = ['article' => $article];
-        }
-        $this->render('pages/game/playstation', $data);
+        $this->render('pages/game/playstation');
     }
 
     public function xbox()
     {
-        $data = [];
-        $articles = ArticleManager::articlePlatform(3);
-        foreach ($articles as $article) {
-            $data [] = ['article' => $article];
-        }
-        $this->render('pages/game/xbox', $data);
+
+        $this->render('pages/game/xbox');
     }
 
     public function nintendo()
     {
-        $data = [];
-        $articles = PlatformManager::getPlatformByName('Nintendo');
-        foreach ($articles as $article) {
-            $data [] = ['article' => $article];
-        }
-        $this->render('pages/game/nintendo', $data);
+        $this->render('pages/game/nintendo');
     }
 
     public function tests()

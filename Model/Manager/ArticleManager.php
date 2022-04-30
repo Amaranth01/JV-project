@@ -4,6 +4,7 @@ namespace App\Model\Manager;
 
 use App\Model\DB;
 use App\Model\Entity\Article;
+use App\Model\Entity\Section;
 
 class ArticleManager
 {
@@ -119,17 +120,22 @@ class ArticleManager
      * @param int $id
      * @return array
      */
-    public static function articleCategory(int $id): array
+    public static function getArticleBySectionId(int $id): array
     {
         $article = [];
         $stmt = DB::getPDO()->query("
-            SELECT * FROM jvp_category_article WHERE jvp_category_id = '$id' ORDER BY id DESC
+            SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title
+            FROM jvp_article INNER JOIN jvp_section ON jvp_article.section_id WHERE jvp_section.section_name = '$id'
+            ORDER BY jvp_article.id DESC
         ");
 
-        foreach ($stmt->fetchAll() as $articleData) {
-            $article[] = (new Article())
-            ->setId($articleData['id'])
-            ;
+        if($stmt) {
+            foreach ($stmt->fetchAll() as $data) {
+                $article [] = (new Section())
+                    ->setId($data['id'])
+                    ->setSectionName($data['section_id'])
+                ;
+            }
         }
         return $article;
     }

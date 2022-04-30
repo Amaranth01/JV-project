@@ -1,21 +1,22 @@
-<h1>L'univers PlayStation</h1>
+<h1>Les news PlayStation</h1>
 
 <?php
 
 use App\Model\Manager\ArticleManager;
-use App\Model\Manager\PlatformManager;
 
-foreach (ArticleManager::getArticleByPlatformId(2) as $article) {var_dump($article->getImage(), $article->getId());
+foreach (ArticleManager::getArticleByPlatformId(2) as $article) {
     ?>
-        <div>
+    <div class="contentResumeArticle">
+        <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
             <div>
-                <a href="/index.php?c=home&a=view-article&id=<?=$article->getId()?>">
-                    <img src="/uploads/<?=$article->getImage()?>" alt="Image de couverture de l'article" id="artImage">
-                    <p><?= $article->getTitle()?></p></a>
+                <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
+
             </div>
             <div>
-                <p><?= $article->getResume()?></p>
+                <p class="artTitle"><?= $article->getTitle() ?></p></a>
+                <p class="artResume"><?= $article->getResume() ?></p>
             </div>
-        </div>
-<?php
+    </div>
+
+    <?php
 }

@@ -5,16 +5,18 @@
 
 use App\Model\Manager\ArticleManager;
 
-foreach (ArticleManager::findAllArticle() as $article) {
+foreach (ArticleManager::getArticleByPlatformId(1) as $article) {
     ?>
-    <div>
-        <div>
-            <a href="/index.php?c=home&a=view-article&id=<?=$article->getId()?>">
-            <p><?= $article->getTitle()?></p></a>
-        </div>
-        <div>
-            <p><?= $article->getResume()?></p>
-        </div>
+    <div class="contentResumeArticle">
+        <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
+            <div>
+                <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
+            </div>
+            <div>
+                <p class="artTitle"><?= $article->getTitle() ?></p></a>
+                <p class="artResume"><?= $article->getResume() ?></p>
+            </div>
+
     </div>
     <?php
 }
