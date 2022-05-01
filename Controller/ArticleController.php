@@ -37,7 +37,9 @@ class ArticleController extends AbstractController
             ->setUser($user)
             ->setSection($section)
         ;
-
+        echo "<pre>";
+        var_dump($section);
+        echo "</pre>";
         ArticleManager::addArticle($article);
         CategoryManager::getAllCategories();
         PlatformManager::getAllPlatforms();
@@ -102,7 +104,7 @@ class ArticleController extends AbstractController
         }
 
         $newTitle = $this->clean($_POST['title']);
-        $newContent = $_POST['content'];
+        $newContent = $this->clean($_POST['content']);
 
         $article= new ArticleManager($newTitle, $newContent, $id);
         $article->updateArticle($newTitle, $newContent, $id);

@@ -57,7 +57,7 @@
         <input type="checkbox" name="section" id="help" value="help">
 
         <label for="calendar">Calendrier</label>
-        <input type="checkbox" name="section" id="calendar" value="test">
+        <input type="checkbox" name="section" id="calendar" value="calendar">
 
         <label for="series">Séries & film</label>
         <input type="checkbox" name="section" id="series" value="series">

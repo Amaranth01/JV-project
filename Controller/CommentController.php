@@ -69,11 +69,11 @@ class CommentController extends AbstractController
             exit();
         }
 
-        $newContent = $_POST['content'];
+        $newContent = $this->clean($_POST['content']);
 
         $comment = new CommentManager($newContent, $id);
         $comment->editComment($newContent, $id);
-        $this->render('pages/viewArticle');
+        $this->render('home/index');
     }
 
     public function deleteComment(int $id)
