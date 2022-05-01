@@ -1,3 +1,11 @@
+<?php
+
+use App\Model\Entity\Role;
+use App\Model\Entity\User;
+use App\Model\Manager\RoleManager;
+use App\Model\Manager\UserManager;
+
+?>
 <h1>Espace d'administration</h1>
 
 <div id="userStatus">
@@ -19,12 +27,23 @@
 </div>
 
 <div id="delUser">
-    <p>Supprimer un utilisateur</p>
-<!--Rechercher le nom pour supprimer un utilisateur-->
-    <form action="/index.php?c=user&a=delete-user" method="post">
-        <label for="username">Nom de l'utilisateur</label>
-        <input type="text" name="username" id="username">
-        <br>
-        <input type="submit" name="submit" value="Supprimer" class="button">
-    </form>
+    <table>
+        <tr>
+            <td>Pseudo</td>
+            <td>Email</td>
+            <td>Modération</td>
+        </tr>
+        <?php
+            foreach (UserManager::getAllUser() as $user) { ?>
+                <tr>
+                    <td><?= $user->getUsername() ?></td>
+                    <td><?= $user->getEmail() ?></td>
+                    <td>
+                        <a href="/index.php?c=user&a=delete-user&id=<?= $user->getId() ?>">Supprimer</a>
+                    </td>
+                </tr>
+        <?php
+          }
+        ?>
+    </table>
 </div>

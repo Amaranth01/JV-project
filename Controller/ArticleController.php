@@ -37,9 +37,7 @@ class ArticleController extends AbstractController
             ->setUser($user)
             ->setSection($section)
         ;
-        echo "<pre>";
-        var_dump($section);
-        echo "</pre>";
+
         ArticleManager::addArticle($article);
         CategoryManager::getAllCategories();
         PlatformManager::getAllPlatforms();
@@ -94,9 +92,9 @@ class ArticleController extends AbstractController
 
     public function editArticle($id)
     {
-        self::userConnected();
-        $_SESSION['errors'] = "Seul un rédacteur peut modifier un article";
-        $this->render('home/index');
+//        self::userConnected();
+//        $_SESSION['errors'] = "Seul un rédacteur peut modifier un article";
+//        $this->render('home/index');
 
         if(!isset($_POST['title'])&& !isset($_POST['content'])) {
             $this->render('home/index');

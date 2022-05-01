@@ -118,7 +118,11 @@ class UserController extends AbstractController
             $_SESSION['success'] = $successMessage;
             $this->render('home/index');
         }
-    public function deleteUser($mail)
+
+    /**
+     * @param int $id
+     */
+    public function deleteUser(int $id)
     {
         //Verify that the user has admin status
 //        if(self::adminConnected()) {
@@ -127,9 +131,9 @@ class UserController extends AbstractController
 //            $this->render('home/index');
 //        }
 
-        if(UserManager::getUserByMail($mail)){
-            $user = UserManager::getUser($mail);
-            $delete = UserManager::deleteUser($user);
+        if(UserManager::getUser($id)) {
+            $user = UserManager::getUser($id);
+            $deleted = UserManager::deleteUser($user);
             $this->render('admin/adminSpace');
         }
     }

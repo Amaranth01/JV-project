@@ -153,9 +153,9 @@ class UserManager
      * @return bool
      */
     public static function deleteUser(User $user): bool {
-        if(self::getUserByMail($user->getEmail())) {
+        if(self::getUser($user->getId())) {
             return DB::getPDO()->exec("
-            DELETE FROM jvp_user WHERE email = {$user->getEmail()}
+            DELETE FROM jvp_user WHERE id = {$user->getId()}
         ");
         }
         return false;
