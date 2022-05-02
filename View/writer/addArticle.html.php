@@ -1,3 +1,15 @@
+<?php
+
+    use App\Controller\UserController;
+    use App\Model\Entity\Category;
+    use App\Model\Entity\Platform;
+
+    if (!UserController::writerConnected() && !UserController::adminConnected()) {
+        (new App\Controller\AbstractController)->render('home/index');
+        exit();
+    }
+?>
+
 <h1>Ajouter un article</h1>
 
 <form action="/index.php?c=article&a=add-article" method="post" enctype="multipart/form-data">
@@ -17,10 +29,6 @@
         /**
          * @var Category $category
          */
-
-        use App\Model\Entity\Category;
-        use App\Model\Entity\Platform;
-
         foreach ($data['categories'] as $category) { ?>
                 <label for="cat_<?=$category->getId() ?>"><?=$category->getCategoryName() ?></label>
                 <input type="checkbox" name="cat_<?=$category->getId() ?>" value="<?=$category->getId() ?>">

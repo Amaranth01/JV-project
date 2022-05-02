@@ -86,4 +86,9 @@ class AbstractController
     {
         return $_SESSION['user']->getRole()->getRoleName() === 'admin';
     }
+
+    public static function writerConnected(): bool
+    {
+        return $_SESSION['user']->getRole()->getRoleName() === 'writer';
+    }
 }

@@ -1,9 +1,12 @@
 <?php
 
-use App\Model\Entity\Role;
-use App\Model\Entity\User;
-use App\Model\Manager\RoleManager;
-use App\Model\Manager\UserManager;
+    use App\Controller\UserController;
+    use App\Model\Manager\UserManager;
+
+    if (!UserController::adminConnected()) {
+        (new App\Controller\AbstractController)->render('home/index');
+        exit();
+    }
 
 ?>
 <h1>Espace d'administration</h1>

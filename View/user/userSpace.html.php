@@ -1,3 +1,13 @@
+<?php
+
+use App\Controller\UserController;
+
+    if (!UserController::userConnected()) {
+        (new App\Controller\AbstractController)->render('home/index');
+        exit();
+    }
+?>
+
 <h1>Espace personnel</h1>
 
 <div id="profilePicture">

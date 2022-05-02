@@ -1,3 +1,12 @@
+<?php
+
+use App\Controller\UserController;
+
+    if (!UserController::userConnected()) {
+        (new App\Controller\AbstractController)->render('home/index');
+        exit();
+    }
+?>
 <h1>Confirmation de suppression</h1>
 
 <div class="warning">

@@ -1,12 +1,22 @@
+<?php
+
+use App\Controller\AbstractController;
+use App\Controller\UserController;
+    use App\Model\Manager\ArticleManager;
+    use App\Model\Manager\CommentManager;
+
+    if (!UserController::writerConnected() && !UserController::adminConnected()) {
+        (new App\Controller\AbstractController)->render('home/index');
+        exit();
+    }
+
+?>
 <h1>L'espace de rédaction</h1>
 <h2>Les derniers articles</h2>
 <div class="content">
 
         <div class="left">
             <?php
-
-            use App\Model\Manager\ArticleManager;
-            use App\Model\Manager\CommentManager;
 
             foreach (ArticleManager::findAllArticle(3) as $article) {
             ?>
@@ -75,11 +85,16 @@
             </p>
         </div>
 </div>
+<?php
+    if(UserController::userConnected() && UserController::adminConnected()) {?>
+        <div id="admin">
+            <a href="/index.php?c=admin&a=admin-space">
+                <img src="/assets/img/adminSpace.png" alt="">
+                <br>
+                Espace d'administration
+            </a>
+        </div>
+<?php
+    }
+?>
 
-<div id="admin">
-    <a href="/index.php?c=admin&a=admin-space">
-        <img src="/assets/img/adminSpace.png" alt="">
-        <br>
-        Espace d'administration
-    </a>
-</div>

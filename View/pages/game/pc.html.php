@@ -1,4 +1,4 @@
-<h1>L'univers PC</h1>
+<h1>Les news PC</h1>
 
 
 <?php

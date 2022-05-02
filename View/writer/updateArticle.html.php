@@ -1,11 +1,14 @@
-
-<h1>Editer un article</h1>
-
 <?php
 
-use App\Model\Manager\ArticleManager;
+    use App\Controller\UserController;
+    use App\Model\Manager\ArticleManager;
 
+    if (!UserController::writerConnected() && !UserController::adminConnected()) {
+        (new App\Controller\AbstractController)->render('home/index');
+        exit();
+    }
 ?>
+<h1>Editer un article</h1>
 
 <form action="/index.php?c=article&a=edit-article&id=<?=ArticleManager::getArticle($data[0])->getId() ?>" method="post" id="form">
 
