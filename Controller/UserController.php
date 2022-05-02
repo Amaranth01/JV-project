@@ -92,7 +92,7 @@ class UserController extends AbstractController
                 //Check that the fields are not empty
                 if (empty($password) && empty($username)) {
                     $errorMessage = "Veuillez remplir tous les champs";
-                    $_SESSION['errors'][] = $errorMessage;
+                    $_SESSION['errors'] = $errorMessage;
                     $this->render('home/index');
                     exit();
                 }
@@ -114,8 +114,10 @@ class UserController extends AbstractController
                     }
                 }
             }
-            $successMessage = "Vous êtes connecté";
-            $_SESSION['success'] = $successMessage;
+            else {
+                $successMessage = "Vous êtes connecté";
+                $_SESSION['success'] = $successMessage;
+            }
             $this->render('home/index');
         }
 
@@ -134,22 +136,71 @@ class UserController extends AbstractController
         if(UserManager::getUser($id)) {
             $user = UserManager::getUser($id);
             $deleted = UserManager::deleteUser($user);
-            $this->render('admin/adminSpace');
+            $this->render('home/index');
         }
     }
 
-    public function updateUser($id)
+    /**
+     * @param $id
+     */
+    public function updateUsername($id)
     {
-        if (!isset($_POST['username']) || !isset($_POST['password']) || !isset($_POST['email'])) {
+        if (!isset($_POST['newUsername'])) {
             $this->render('home/index');
             exit();
         }
 
-        $newUsername = $this->clean($_POST['username']);
-        $newEmail =  $this->clean($_POST['email']);
+        if (empty($_POST['newUsername'])) {
+            $_SESSION['errors'] = "Le champs du pseudo doit être complété";
+            $this->render('home/index');
+            exit();
+        }
 
-        $newPassword = $this->getFormField('password');
-        $newPasswordR = $this->getFormField('passwordR');
+        $newUsername = $this->clean($_POST['newUsername']);
+
+        $user = new UserManager();
+        $user->updateUsername($newUsername, $id);
+        $_SESSION['success'] = "Votre pseudo a bien été mis à jour";
+        $this->render('home/index');
+    }
+
+    public function updateEmail($id)
+    {
+
+        if (!isset($_POST['newEmail'])) {
+            $this->render('home/index');
+            exit();
+        }
+
+        if (empty($_POST['newEmail'])) {
+            $_SESSION['errors'] = "Le champs de l'email doit être complété";
+            $this->render('home/index');
+            exit();
+        }
+
+        $newEmail = $this->clean($_POST['newEmail']);
+        $user = new UserManager();
+        $user->updateEmail($newEmail, $id);
+        $_SESSION['success'] = "Votre mail a bien été mis à jour, un email vous sera envoyé pour confirmer votre nouvelle 
+            adresse";
+        $this->render('home/index');
+    }
+
+    public function updatePassword($id)
+    {
+        if (!isset($_POST['newPassword']) && !isset($_POST['newPasswordR'])) {
+            $this->render('home/index');
+            exit();
+        }
+
+        if (empty($_POST['newPassword'])) {
+            $_SESSION['errors'] = "Le champs du pseudo doit être complété";
+            $this->render('home/index');
+            exit();
+        }
+
+        $newPassword = $this->getFormField('newPassword');
+        $newPasswordR = $this->getFormField('newPasswordR');
 
         if (!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $newPassword)) {
             $error[] = "Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial";
@@ -162,8 +213,33 @@ class UserController extends AbstractController
         $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
         $user = new UserManager();
-        $user->updateUser($newUsername, $newPassword, $newEmail, $id);
-
+        $user->updatePassword($newPassword, $id);
+        $_SESSION['success'] = "Votre mot de passe a bien été mis à jour";
         $this->render('home/index');
+    }
+
+    /**
+     * changing the role of a user
+     */
+    public function updateUserRole()
+    {
+        //Sécu admin
+
+        if (!isset($_POST['username'])) {
+            $this->render('home/index');
+            exit();
+        }
+        $username = $this->clean($this->getFormField('username'));
+        $user = new UserManager();
+        $newRole = $_POST['role'];
+
+        if ($username !== UserManager::getUserByName($_POST['username'])->getUsername())  {
+            $_SESSION['errors'] = "Le pseudo est incorrecte";
+            $this->render('admin/adminSpace');
+        }
+        else {
+            $user->updateRoleUser($newRole, $username);
+        }
+        $this->render('admin/adminSpace');
     }
 }

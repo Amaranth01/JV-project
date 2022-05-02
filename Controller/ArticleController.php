@@ -90,6 +90,9 @@ class ArticleController extends AbstractController
         return bin2hex($bytes) . '.' . $infos['extension'];
     }
 
+    /**
+     * @param $id
+     */
     public function editArticle($id)
     {
 //        self::userConnected();
@@ -109,6 +112,9 @@ class ArticleController extends AbstractController
         $this->render('writer/writer');
     }
 
+    /**
+     * @param int $id
+     */
     public function deleteArticle(int $id)
     {
         //Verify that the user has admin status

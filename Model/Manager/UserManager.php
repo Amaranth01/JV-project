@@ -129,22 +129,58 @@ class UserManager
         return $stmt ? self::createUser($stmt->fetch()) : null;
     }
 
-    public static function updateUser($newUsername, $newPassword, $newEmail, $id)
+    /**
+     * @param $newUsername
+     * @param $id
+     */
+    public function updateUsername($newUsername,$id)
     {
-        $stmt = DB::getPDO()->prepare("UPDATE jvp_user 
-            SET username = :newUsersame, password = :newPassword, email= :newEmail WHERE id = :id");
+        $stmt = DB::getPDO()->prepare("
+            UPDATE jvp_user SET username = :newUsername WHERE id = :id
+        ");
 
         $stmt->bindParam('newUsername', $newUsername);
-        $stmt->bindParam('newPassword', $newPassword);
+        $stmt->bindParam('id', $id);
+
+        $stmt->execute();
+    }
+
+    public function updateEmail($newEmail, $id)
+    {
+        $stmt = DB::getPDO()->prepare("
+            UPDATE jvp_user SET email = :newEmail WHERE id = :id
+        ");
+
         $stmt->bindParam('newEmail', $newEmail);
         $stmt->bindParam('id', $id);
 
         $stmt->execute();
     }
 
-    public static function updateRoleUser($newRole)
+    public function updatePassword($newPassword, $id)
     {
+        $stmt = DB::getPDO()->prepare("
+            UPDATE jvp_user SET password = :newPassword WHERE id = :id
+        ");
 
+        $stmt->bindParam('newPassword', $newPassword);
+        $stmt->bindParam('id', $id);
+
+        $stmt->execute();
+    }
+
+    /**
+     * @param $newRole
+     * @param $newUsername
+     */
+    public static function updateRoleUser($newRole, $newUsername)
+    {
+        $stmt = DB::getPDO()->prepare("UPDATE jvp_user SET role_id = :newRole WHERE username = :newUsername");
+
+        $stmt->bindParam('newRole', $newRole);
+        $stmt->bindParam('newUsername', $newUsername);
+
+        $stmt->execute();
     }
 
     /**

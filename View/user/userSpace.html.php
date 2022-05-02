@@ -12,21 +12,30 @@
 <div id="updateInformation">
     <p>Changez vos informations</p>
 
-    <form action="" method="post">
+    <form action="/index.php?c=user&a=update-username&id=<?=$_SESSION['user']->getId()?>" method="post">
         <label for="newUsername">Nouveau pseudo</label>
         <input type="text" name="newUsername" id="newUsername">
+        <br>
+        <input type="submit" name="submit" value="Mettre à jour" class="button">
+    </form>
 
+    <form action="/index.php?c=user&a=update-email&id=<?=$_SESSION['user']->getId()?>" method="post">
         <label for="newEmail">Nouvel email</label>
         <input type="text" name="newEmail" id="newEmail">
         <p>Un nouvel email vous sera envoyé</p>
+        <input type="submit" name="submit" value="Mettre à jour" class="button">
+    </form>
 
+    <form action="/index.php?c=user&a=update-password&id=<?=$_SESSION['user']->getId()?>" method="post">
         <label for="newPassword">Nouveau mot de passe</label>
-        <input type="text" name="newPassword" id="newPassword">
+        <input type="password" name="newPassword" id="newPassword">
 
         <label for="newPasswordR">Répétez votre nouveau mot de passe</label>
         <input type="password" name="newPasswordR" id="newPasswordR">
         <br>
-        <input type="submit" name="submit" value="mettre à jour" class="button">
+        <input type="submit" name="submit" value="Mettre à jour" class="button">
+    </form>
+
     </form>
 </div>
 

@@ -75,6 +75,7 @@ class User extends AbstractEntity
 
     /**
      * @param string $image
+     * @return User
      */
     public function setImage(string $image): self
     {
