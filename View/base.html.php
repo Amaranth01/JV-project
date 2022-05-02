@@ -91,8 +91,12 @@ var_dump($_SESSION['user']);
             else { ?>
                 <li><a href="/index.php?c=home&a=login">Connexion/Inscription</a></li>
             <?php }
+                if(UserController::writerConnected() || UserController::adminConnected()) { ?>
+                    <li><a href="/index.php?c=admin&a=index">Espace des rédacteurs</a></li>
+            <?php
+            }
             ?>
-            <li><a href="/index.php?c=admin&a=index">Espace des rédacteurs</a></li>
+
         </ul>
     </nav>
 </div>
