@@ -2,6 +2,7 @@
 
 use App\Model\Manager\ArticleManager;
 use App\Model\Manager\CommentManager;
+use App\Model\Manager\UserManager;
 
 ?>
 
@@ -26,7 +27,12 @@ use App\Model\Manager\CommentManager;
         </form>
 
         <?php foreach (CommentManager::getCommentByArticleId($data[0]) as $comment) {?>
-            <p class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?><p>
+           <div>
+               <img src="/assets/img/avatar/<?=UserManager::getUser($_SESSION['user']->getId())->getImage()?>"
+               alt="Accès à l'espace utilisateur" id="userImage">
+               <span class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?></span>
+           </div>
+
             <p class="commentContent"><?= $comment->getContent()?></p>
 
     </div>

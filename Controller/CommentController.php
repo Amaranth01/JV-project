@@ -28,9 +28,8 @@ class CommentController extends AbstractController
 
         //Check that the fields are free, otherwise we exit
         if(empty($content)) {
-            $_SESSION['errors'] = $errorMessage;
+            $_SESSION['errors'] = "le champ doit être rempli";
             $this->render('home/index');
-            echo "le champ doit être rempli";
             exit();
         }
 
