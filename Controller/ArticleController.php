@@ -44,6 +44,9 @@ class ArticleController extends AbstractController
         $this->render('writer/writer');
     }
 
+    /**
+     * @return string
+     */
     private function addImage(): string
     {
         $name = "";
@@ -78,6 +81,10 @@ class ArticleController extends AbstractController
         return $name;
     }
 
+    /**
+     * @param string $rName
+     * @return string
+     */
     private function getRandomName(string $rName): string
     {
         $infos = pathinfo($rName);
@@ -95,9 +102,11 @@ class ArticleController extends AbstractController
      */
     public function editArticle($id)
     {
-//        self::userConnected();
-//        $_SESSION['errors'] = "Seul un rédacteur peut modifier un article";
-//        $this->render('home/index');
+        if(!self::writerConnected()){
+            $_SESSION['errors'] = "Seul un rédacteur peut modifier un article";
+            $this->render('home/index');
+        }
+
 
         if(!isset($_POST['title'])&& !isset($_POST['content'])) {
             $this->render('home/index');
@@ -118,11 +127,11 @@ class ArticleController extends AbstractController
     public function deleteArticle(int $id)
     {
         //Verify that the user has admin status
-//        if(self::adminConnected()) {
-//            $errorMessage = "Seul un administrateur peut supprimer un article";
-//            $_SESSION['errors'] [] = $errorMessage;
-//            $this->render('home/index');
-//        }
+        if(!self::writerConnected()) {
+            $errorMessage = "Seul un administrateur peut supprimer un article";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
         //Check that the article exists
         if(ArticleManager::articleExist($id)) {
             $article = ArticleManager::getArticle($id);

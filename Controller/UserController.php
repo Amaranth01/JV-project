@@ -127,11 +127,11 @@ class UserController extends AbstractController
     public function deleteUser(int $id)
     {
         //Verify that the user has admin status
-//        if(self::adminConnected()) {
-//            $errorMessage = "Seul un administrateur peut supprimer un article";
-//            $_SESSION['errors'] [] = $errorMessage;
-//            $this->render('home/index');
-//        }
+        if(self::adminConnected()) {
+            $errorMessage = "Seul un administrateur peut supprimer un utilisateur";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
 
         if(UserManager::getUser($id)) {
             $user = UserManager::getUser($id);
@@ -223,7 +223,11 @@ class UserController extends AbstractController
      */
     public function updateUserRole()
     {
-        //Sécu admin
+        if(self::adminConnected()) {
+            $errorMessage = "Seul un administrateur peut mettre à jour un utilisateur";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
 
         if (!isset($_POST['username'])) {
             $this->render('home/index');

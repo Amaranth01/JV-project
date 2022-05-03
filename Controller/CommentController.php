@@ -63,7 +63,11 @@ class CommentController extends AbstractController
 
     public function editComment($id)
     {
-//        self::userConnected();
+
+        if(!self::writerConnected()) {
+            $_SESSION['errors'] = "Seul un administrateur peut éditer un commentaire";
+            $this->render('home/index');
+        }
         if(!isset($_POST['content'])) {
             $this->render('home/index');
             exit();
@@ -78,11 +82,11 @@ class CommentController extends AbstractController
 
     public function deleteComment(int $id)
     {
-        //        if(self::adminConnected()) {
-//            $errorMessage = "Seul un administrateur peut supprimer un article";
-//            $_SESSION['errors'] [] = $errorMessage;
-//            $this->render('home/index');
-//        }
+         if(self::writerConnected()) {
+            $errorMessage = "Seul un rédacteur peut supprimer un article";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
 
         if(CommentManager::commentExist($id)) {
             $comment = CommentManager::getComment($id);

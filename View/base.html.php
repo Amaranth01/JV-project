@@ -18,8 +18,6 @@
 
 // Handling error messages.
 use App\Controller\UserController;
-use App\Model\Entity\User;
-use App\Model\Manager\UserManager;
 
 if(isset($_SESSION['errors'])) {
     $errors = $_SESSION['errors'];
@@ -116,5 +114,6 @@ var_dump($_SESSION['user']);
 <script src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="/assets/js/wysiwyg.js"></script>
 <script src="/assets/js/button.js"></script>
+
 </body>
 </html>

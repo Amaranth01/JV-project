@@ -5,12 +5,12 @@
             <form action="/index.php?c=user&a=connexion" method="post">
                 <div>
                     <label for="username-login">Votre pseudo</label>
-                    <input type="text" name="username" id="username-login">
+                    <input type="text" name="username" id="username-login" required>
                 </div>
 
                 <div>
                     <label for="user-password">Votre mot de passe</label>
-                    <input type="password" name="password" id="user-password">
+                    <input type="password" name="password" id="user-password" required>
                 </div>
 
                 <div>
