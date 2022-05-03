@@ -18,7 +18,7 @@ use App\Controller\UserController;
         <div class="left">
             <?php
 
-            foreach (ArticleManager::findAllArticle(3) as $article) {
+            foreach (ArticleManager::findAllArticle(4) as $article) {
             ?>
             <div class="contentResumeArticleIndex">
                 <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">

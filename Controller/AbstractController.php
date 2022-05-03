@@ -84,7 +84,7 @@ class AbstractController
      */
     public static function adminConnected(): bool
     {
-        return $_SESSION['user']->getRole()->getRoleName() === 'admin';
+        return isset($_SESSION['user']) && $_SESSION['user']->getRole()->getRoleName() === 'admin';
     }
 
     /**
@@ -92,6 +92,7 @@ class AbstractController
      */
     public static function writerConnected(): bool
     {
-        return $_SESSION['user']->getRole()->getRoleName() === 'writer';
+        return isset($_SESSION['user']) && $_SESSION['user']->getRole()->getRoleName() === 'writer';
+
     }
 }

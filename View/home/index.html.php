@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<div class="content">
+<div class="contentDown">
     <div class="left">
         <h2>Nos dernières séries</h2>
             <?php

@@ -4,7 +4,6 @@ namespace App\Model\Manager;
 
 use App\Model\DB;
 use App\Model\Entity\User;
-use App\Model\Manager\RoleManager;
 use PDOStatement;
 
 class UserManager
@@ -71,7 +70,7 @@ class UserManager
      */
     public static function getUserByName(string $username): ?User
     {
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE username = '$username'");
+        $stmt = DB::getPDO()->query("SELECT username FROM jvp_user WHERE username = '$username'");
         return $stmt ? self::usernameExist($stmt->fetch()['username']) : null;
     }
 

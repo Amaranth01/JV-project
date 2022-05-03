@@ -21,47 +21,6 @@ h1, h2 {
     margin-bottom: 1rem;
 }
 
-/*
-dark mode
- */
-
-.dark {
-    background-color: #343434;
-    transition: background 0.5s ease;
-}
-
-.dark a {
-    color: white;
-}
-
-.dark #article {
-    background-color: #343434;
-    color: white;
-    transition: background 0.5s ease;
-}
-
-.dark .contentResumeArticleIndex {
-    background-color: #cbc7c7;
-    color: black;
-}
-
-.dark nav > ul > li > a {
-    color: black;
-}
-
-.dark div > #firstNav > ul > li > .little {
-    background-color: #cbc7c7 ;
-}
-
-.dark div > #firstNav > ul > li > .little > li > a {
-
-    color: black;
-}
-
-.dark > div > #firstNav > ul > li {
-    color: black;
-}
-
 /**
 Menu
  */
@@ -155,11 +114,15 @@ footer {
 Home page
  */
 
-.content {
+.content, .contentDown {
     margin: 2rem;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.contentDown {
+    margin-top: 5rem;
 }
 
 .left, .right{
@@ -176,6 +139,10 @@ Home page
     border: blue 1px solid;
     margin-top: 1rem;
     width: 45vw;
+}
+
+.center {
+    margin-left: 25vw;
 }
 
 #poll {

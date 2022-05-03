@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 65.5%;
+}
+
+
+/*
+dark mode
+ */
+
+.dark {
+    background-color: #343434;
+    transition: background 0.5s ease;
+}
+
+.dark a {
+    color: white;
+}
+
+.dark #article {
+    background-color: #343434;
+    color: white;
+    transition: background 0.5s ease;
+}
+
+.dark .contentResumeArticleIndex {
+    background-color: #cbc7c7;
+    color: black;
+}
+
+.dark .contentResumeArticleIndex > div > a {
+    color: black;
+}
+
+.dark nav > ul > li > a {
+    color: black;
+}
+
+.dark div > #firstNav > ul > li > .little {
+    background-color: #cbc7c7 ;
+}
+
+.dark div > #firstNav > ul > li > .little > li > a {
+
+    color: black;
+}
+
+.dark > div > #firstNav > ul > li {
+    color: black;
+}
+
+.dark >

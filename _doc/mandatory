@@ -8,11 +8,11 @@ Système de connexion, déconnexion. Lire un article. Poster un commentaire.
 
 Writer :
 
-Ajouter, éditer un article et commentaire.
+Ajouter, éditer un article et commentaire. OK
 
 Admin :
 
-Supprimer un utilisateur ou rédacteur.
+Supprimer un utilisateur ou rédacteur. OK
 
 Envoyer un token en cas de nouvelle inscription pour vérifier l'adresse mail.
 
@@ -20,7 +20,7 @@ Envoyer un token en cas de nouvelle inscription pour vérifier l'adresse mail.
 
 Article par catégorie un article aura deux catégories:
 
-catégorie Game console
+catégorie Game console OK
 
-catégorie type of
+
 

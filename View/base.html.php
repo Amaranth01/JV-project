@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/css/styleUserSpace.css">
     <link rel="stylesheet" href="/assets/css/styleError.css">
     <link rel="stylesheet" href="/assets/css/styleArticle.css">
+    <link rel="stylesheet" href="/assets/css/darkMode.css">
 </head>
 <body>
 <?php
@@ -99,9 +100,6 @@ var_dump($_SESSION['user']);
         </ul>
     </nav>
 </div>
-
-
-
 
 <main class="container">
     <?=$html?>
