@@ -10,16 +10,16 @@ use App\Controller\UserController;
 
 <h1>Espace personnel</h1>
 
-<div id="profilePicture">
-
-    <form action="" method="post" enctype="multipart/form-data">
-        <label for="addImage">Ajouter une image de profil</label>
-        <input type="file" name="image" id="addImage" accept=".jpg, .jpeg, .png">
-    </form>
-    <p>Les formats supportés sont .jpg, .jpeg, .png</p>
-</div>
-
 <div id="updateInformation">
+
+    <form action="/index.php?c=user&a=user-image&id=<?=$_SESSION['user']->getId()?>" method="post" enctype="multipart/form-data">
+        <label for="addImage">Ajouter une image de profil</label>
+        <input type="file" name="img" id="img" accept=".jpg, .jpeg, .png">
+
+        <p>Les formats supportés sont .jpg, .jpeg, .png</p>
+        <input type="submit" name="submit" value="Mettre à jour" class="button">
+    </form>
+
     <p>Changez vos informations</p>
 
     <form action="/index.php?c=user&a=update-username&id=<?=$_SESSION['user']->getId()?>" method="post">

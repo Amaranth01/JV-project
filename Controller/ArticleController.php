@@ -47,7 +47,7 @@ class ArticleController extends AbstractController
     /**
      * @return string
      */
-    private function addImage(): string
+    public function addImage(): string
     {
         $name = "";
         $error = [];
@@ -138,6 +138,11 @@ class ArticleController extends AbstractController
             $deleted = ArticleManager::deleteArticle($article);
             $this->render('writer/writer');
         }
+    }
+
+    public function pagination($item = 10)
+    {
+
     }
 
 }

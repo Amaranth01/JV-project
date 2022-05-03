@@ -18,6 +18,7 @@
 
 // Handling error messages.
 use App\Controller\UserController;
+use App\Model\Manager\UserManager;
 
 if(isset($_SESSION['errors'])) {
     $errors = $_SESSION['errors'];
@@ -52,7 +53,7 @@ var_dump($_SESSION['user']);
         </ul>
         <?php if (UserController::userConnected()) {?>
         <a href="/index.php?c=home&a=user-space">
-            <img src="/assets/img/sonic.png" alt="Accès à l'espace utilisateur" id="userSpace">
+            <img src="/assets/img/avatar/<?=UserManager::getUser($_SESSION['user']->getId())->getImage()?>" alt="Accès à l'espace utilisateur" id="userSpace">
         </a>
         <?php
             }

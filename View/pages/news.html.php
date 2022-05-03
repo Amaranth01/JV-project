@@ -3,7 +3,7 @@
 
 use App\Model\Manager\ArticleManager;
 
-foreach (ArticleManager::findAllArticle() as $article) {
+foreach (ArticleManager::findAllArticle(2) as $article) {
     ?>
     <div class="contentResumeArticle">
         <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">

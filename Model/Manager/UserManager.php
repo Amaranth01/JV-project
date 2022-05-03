@@ -5,6 +5,7 @@ namespace App\Model\Manager;
 use App\Model\DB;
 use App\Model\Entity\User;
 use App\Model\Manager\RoleManager;
+use PDOStatement;
 
 class UserManager
 {
@@ -20,7 +21,7 @@ class UserManager
             ->setUsername($data['username'])
             ->setEmail($data['email'])
             ->setPassword($data['password'])
-//            ->setImage($data['image'])
+            ->setImage($data['image'])
             ->setToken($data['token'])
             ->setRole($role)
             ;
@@ -65,17 +66,6 @@ class UserManager
     }
 
     /**
-     * Returns a user by their id
-     * @param int $id
-     * @return User|null
-     */
-    public static function getUserById(int $id): ?User
-    {
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE id = '$id'");
-        return $stmt ? self::mailExist($stmt->fetch()) : null;
-    }
-
-    /**
      * @param string $username
      * @return User|null
      */
@@ -102,13 +92,14 @@ class UserManager
     public static function addUser(User $user): bool
     {
         $stmt = DB::getPDO()->prepare("
-            INSERT INTO jvp_user (username, email, password, token, role_id)
-            VALUES (:username, :email, :password, :token, :role_id) 
+            INSERT INTO jvp_user (username, email, password, image, token, role_id)
+            VALUES (:username, :email, :password, :image, :token, :role_id) 
         ");
 
         $stmt->bindValue('username', $user->getUsername());
         $stmt->bindValue('email', $user->getEmail());
         $stmt->bindValue('password', $user->getPassword());
+        $stmt->bindValue('image', $user->getImage());
         $stmt->bindValue('token', 'getToken()');
         $stmt->bindValue('role_id', $user->getRole()->getId());
 
@@ -195,5 +186,15 @@ class UserManager
         ");
         }
         return false;
+    }
+
+    /**
+     * @param $newImage
+     * @param $id
+     * @return false|PDOStatement
+     */
+    public static function userImage($newImage, $id)
+    {
+        return DB::getPDO()->query("UPDATE jvp_user SET image = '$newImage' WHERE id = '$id'");
     }
 }

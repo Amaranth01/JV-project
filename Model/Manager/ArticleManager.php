@@ -19,8 +19,11 @@ class ArticleManager
         if($limit === 0) {
             $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC ");
         }
-        else {
+        else if($limit === 4) {
             $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC LIMIT 4");
+        }
+        else{
+            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC LIMIT 10");
         }
 
             $userManager = new UserManager();

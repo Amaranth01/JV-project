@@ -121,9 +121,12 @@ nav > ul li:hover .little {
     background-color: grey;
 }
 
+nav {
+    background-color: blue;
+}
+
 #second-nav {
     margin-top: 1rem;
-    background-color: blue;
     padding: 0.5rem;
     font-family: Arial, serif;
 }
