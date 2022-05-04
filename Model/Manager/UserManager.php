@@ -45,23 +45,17 @@ class UserManager
     /**
      * Returns a user by their mail
      * @param string $email
-     * @return mixed|null
+     * @return User|null
      */
-    public static function getUserByMail(string $email)
+    public static function getUserByMail(string $email): ?User
     {
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE email = '$email'");
-        return $stmt ? self::mailExist($stmt->fetch()) : null;
-    }
+        $stmt = DB::getPDO()->prepare("SELECT * FROM jvp_user WHERE email = :email ");
+        $stmt->bindValue('email', $email);
 
-    /**
-     * Check if the mail exist
-     * @param string $email
-     * @return mixed|null
-     */
-    public static function mailExist(string $email)
-    {
-        $stmt = DB::getPDO()->query("SELECT count(*) FROM jvp_user WHERE email = '$email'");
-        return $stmt ? $stmt->fetch()['count(*)'] : null;
+        if($stmt->execute() && $data = $stmt->fetch()) {
+            return self::createUser($data);
+        }
+        return null;
     }
 
     /**
