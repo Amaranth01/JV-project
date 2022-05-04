@@ -26,21 +26,24 @@ use App\Model\Manager\UserManager;
                 <br>
                 <input type="submit" name="submit" value="Envoyer" class="button">
             </form>
-        <?php }
+
+        <?php
+            foreach (CommentManager::getCommentByArticleId($data[0]) as $comment) {?>
+        <div>
+            <img src="/assets/img/avatar/<?=UserManager::getUser($_SESSION['user']->getId())->getImage()?>"
+                 alt="Accès à l'espace utilisateur" id="userImage">
+            <span class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?></span>
+        </div>
+
+        <p class="commentContent"><?= $comment->getContent()?></p>
+        <?php
+            }
+        }
             else { ?>
-                <p>Il faut être connecté pour commenter un article.
-                    <a href="/index.php?c=home&a=register">Créer un compte</a>
+                <p class="account">Il faut être connecté pour commenter un article.
+                    <a href="/index.php?c=home&a=register" class="createAccount">Créer un compte</a>
                 </p>
-        <?php }
-         foreach (CommentManager::getCommentByArticleId($data[0]) as $comment) {?>
-           <div>
-               <img src="/assets/img/avatar/<?=UserManager::getUser($_SESSION['user']->getId())->getImage()?>"
-               alt="Accès à l'espace utilisateur" id="userImage">
-               <span class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?></span>
-           </div>
-
-            <p class="commentContent"><?= $comment->getContent()?></p>
-
+        <?php } ?>
     </div>
-    <?php } ?>
+
 </div>

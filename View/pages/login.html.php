@@ -22,6 +22,8 @@
 
     <!--    A button to bring up the login form-->
     <div>
-        <p>Pas de compte? Créez en un gratuitement ! <a href="/index.php?c=home&a=register">Créer un compte</a></p>
+        <p class="account">Pas de compte? Créez en un gratuitement !
+            <a href="/index.php?c=home&a=register" class="createAccount">Créer un compte</a>
+        </p>
 
     </div>
