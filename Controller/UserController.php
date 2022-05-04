@@ -98,7 +98,7 @@ class UserController extends AbstractController
                     exit();
                 }
 
-                //Traces the user by his email to verify that he exists
+                //Traces the user by his username to verify that he exists
                 $user = UserManager::getUserByName($username);
                 if (null === $user) {
                     $errorMessage = "Pseudo inconnu";

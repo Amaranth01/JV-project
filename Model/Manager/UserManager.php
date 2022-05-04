@@ -70,18 +70,14 @@ class UserManager
      */
     public static function getUserByName(string $username): ?User
     {
-        $stmt = DB::getPDO()->query("SELECT username FROM jvp_user WHERE username = '$username'");
-        return $stmt ? self::usernameExist($stmt->fetch()['username']) : null;
-    }
+        $stmt = DB::getPDO()->prepare("SELECT * FROM jvp_user WHERE username = :username");
 
-    /**
-     * @param string $username
-     * @return User|null
-     */
-    public static function usernameExist(string $username): ?User
-    {
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE username = '$username'");
-        return $stmt ? self::createUser($stmt->fetch()) : null;
+        $stmt->bindValue('username', $username);
+
+        if($stmt->execute() && $data = $stmt->fetch()) {
+            return self::createUser($data);
+        }
+        return null;
     }
 
     /**
