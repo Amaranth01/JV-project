@@ -10,4 +10,6 @@ class ConfigProd
     public const DB_HOST = 'localhost';
     public const DB_USERNAME = 'nqvo6106_vane';
     public const DB_PASSWORD = '%I0ux]]!Pg1#';
+
+    public const APP_URL = 'https://jv-project.vanessa-amaranth.com/';
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Config;
 use App\Model\Entity\User;
 use App\Model\Manager\RoleManager;
 use App\Model\Manager\UserManager;
@@ -16,6 +17,10 @@ class UserController extends AbstractController
 
     public function delete() {
         $this->render('user/delete');
+    }
+
+    public function activated() {
+        $this->render('user/activated');
     }
 
     public function register()
@@ -51,28 +56,32 @@ class UserController extends AbstractController
 
             else {
                 //If no error is detected the program goes to else and authorizes the recording
+                $token = 'test';
                 $user = new User();
-                $role = RoleManager::getRoleByName('user');
+                $role = RoleManager::getRoleByName('none');
                 $user
                     ->setUsername($username)
                     ->setEmail($mail)
                     ->setPassword(password_hash($password, PASSWORD_DEFAULT))
+                    ->setToken($token)
                     ->setRole($role)
                 ;
                 //If no email is found, we launch the addUser function
 
                 if(0 == UserManager::getUserByMail($user->getEmail())) {
+                    if(self::sendMailToken($username, $mail, $token, $user->getId())) {
 
-                    UserManager::addUser($user);
-                    //If the ID is not null, we pass the user in the session
-                    if (null!== $user->getId()) {
-                        $_SESSION['success'] = "Félicitations votre compte a bien été créé, un mail vous sera envoyé
+                        UserManager::addUser($user);
+                        //If the ID is not null, we pass the user in the session
+                        if (null!== $user->getId()) {
+                            $_SESSION['success'] = "Félicitations votre compte a bien été créé, un mail vous sera envoyé
                          pour activer votre compte";
-                        $user->setPassword('');
-                        $_SESSION['user'] = $user;
-                    }
-                    else {
-                        $_SESSION['errors'] = "Impossible de vous enregistrer";
+                            $user->setPassword('');
+                            $_SESSION['user'] = $user;
+                        }
+                        else {
+                            $_SESSION['errors'] = "Impossible de vous enregistrer";
+                        }
                     }
                 }
                 else {
@@ -82,7 +91,7 @@ class UserController extends AbstractController
         }
         $this->render('home/index');
 
-        }
+    }
 
         public function connexion()
         {
@@ -165,6 +174,9 @@ class UserController extends AbstractController
         $this->render('home/index');
     }
 
+    /**
+     * @param $id
+     */
     public function updateEmail($id)
     {
 
@@ -187,6 +199,9 @@ class UserController extends AbstractController
         $this->render('home/index');
     }
 
+    /**
+     * @param $id
+     */
     public function updatePassword($id)
     {
         if (!isset($_POST['newPassword']) && !isset($_POST['newPasswordR'])) {
@@ -314,5 +329,67 @@ class UserController extends AbstractController
             $user->updateRoleUser($newRole, $username);
         }
         $this->render('admin/adminSpace');
+    }
+
+    /**
+     * @param $username
+     * @param $mail
+     * @param $token
+     * @param $id
+     * @return bool
+     */
+    private function sendMailToken($username, $mail, $token, $id): bool
+    {
+        $url = Config::APP_URL . '/?c=user&a=activate-account&id=' . $id . '&token=' . $token;
+
+        $message = "
+            <html lang=fr >
+              <head>
+                <title>Vérification de votre compte</title>
+            </head>
+            <body>
+                <span>Bonjour $username,</span>
+                <p>
+                    Afin de finaliser votre inscription sur le site jv-project, 
+                    <br>
+                    merci de cliquer <a href=\"$url\">sur ce lien</a> pour confirmer votre adresse email.
+                </p>
+            </body>
+        </html>
+        ";
+
+        $to = $mail;
+        $subject = "Vérification de votre adresse mail";
+        $header = [
+            'Reply-to' => "no-reply@email.com",
+            'X-Mailer' => 'PHP/' . phpversion(),
+            'Mime-version' => '1.0',
+            'Content-type' => 'text/html; charset=utf-8'
+        ];
+
+        return mail($to, $subject,  $message, $header, "-f no-reply@email.com");
+    }
+
+    /**
+     * @param int $id
+     * @param string $token
+     */
+    public function activateAccount(int $id, string $token)
+    {
+        $userManager = new UserManager();
+        $user = UserManager::getUser($id);
+
+
+        if($user->getRole()->getId() !== RoleManager::getRoleByName('none')->getId()) {
+            $this->render('home/index');
+            $_SESSION['errors'] = "spouki";
+            exit();
+        }
+
+        if($user->getToken() === $token) {
+            $userManager->updateRoleToken(1, $id);
+            $_SESSION['success'] = 'Votre comte a été activé';
+            $this->render('home/index');
+        }
     }
 }

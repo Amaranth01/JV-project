@@ -81,15 +81,14 @@ class UserManager
     public static function addUser(User $user): bool
     {
         $stmt = DB::getPDO()->prepare("
-            INSERT INTO jvp_user (username, email, password, image, token, role_id)
-            VALUES (:username, :email, :password, :image, :token, :role_id) 
+            INSERT INTO jvp_user (username, email, password, token, role_id)
+            VALUES (:username, :email, :password,  :token, :role_id) 
         ");
 
         $stmt->bindValue('username', $user->getUsername());
         $stmt->bindValue('email', $user->getEmail());
         $stmt->bindValue('password', $user->getPassword());
-        $stmt->bindValue('image', $user->getImage());
-        $stmt->bindValue('token', 'getToken()');
+        $stmt->bindValue('token', $user->getToken());
         $stmt->bindValue('role_id', $user->getRole()->getId());
 
         $stmt = $stmt->execute();
@@ -185,5 +184,19 @@ class UserManager
     public static function userImage($newImage, $id)
     {
         return DB::getPDO()->query("UPDATE jvp_user SET image = '$newImage' WHERE id = '$id'");
+    }
+
+    /**
+     * @param $role
+     * @param $id
+     */
+    public function updateRoleToken($role, $id)
+    {
+        $stmt = DB::getPDO()->prepare("UPDATE jvp_user SET role_id = :role WHERE id = :id");
+
+        $stmt->bindParam('role', $role);
+        $stmt->bindParam('id', $id);
+
+        $stmt->execute();
     }
 }
