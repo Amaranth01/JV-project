@@ -5,6 +5,7 @@ namespace App\Model\Manager;
 use App\Model\DB;
 use App\Model\Entity\Article;
 use App\Model\Entity\Section;
+use DateTime;
 
 class ArticleManager
 {
@@ -33,7 +34,7 @@ class ArticleManager
                     ->setContent($articleData['content'])
                     ->setResume($articleData['resume'])
                     ->setImage($articleData['image'])
-//                    ->setDate($articleData['date'])
+                    ->setDate(DateTime::createFromFormat('Y-m-d H:i:s', $articleData['date']))
                     ->setUser($userManager->getUser($articleData['user_id']))
                     ;
         }
@@ -49,12 +50,13 @@ class ArticleManager
     {
         $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE id = '$id'");
         $stmt = $stmt->fetch();
+
         return (new Article())
             ->setId($id)
             ->setContent($stmt ['content'])
             ->setTitle($stmt['title'])
             ->setImage($stmt['image'])
-//            ->setDate($stmt['date'])
+            ->setDate(DateTime::createFromFormat('Y-m-d H:i:s', $stmt['date']))
             ->setUser(UserManager::getUser($stmt['user_id']))
             ;
     }
@@ -74,7 +76,7 @@ class ArticleManager
         $stmt->bindValue('content', $article->getContent());
         $stmt->bindValue('resume', $article->getResume());
         $stmt->bindValue('image', $article->getImage());
-//        $stmt->bindValue('date', $article->getDate());
+        $stmt->bindValue('date', $article->getDate());
         $stmt->bindValue('user_id', $article->getUser()->getId());
         $stmt->bindValue('section_id', $article->getSection()->getId());
 

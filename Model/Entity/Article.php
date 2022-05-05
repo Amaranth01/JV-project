@@ -71,6 +71,24 @@ class Article extends AbstractEntity
     }
 
     /**
+     * @return DateTime
+     */
+    public function getDate(): DateTime
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param DateTime $date
+     * @return Article
+     */
+    public function setDate(DateTime $date): self
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getImage(): string

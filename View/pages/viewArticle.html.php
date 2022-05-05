@@ -12,7 +12,7 @@ use App\Model\Manager\UserManager;
     <img src="/uploads/<?=ArticleManager::getArticle($data[0])->getImage()?>" alt="Image de couverture de l'article" id="imgCover">
     <p id="contentArticle"><?=ArticleManager::getArticle($data[0])->getContent()?></p>
     <p id="infoArticle">
-        Article posté le XXXX par
+        Article posté le <?=ArticleManager::getArticle($data[0])->getDate()->format('d-m-Y')?> par
         <?=ArticleManager::getArticle($data[0])->getUser()->getUsername()?>
     </p>
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Entity\User;
+use Mosquitto\Exception;
 
 class AbstractController
 {
@@ -55,6 +56,16 @@ class AbstractController
             return (null === $default) ? '' : $default;
         }
         return $_POST[$field];
+    }
+
+    public function randomChars(): string
+    {
+        try {
+            $bytes = random_bytes(25);
+        }catch (\Exception $e) {
+            $bytes = openssl_random_pseudo_bytes(25);
+        }
+        return bin2hex($bytes);
     }
 
     /**

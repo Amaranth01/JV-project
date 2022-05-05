@@ -68,6 +68,7 @@ class Routing
         $action = self::param('a');
         $controller = self::guessController($paramController);
         $id = self::param('id');
+        $token = self::param('token');
 
         //Returns the error page if the controller is not found, and we quit the script
         if($controller instanceof ErrorController) {
@@ -80,10 +81,16 @@ class Routing
         //Checks if a controller id is needed
         if($action !== null) {
             if ($id !== null) {
-                $controller->$action($id);
+                if($token !== null) {
+                    $controller->$action($id, $token);
+                }
+                else {
+                    $controller->$action($id);
+                }
             }
             else {
                 $controller->$action();
+
             }
         }
         else {

@@ -23,7 +23,6 @@ class ArticleController extends AbstractController
         $title = $this->clean($this->getFormField('title'));
         $content = $this->getFormField('content');
         $resume = $this->clean($this->getFormField('resume'));
-//        $date = date("j,m,Y");
 
         $user = self::getConnectedUser();
         $section = SectionManager::getSectionByName($_POST['section']);
@@ -33,7 +32,6 @@ class ArticleController extends AbstractController
             ->setContent($content)
             ->setResume($resume)
             ->setImage($this->addImage())
-//          ->setDate($date)
             ->setUser($user)
             ->setSection($section)
         ;

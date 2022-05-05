@@ -1,0 +1,1 @@
+<h1>Votre compte a bien été activé</h1>
