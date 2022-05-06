@@ -41,7 +41,9 @@ if(isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
+echo"<pre>";
 var_dump($_SESSION['user']);
+echo"</pre>";
 ?>
 <!--First menu-->
 <div>

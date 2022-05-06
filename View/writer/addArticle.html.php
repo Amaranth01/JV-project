@@ -15,13 +15,13 @@
 <form action="/index.php?c=article&a=add-article" method="post" enctype="multipart/form-data">
 
     <label for="img">Image de couverture : </label>
-    <input type="file" name="img" id="img" accept=".jpg, .jpeg, .png" required>
+    <input type="file" name="img" id="img" accept=".jpg, .jpeg, .png">
 
     <label for="title">Titre : </label>
-    <input type="text" name="title" id="title" required>
+    <input type="text" name="title" id="title">
 
     <label for="editor">Contenu : </label>
-    <textarea name="content" id="editor" cols="30" rows="10" required></textarea>
+    <textarea name="content" id="editor" cols="30" rows="10"></textarea>
 
     <div id="category">
         <p>Type de jeu</p>
@@ -73,8 +73,8 @@
 
     <div id="resume">
         <label for="resume">Résumé de l'article</label>
-        <textarea name="resume" id="resume" cols="60" rows="10" maxlength="255" placeholder="255 caractères max"></textarea>
+        <textarea name="resume" id="resume" cols="60" rows="10" maxlength="255"></textarea>
     </div>
 
-    <input type="submit" name="submit" value="Envoyer" class="button">
+    <input type="submit" name="submit" value="Publier" class="button">
 </form>

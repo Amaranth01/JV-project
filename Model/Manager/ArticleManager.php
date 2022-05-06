@@ -11,15 +11,15 @@ class ArticleManager
 {
     /**
      * @param int $limit
+     * @param int $offset
      * @return array
      */
-    public static function findAllArticle(int $limit = 0): array
+    public static function findAllArticle(int $limit = 0, int $offset = 0): array
     {
         $articles = [];
 
         if($limit === 0) {
-            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC ");
-
+            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC LIMIT 3 OFFSET $offset");
         }
         else {
             $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC LIMIT 4");
@@ -61,6 +61,12 @@ class ArticleManager
             ;
     }
 
+    public static function countArticle()
+    {
+        $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM jvp_article");
+        return $stmt->fetch()['COUNT(*)'];
+    }
+
     /**
      * @param Article $article
      * @return bool
@@ -76,7 +82,6 @@ class ArticleManager
         $stmt->bindValue('content', $article->getContent());
         $stmt->bindValue('resume', $article->getResume());
         $stmt->bindValue('image', $article->getImage());
-        $stmt->bindValue('date', $article->getDate());
         $stmt->bindValue('user_id', $article->getUser()->getId());
         $stmt->bindValue('section_id', $article->getSection()->getId());
 

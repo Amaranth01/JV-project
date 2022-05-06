@@ -56,7 +56,7 @@ class UserController extends AbstractController
 
             else {
                 //If no error is detected the program goes to else and authorizes the recording
-                $token = 'test';
+                $token = self::randomChars();
                 $user = new User();
                 $role = RoleManager::getRoleByName('none');
                 $user
@@ -77,7 +77,6 @@ class UserController extends AbstractController
                             $_SESSION['success'] = "Félicitations votre compte a bien été créé, un mail vous sera envoyé
                          pour activer votre compte";
                             $user->setPassword('');
-                            $_SESSION['user'] = $user;
                         }
                         else {
                             $_SESSION['errors'] = "Impossible de vous enregistrer";
@@ -382,7 +381,6 @@ class UserController extends AbstractController
 
         if($user->getRole()->getId() !== RoleManager::getRoleByName('none')->getId()) {
             $this->render('home/index');
-            $_SESSION['errors'] = "spouki";
             exit();
         }
 

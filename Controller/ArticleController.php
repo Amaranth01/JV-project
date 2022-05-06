@@ -138,9 +138,4 @@ class ArticleController extends AbstractController
         }
     }
 
-    public function pagination($item = 10)
-    {
-
-    }
-
 }

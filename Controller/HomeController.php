@@ -24,9 +24,28 @@ class HomeController extends AbstractController
     }
 
     public function news()
-    {
+    {   //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
 
-        $this->render('pages/news');
+            if ($_GET['page'] === 1) {
+                $this->render('pages/news', $data = [
+                    'article' => ArticleManager::findAllArticle(0),
+                    'page' => ArticleManager::countArticle(),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/news', $data = [
+                'article' => ArticleManager::findAllArticle(0, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticle() /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/news', $data = [
+            'article' => ArticleManager::findAllArticle(0),
+            'page' => ArticleManager::countArticle() /3,
+        ]);
     }
 
     public function poll()
