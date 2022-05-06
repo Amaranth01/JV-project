@@ -67,6 +67,18 @@ class ArticleManager
         return $stmt->fetch()['COUNT(*)'];
     }
 
+    public static function countArticleByPlatform($id)
+    {
+        $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM jvp_platform_article WHERE jvp_plateform_id = $id");
+        return $stmt->fetch()['COUNT(*)'];
+    }
+
+    public static function countArticleBySection($id)
+    {
+        $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM jvp_section WHERE id = $id");
+        return $stmt->fetch()['COUNT(*)'];
+    }
+
     /**
      * @param Article $article
      * @return bool
@@ -124,11 +136,18 @@ class ArticleManager
 
     /**
      * @param int $id
+     * @param int $limit
+     * @param int $offset
      * @return array
      */
-    public static function getArticleBySectionId(int $id): array
+    public static function getArticleBySectionId(int $id, int $limit = 0, int $offset = 0 ): array
     {
         $article = [];
+        if ($limit === 3) {
+            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE section_id = '$id' ORDER BY id DESC 
+                    LIMIT 3 OFFSET $offset
+            ");
+        }
         $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE section_id = '$id' ORDER BY id DESC ");
 
         if($stmt) {
@@ -146,16 +165,28 @@ class ArticleManager
 
     /**
      * @param int $id
+     * @param int $limit
+     * @param int $offset
      * @return array
      */
-    public static function getArticleByPlatformId(int $id): array
+    public static function getArticleByPlatformId(int $id, int $limit = 0, int $offset = 0): array
     {
         $article = [];
-        $stmt = DB::getPDO()->query("
+        if ($limit === 3) {
+            $stmt = DB::getPDO()->query("
+            SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title FROM jvp_platform_article
+             INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_plateform_id
+            = '$id' ORDER BY jvp_article.id DESC LIMIT 3 OFFSET $offset
+         ");
+        }
+        else {
+            $stmt = DB::getPDO()->query("
             SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title FROM jvp_platform_article
              INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_plateform_id
             = '$id' ORDER BY jvp_article.id DESC
          ");
+        }
+
 
         foreach ($stmt->fetchAll() as $data) {
             $article[] = (new Article())

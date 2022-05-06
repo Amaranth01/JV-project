@@ -4,7 +4,7 @@
 
 use App\Model\Manager\ArticleManager;
 
-foreach (ArticleManager::getArticleBySectionId(3) as $article) {
+foreach ($data['article'] as $article) {
     ?>
     <div class="contentResumeArticleIndex center">
         <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
@@ -19,3 +19,9 @@ foreach (ArticleManager::getArticleBySectionId(3) as $article) {
 
     <?php
 }
+
+for ($i=0; $i< $data['page']; $i++) { ?>
+    <a href="/index.php?c=home&a=help&page=<?=$i+1?>" class="pagination"><?=$i+1?></a>
+    <?php
+}
+?>

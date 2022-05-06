@@ -55,7 +55,28 @@ class HomeController extends AbstractController
 
     public function series()
     {
-        $this->render('pages/series');
+        //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
+
+            if ($_GET['page'] === 1) {
+                $this->render('pages/series', $data = [
+                    'article' => ArticleManager::getArticleBySectionId(5, 3),
+                    'page' => ArticleManager::countArticleBySection(5),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/series', $data = [
+                'article' => ArticleManager::getArticleByPlatformId(5, 3, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticleBySection(5) /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/series', $data = [
+            'article' => ArticleManager::getArticleByPlatformId(5,3),
+            'page' => ArticleManager::countArticleBySection(5) /3,
+        ]);
     }
 
     public function tchat()
@@ -65,38 +86,184 @@ class HomeController extends AbstractController
 
     public function help()
     {
-        $this->render('pages/game/help');
+        //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
+
+            if ($_GET['page'] === 1) {
+                $this->render('pages/game/help', $data = [
+                    'article' => ArticleManager::getArticleBySectionId(3, 3),
+                    'page' => ArticleManager::countArticleBySection(3),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/game/help', $data = [
+                'article' => ArticleManager::getArticleByPlatformId(3, 3, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticleBySection(3) /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/game/help', $data = [
+            'article' => ArticleManager::getArticleByPlatformId(3,3),
+            'page' => ArticleManager::countArticleBySection(3) /3,
+        ]);
     }
 
     public function nextgame()
     {
-        $this->render('pages/game/nextgame');
+        //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
+
+            if ($_GET['page'] === 1) {
+                $this->render('pages/game/nextgame', $data = [
+                    'article' => ArticleManager::getArticleBySectionId(4, 3),
+                    'page' => ArticleManager::countArticleBySection(4),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/game/nextgame', $data = [
+                'article' => ArticleManager::getArticleByPlatformId(4, 3, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticleBySection(4) /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/game/nextgame', $data = [
+            'article' => ArticleManager::getArticleByPlatformId(4,3),
+            'page' => ArticleManager::countArticleBySection(4) /3,
+        ]);
     }
 
     public function pc()
     {
-        $this->render('pages/game/pc');
+        //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
+
+            if ($_GET['page'] === 1) {
+                $this->render('pages/game/pc', $data = [
+                    'article' => ArticleManager::getArticleByPlatformId(1, 3),
+                    'page' => ArticleManager::countArticleByPlatform(1),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/game/pc', $data = [
+                'article' => ArticleManager::getArticleByPlatformId(1, 3, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticleByPlatform(1) /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/game/pc', $data = [
+            'article' => ArticleManager::getArticleByPlatformId(1,3),
+            'page' => ArticleManager::countArticleByPlatform(1) /3,
+        ]);
     }
 
     public function playstation()
     {
-        $this->render('pages/game/playstation');
+        //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
+
+            if ($_GET['page'] === 1) {
+                $this->render('pages/game/playstation', $data = [
+                    'article' => ArticleManager::getArticleByPlatformId(2, 3),
+                    'page' => ArticleManager::countArticleByPlatform(2),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/game/playstation', $data = [
+                'article' => ArticleManager::getArticleByPlatformId(2, 3, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticleByPlatform(2) /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/game/playstation', $data = [
+            'article' => ArticleManager::getArticleByPlatformId(2,3),
+            'page' => ArticleManager::countArticleByPlatform(2) /3,
+        ]);
     }
 
     public function xbox()
     {
+        //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
 
-        $this->render('pages/game/xbox');
+            if ($_GET['page'] === 1) {
+                $this->render('pages/game/xbox', $data = [
+                    'article' => ArticleManager::getArticleByPlatformId(3, 3),
+                    'page' => ArticleManager::countArticleByPlatform(3),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/game/xbox', $data = [
+                'article' => ArticleManager::getArticleByPlatformId(3, 3, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticleByPlatform(3) /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/game/xbox', $data = [
+            'article' => ArticleManager::getArticleByPlatformId(3,3),
+            'page' => ArticleManager::countArticleByPlatform(3) /3,
+        ]);
     }
 
     public function nintendo()
     {
-        $this->render('pages/game/nintendo');
+        //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
+
+            if ($_GET['page'] === 1) {
+                $this->render('pages/game/nintendo', $data = [
+                    'article' => ArticleManager::getArticleByPlatformId(4, 3),
+                    'page' => ArticleManager::countArticleByPlatform(4),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/game/nintendo', $data = [
+                'article' => ArticleManager::getArticleByPlatformId(4, 3, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticleByPlatform(4) /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/game/nintendo', $data = [
+            'article' => ArticleManager::getArticleByPlatformId(4,3),
+            'page' => ArticleManager::countArticleByPlatform(4) /3,
+        ]);
     }
 
     public function tests()
     {
-        $this->render('pages/game/tests');
+        //vérifie si page est dans l'URL
+        if (isset($_GET['page'])) {
+
+            if ($_GET['page'] === 1) {
+                $this->render('pages/game/tests', $data = [
+                    'article' => ArticleManager::getArticleBySectionId(2, 3),
+                    'page' => ArticleManager::countArticleBySection(2),
+                ]);
+                exit();
+            }
+            //calcul le nombre d'article par page
+            $this->render('pages/game/tests', $data = [
+                'article' => ArticleManager::getArticleByPlatformId(2, 3, ($_GET['page'] -1) * 3),
+                'page' => ArticleManager::countArticleBySection(2) /3 ,
+            ]);
+            exit();
+        }
+        //si page pas set
+        $this->render('pages/game/tests', $data = [
+            'article' => ArticleManager::getArticleByPlatformId(2,3),
+            'page' => ArticleManager::countArticleBySection(2) /3,
+        ]);
     }
 
     public function userSpace()

@@ -1,8 +1,6 @@
 <h1>Toutes les news</h1>
 <?php
 
-use App\Model\Manager\ArticleManager;
-
 foreach ($data['article']as $article) {
     ?>
     <div class="contentResumeArticleIndex center">
