@@ -68,7 +68,7 @@ echo"</pre>";
 <div>
     <nav id="firstNav" >
         <a href="/index.php?c=home&a=index">
-            <img src="/assets/img/Capture%20d’écran%202022-02-15%20112818.png" alt="Le logo du site" id="logo">
+            <img src="/assets/img/logo.png" alt="Le logo du site" id="logo">
         </a>
         <ul class="list">
             <li>Jeux
