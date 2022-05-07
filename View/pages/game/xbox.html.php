@@ -18,9 +18,12 @@ foreach ($data['article'] as $article) {
     </div>
     <?php
 }
-
-for ($i=0; $i< $data['page']; $i++) { ?>
-    <a href="/index.php?c=home&a=xbox&page=<?=$i+1?>" class="pagination"><?=$i+1?></a>
-    <?php
-}
 ?>
+<div class="styleNumber">
+    <?php
+    for ($i=0; $i< $data['page']; $i++) { ?>
+        <a href="/index.php?c=home&a=xbox&page=<?=$i+1?>" class="pagination"><?=$i+1?></a>
+        <?php
+    }
+    ?>
+</div>

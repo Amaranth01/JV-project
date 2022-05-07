@@ -93,3 +93,17 @@ h2 {
 #userImage {
     width: 8vw;
 }
+
+.pagination {
+    width: 5rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    border: 1px solid blue;
+    padding: 0.3rem;
+    margin-left: 0.5rem;
+}
+
+.styleNumber {
+    margin-left: 25vw;
+    margin-top: 2rem;
+}

@@ -67,14 +67,14 @@ class HomeController extends AbstractController
             }
             //calcul le nombre d'article par page
             $this->render('pages/series', $data = [
-                'article' => ArticleManager::getArticleByPlatformId(5, 3, ($_GET['page'] -1) * 3),
+                'article' => ArticleManager::getArticleBySectionId(5, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleBySection(5) /3 ,
             ]);
             exit();
         }
         //si page pas set
         $this->render('pages/series', $data = [
-            'article' => ArticleManager::getArticleByPlatformId(5,3),
+            'article' => ArticleManager::getArticleBySectionId(5,3),
             'page' => ArticleManager::countArticleBySection(5) /3,
         ]);
     }
@@ -98,14 +98,14 @@ class HomeController extends AbstractController
             }
             //calcul le nombre d'article par page
             $this->render('pages/game/help', $data = [
-                'article' => ArticleManager::getArticleByPlatformId(3, 3, ($_GET['page'] -1) * 3),
+                'article' => ArticleManager::getArticleBySectionId(3, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleBySection(3) /3 ,
             ]);
             exit();
         }
         //si page pas set
         $this->render('pages/game/help', $data = [
-            'article' => ArticleManager::getArticleByPlatformId(3,3),
+            'article' => ArticleManager::getArticleBySectionId(3,3),
             'page' => ArticleManager::countArticleBySection(3) /3,
         ]);
     }
@@ -124,14 +124,14 @@ class HomeController extends AbstractController
             }
             //calcul le nombre d'article par page
             $this->render('pages/game/nextgame', $data = [
-                'article' => ArticleManager::getArticleByPlatformId(4, 3, ($_GET['page'] -1) * 3),
+                'article' => ArticleManager::getArticleBySectionId(4, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleBySection(4) /3 ,
             ]);
             exit();
         }
         //si page pas set
         $this->render('pages/game/nextgame', $data = [
-            'article' => ArticleManager::getArticleByPlatformId(4,3),
+            'article' => ArticleManager::getArticleBySectionId(4,3),
             'page' => ArticleManager::countArticleBySection(4) /3,
         ]);
     }
@@ -254,14 +254,14 @@ class HomeController extends AbstractController
             }
             //calcul le nombre d'article par page
             $this->render('pages/game/tests', $data = [
-                'article' => ArticleManager::getArticleByPlatformId(2, 3, ($_GET['page'] -1) * 3),
+                'article' => ArticleManager::getArticleBySectionId(2, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleBySection(2) /3 ,
             ]);
             exit();
         }
         //si page pas set
         $this->render('pages/game/tests', $data = [
-            'article' => ArticleManager::getArticleByPlatformId(2,3),
+            'article' => ArticleManager::getArticleBySectionId(2,3),
             'page' => ArticleManager::countArticleBySection(2) /3,
         ]);
     }
