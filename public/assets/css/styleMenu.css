@@ -8,10 +8,6 @@ html {
     font-size: 65.5%;
 }
 
-body {
-    transition: background 0.5s ease;
-}
-
 h1, h2 {
     margin-top: 1.5rem;
     font-size: 3rem;
@@ -178,4 +174,8 @@ Home page
     background-color: blue;
     color: white;
     font-weight: bold;
+}
+
+form > .searching {
+    border-collapse: collapse;
 }

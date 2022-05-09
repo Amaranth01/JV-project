@@ -1,0 +1,1 @@
+<h1>Recherche nulle</h1>

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/assets/css/styleError.css">
     <link rel="stylesheet" href="/assets/css/styleArticle.css">
     <link rel="stylesheet" href="/assets/css/darkMode.css">
+    <link rel="icon" type="image/x-icon" href="/assets/img/logo.png">
 </head>
 <body>
 <?php
@@ -80,9 +81,17 @@ echo"</pre>";
                 </ul>
             </li>
             <li><a href="/index.php?c=home&a=series">Séries et films</a></li>
-            <input type="search" placeholder="Recherche">
-            <li><a href="/index.php?c=home&a=tchat">Tchat</a></li>
-            <li><a href="/index.php?c=home&a=poll">Sondages</a></li>
+            <div>
+                <form action="/index.php?c=search&a=searching" method="post">
+                    <input type="search" name="search" id="search" placeholder="Recherche" >
+                    <button class="searching"><i class="fas fa-search"></i></button>
+                </form>
+                <div id="resultProposal">
+                </div>
+            </div>
+
+<!--            <li><a href="/index.php?c=home&a=tchat">Tchat</a></li>-->
+<!--            <li><a href="/index.php?c=home&a=poll">Sondages</a></li>-->
             <button class="darkMode"><i class="fas fa-adjust"></i></button>
 
 
@@ -109,12 +118,14 @@ echo"</pre>";
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/25d98733ec.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/theme.js"></script>
 <script src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="/assets/js/wysiwyg.js"></script>
 <script src="/assets/js/button.js"></script>
+<script src="/assets/js/search.js"></script>
 
 </body>
 </html>

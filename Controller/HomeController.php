@@ -275,4 +275,5 @@ class HomeController extends AbstractController
     {
         $this->render('pages/viewArticle', $data=[$id]);
     }
+
 }

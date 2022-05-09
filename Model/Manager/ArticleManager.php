@@ -230,4 +230,51 @@ class ArticleManager
         }
         return false;
     }
+
+    /**
+     * @param $contentSearch
+     * @return array
+     */
+    public static function searchArticle($contentSearch): array
+    {
+        $article = [];
+        $stmt = DB::getPDO()->prepare("
+            SELECT DISTINCT jvp_article.title, jvp_article.image, jvp_article.resume, jvp_article.id FROM jvp_category_article
+                INNER JOIN jvp_article ON jvp_category_article.jvp_article_id = jvp_article.id INNER JOIN jvp_category 
+                ON jvp_category_article.jvp_category_id = jvp_category.id WHERE jvp_article.title LIKE '%$contentSearch%'
+                OR jvp_category.category_name LIKE '%$contentSearch%' 
+        ");
+
+        $stmt->execute();
+
+        foreach ($stmt->fetchAll() as $data) {
+            $article [] = (new Article())
+                ->setTitle($data['title'])
+                ->setResume($data['resume'])
+                ->setImage($data['image'])
+            ;
+        }
+        return $article;
+    }
+
+    /**
+     * @param $search
+     * @return array
+     */
+    public static function titleArticle($search): array
+    {
+        $article = [];
+        $stmt = DB::getPDO()->prepare(" 
+            SELECT id, title FROM jvp_article WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 3
+        ");
+        $stmt->execute();
+
+        foreach ($stmt->fetchAll() as $data) {
+            $article[] = [
+                "id" => $data['id'],
+                "title" => $data['title'],
+            ];
+        }
+        return $article;
+    }
 }

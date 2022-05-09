@@ -25,7 +25,7 @@ class UserController extends AbstractController
 
     public function register()
     {
-        ////Cleans and return the security of elements
+        //Cleans and return the security of elements
         if ($this->formSubmitted()) {
             $username = $this->clean($this->getFormField('username'));
             $email = $this->clean($this->getFormField('email'));

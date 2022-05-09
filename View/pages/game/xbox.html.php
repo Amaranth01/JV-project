@@ -1,4 +1,4 @@
-<h1>L'univers Xbox</h1>
+<h1>Les news Xbox</h1>
 
 <?php
 

@@ -15,7 +15,6 @@ dark mode
 
 .dark {
     background-color: #343434;
-    transition: background 0.5s ease;
 }
 
 .dark a {
@@ -25,7 +24,6 @@ dark mode
 .dark #article {
     background-color: #343434;
     color: white;
-    transition: background 0.5s ease;
 }
 
 .dark .contentResumeArticleIndex {
@@ -53,5 +51,3 @@ dark mode
 .dark > div > #firstNav > ul > li {
     color: black;
 }
-
-.dark >
