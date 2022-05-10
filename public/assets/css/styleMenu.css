@@ -72,7 +72,7 @@ nav > ul li:hover .little {
     padding: 0.5rem;
 }
 
-.little > li:hover {
+.little > li:hover, #resultProposal > a:hover {
     background-color: grey;
 }
 
@@ -178,4 +178,16 @@ Home page
 
 form > .searching {
     border-collapse: collapse;
+}
+
+#resultProposal {
+    position: absolute;
+    width: 15vw;
+    background-color: white;
+}
+
+#resultProposal > a {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
 }

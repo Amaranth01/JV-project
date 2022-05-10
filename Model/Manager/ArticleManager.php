@@ -261,7 +261,7 @@ class ArticleManager
      * @param $search
      * @return array
      */
-    public static function titleArticle($search): array
+    public static function getArticleBySearch($search): array
     {
         $article = [];
         $stmt = DB::getPDO()->prepare(" 

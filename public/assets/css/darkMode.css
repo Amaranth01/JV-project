@@ -17,10 +17,6 @@ dark mode
     background-color: #343434;
 }
 
-.dark a {
-    color: white;
-}
-
 .dark #article {
     background-color: #343434;
     color: white;
@@ -31,23 +27,15 @@ dark mode
     color: black;
 }
 
-.dark .contentResumeArticleIndex > div > a {
-    color: black;
-}
-
-.dark nav > ul > li > a {
-    color: black;
-}
 
 .dark div > #firstNav > ul > li > .little {
     background-color: #cbc7c7 ;
 }
 
-.dark div > #firstNav > ul > li > .little > li > a {
-
+.dark > div > #firstNav > ul > li {
     color: black;
 }
 
-.dark > div > #firstNav > ul > li {
-    color: black;
+.dark h1, .dark h2 {
+    color: #cbc7c7;
 }

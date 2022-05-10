@@ -25,7 +25,7 @@ $array = [];
 //Retrieve data
 $content = trim(strip_tags($payload->content));
 //Instantiate a new object
-echo json_encode(ArticleManager::titleArticle($content));
+echo json_encode(ArticleManager::getArticleBySearch($content));
 
 http_response_code(200);
 exit;
