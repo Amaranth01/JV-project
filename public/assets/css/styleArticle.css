@@ -8,11 +8,6 @@ html {
     font-size: 65.5%;
 }
 
-h2 {
-    font-size: 2.5rem;
-    margin-top: 0.5rem;
-}
-
 #article {
     border: blue double 6px;
     width: 80vw;
@@ -46,16 +41,14 @@ h2 {
     font-weight: bold;
 }
 
-#article > p > img {
-    margin: auto 0;
-}
 
 #article > ul > li {
     font-size: 2rem;
 }
 
-#imgCover {
+#imgCover, #article > p > img {
     margin-left: 6vw;
+    width: 65vw;
 }
 
 .userComment, .commentContent {
@@ -106,4 +99,25 @@ h2 {
 .styleNumber {
     margin-left: 25vw;
     margin-top: 2rem;
+}
+
+@media screen and (max-width: 1144px) {
+    #article > p > img {
+        width: 50vw;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .artTitle {
+        font-size: 2rem;
+    }
+
+    .artResume {
+        font-size: 1.5rem;
+    }
+
+    .contentResumeArticleIndex {
+        width: 65vw;
+    }
 }

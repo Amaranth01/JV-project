@@ -17,6 +17,10 @@ h1, h2 {
     margin-bottom: 1rem;
 }
 
+h2 {
+    margin-top: 5rem;
+}
+
 /**
 Menu
  */
@@ -210,5 +214,27 @@ form > .searching {
 
     .burger {
         display: flex;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .contentDown {
+        margin-top: 173vh;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #second-nav {
+        font-size: 1.5rem;
+    }
+
+    #search {
+        width: 10rem;
     }
 }

@@ -7,9 +7,11 @@
 html {
     font-size: 65.5%;
 }
+
 /*admin writer*/
 .addArticle {
     font-size: 2rem;
+    margin-left: 4rem;
 }
 
 .addArticle > a > span {
@@ -30,6 +32,12 @@ html {
     margin-left: 3vw;
 }
 
+.leftWriter {
+    width: 45vw;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+}
+
 /*list article*/
 table {
     display: flex;
@@ -38,10 +46,6 @@ table {
     font-size: 2rem;
     border-collapse: collapse;
     margin-top: 2rem;
-}
-
-td {
-
 }
 
 th, td {
@@ -80,14 +84,14 @@ th, td {
 }
 
 #admin {
+    margin-left: 45vw;
     font-size:2rem;
-    text-align: right;
-    margin-right: 1.5rem;
 }
 
 /*admin space style*/
 #admin > a > img {
     width: 5rem;
+    margin-left: 5vw;
 }
 
 #userStatus, #delUser {
@@ -106,7 +110,6 @@ th, td {
     border: blue 1px solid;
     margin-top: 1rem;
     font-size: 2rem;
-    margin-left: -5vw;
     width: 51.5rem;
 }
 
@@ -115,5 +118,38 @@ th, td {
     font-style: italic;
 }
 
+@media screen and (max-width: 1130px) {
+    .titleCommentWriter {
+        margin-top: 10rem;
+    }
+}
 
+@media screen and (max-width: 976px) {
+    .titleCommentWriter {
+        margin-top: 15rem;
+    }
+}
 
+@media screen and (max-width: 850px) {
+    .titleCommentWriter {
+        margin-top: 20rem;
+    }
+}
+
+@media screen and (max-width: 509px) {
+    .writerLeft {
+        margin-bottom: 5rem;
+    }
+}
+
+@media screen and (max-width: 436px) {
+    .writerLeft {
+        margin-bottom: 15rem;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .writerLeft {
+        margin-bottom: 18rem;
+    }
+}

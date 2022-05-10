@@ -12,10 +12,22 @@ use App\Controller\UserController;
 
 ?>
 <h1>L'espace de rédaction</h1>
+    <?php
+    if(UserController::userConnected() && UserController::adminConnected()) {?>
+        <div id="admin">
+            <a href="/index.php?c=admin&a=admin-space">
+                <img src="/assets/img/adminSpace.png" alt="Espace administration">
+                <br>
+                Espace d'administration
+            </a>
+        </div>
+        <?php
+    }
+    ?>
 <h2>Les derniers articles</h2>
 <div class="content">
 
-        <div class="left">
+        <div class="left writerLeft">
             <?php
 
             foreach (ArticleManager::findAllArticle(4) as $article) {
@@ -57,44 +69,34 @@ use App\Controller\UserController;
             </p>
         </div>
 </div>
-<h2>Les derniers commentaires</h2>
-<div class="content">
 
-        <div class="left">
-            <?php
+<h2 class="titleCommentWriter">Les derniers commentaires</h2>
+    <div class="content contentCommentWriter">
 
-            foreach (CommentManager::findAllComment(5) as $comment) {
-                ?>
-                <div class="contentComment">
-                    <p class="commentWriter">Ecrit par : <?= $comment->getUser()->getUsername() ?></p>
-                    <p class="CommentContent"><?= $comment->getContent() ?></p>
-                </div>
+            <div class="leftWriter">
                 <?php
-            }
-            ?>
+
+                foreach (CommentManager::findAllComment(5) as $comment) {
+                    ?>
+                    <div class="contentResumeArticleIndex">
+                        <p class="artTitle">Ecrit par : <?= $comment->getUser()->getUsername() ?></p>
+                        <p class="artResume"><?= $comment->getContent() ?></p>
+                    </div>
+                    <?php
+                }
+                ?>
 
 
-        </div>
-        <div>
-            <p class="addArticle">
-                <a href="/index.php?c=comment&a=all-comment" class="white">
-                    <img src="assets/img/allCom.png" alt="image de bulle de dialogue" id="allComImg">
-                    <br>
-                    Tous les commentaires
-                </a>
-            </p>
-        </div>
-</div>
-<?php
-    if(UserController::userConnected() && UserController::adminConnected()) {?>
-        <div id="admin">
-            <a href="/index.php?c=admin&a=admin-space">
-                <img src="/assets/img/adminSpace.png" alt="">
-                <br>
-                Espace d'administration
-            </a>
-        </div>
-<?php
-    }
-?>
+            </div>
+            <div>
+                <p class="addArticle">
+                    <a href="/index.php?c=comment&a=all-comment" class="white">
+                        <img src="assets/img/allCom.png" alt="image de bulle de dialogue" id="allComImg">
+                        <br>
+                        Tous les commentaires
+                    </a>
+                </p>
+            </div>
+    </div>
+
 
