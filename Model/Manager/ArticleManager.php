@@ -242,7 +242,7 @@ class ArticleManager
             SELECT DISTINCT jvp_article.title, jvp_article.image, jvp_article.resume, jvp_article.id FROM jvp_category_article
                 INNER JOIN jvp_article ON jvp_category_article.jvp_article_id = jvp_article.id INNER JOIN jvp_category 
                 ON jvp_category_article.jvp_category_id = jvp_category.id WHERE jvp_article.title LIKE '%$contentSearch%'
-                OR jvp_category.category_name LIKE '%$contentSearch%' 
+                OR jvp_category.category_name LIKE '%$contentSearch%' ORDER BY id DESC 
         ");
 
         $stmt->execute();
