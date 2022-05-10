@@ -12,7 +12,7 @@
 
 <h1>Ajouter un article</h1>
 
-<form action="/index.php?c=article&a=add-article" method="post" enctype="multipart/form-data">
+<form action="/index.php?c=article&a=add-article" method="post" enctype="multipart/form-data" class="white">
 
     <label for="img">Image de couverture : </label>
     <input type="file" name="img" id="img" accept=".jpg, .jpeg, .png">

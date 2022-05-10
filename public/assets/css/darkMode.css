@@ -8,7 +8,6 @@ html {
     font-size: 65.5%;
 }
 
-
 /*
 dark mode
  */
@@ -38,4 +37,8 @@ dark mode
 
 .dark h1, .dark h2 {
     color: #cbc7c7;
+}
+
+.dark .white, .dark .pagination {
+    color: white;
 }

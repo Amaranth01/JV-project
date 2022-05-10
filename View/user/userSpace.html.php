@@ -10,7 +10,7 @@ use App\Controller\UserController;
 
 <h1>Espace personnel</h1>
 
-<div id="updateInformation">
+<div id="updateInformation" class="white">
 
     <form action="/index.php?c=user&a=user-image&id=<?=$_SESSION['user']->getId()?>" method="post" enctype="multipart/form-data">
         <label for="addImage">Ajouter une image de profil</label>
@@ -49,6 +49,6 @@ use App\Controller\UserController;
     </form>
 </div>
 
-<div class="warning">
+<div class="warning white" >
     <p>Suppression du compte : <a href="/index.php?c=user&a=delete">Supprimer votre compte</a></p>
 </div>

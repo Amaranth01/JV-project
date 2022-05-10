@@ -40,7 +40,7 @@ use App\Controller\UserController;
         </div>
         <div>
             <p class="addArticle">
-                <a href="/index.php?c=admin&a=add-article">
+                <a href="/index.php?c=admin&a=add-article" class="white">
                     <span id="more">+</span>
                     <br>
                     Ajouter un article
@@ -49,7 +49,7 @@ use App\Controller\UserController;
         </div>
         <div>
             <p class="addArticle">
-                <a href="/index.php?c=admin&a=list-article">
+                <a href="/index.php?c=admin&a=list-article" class="white">
                     <img src="assets/img/allArt.png" alt="image de copie" id="allArtImg">
                     <br>
                     Tous les articles
@@ -77,7 +77,7 @@ use App\Controller\UserController;
         </div>
         <div>
             <p class="addArticle">
-                <a href="/index.php?c=comment&a=all-comment">
+                <a href="/index.php?c=comment&a=all-comment" class="white">
                     <img src="assets/img/allCom.png" alt="image de bulle de dialogue" id="allComImg">
                     <br>
                     Tous les commentaires

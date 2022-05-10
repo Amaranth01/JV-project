@@ -31,7 +31,6 @@ nav {
     text-decoration: none;
     font-size: 2rem;
     width: 100%;
-    margin-top: 1rem;
 }
 
 a {
@@ -81,7 +80,6 @@ nav {
 }
 
 #second-nav {
-    margin-top: 1rem;
     padding: 0.5rem;
     font-family: Arial, serif;
 }
@@ -91,7 +89,11 @@ nav {
 }
 
 #firstNav {
-    background-color: #cbc7c7;;
+    background-color: #cbc7c7;
+}
+
+.burger {
+    display: none;
 }
 
 /*
@@ -111,14 +113,13 @@ Home page
  */
 
 .content, .contentDown {
-    margin: 2rem;
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
+    margin-left: 4rem;
 }
 
 .contentDown {
-    margin-top: 5rem;
+    margin-left: 4vw;
 }
 
 .left, .right{
@@ -126,6 +127,7 @@ Home page
     height: 50vh;
     margin-top: 1rem;
     margin-bottom: 1rem;
+
 }
 
 .contentResumeArticleIndex {
@@ -135,22 +137,20 @@ Home page
     border: blue 1px solid;
     margin-top: 1rem;
     width: 45vw;
+    padding: 0.5rem;
 }
 
 .center {
     margin-left: 25vw;
 }
 
-#poll {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#search {
+    padding: 0.5rem;
 }
 
 /*logo user space style*/
 #userSpace {
     width: 4.3rem;
-    margin-top: 1.5rem;
     margin-right: 0.5rem;
 }
 
@@ -190,4 +190,25 @@ form > .searching {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
+}
+
+@media screen and (max-width: 870px){
+
+    .secondNavLink {
+        font-size: 1.5rem;
+    }
+
+    #logo  {
+        width: 5rem;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    a.secondNavLink {
+        display: none;
+    }
+
+    .burger {
+        display: flex;
+    }
 }

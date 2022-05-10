@@ -54,11 +54,12 @@ echo"</pre>";
             <li><a href="/index.php?c=home&a=playstation">PlayStation</a></li>
             <li><a href="/index.php?c=home&a=nintendo">Nintendo</a></li>
             <li><a href="/index.php?c=home&a=xbox">Xbox</a></li>
+
+            <?php if (UserController::userConnected()) {?>
+            <a href="/index.php?c=home&a=user-space">
+                <img src="/assets/img/avatar/<?=UserManager::getUser($_SESSION['user']->getId())->getImage()?>" alt="Accès à l'espace utilisateur" id="userSpace">
+            </a>
         </ul>
-        <?php if (UserController::userConnected()) {?>
-        <a href="/index.php?c=home&a=user-space">
-            <img src="/assets/img/avatar/<?=UserManager::getUser($_SESSION['user']->getId())->getImage()?>" alt="Accès à l'espace utilisateur" id="userSpace">
-        </a>
         <?php
             }
         ?>
@@ -72,15 +73,15 @@ echo"</pre>";
             <img src="/assets/img/logo.png" alt="Le logo du site" id="logo">
         </a>
         <ul class="list">
-            <li>Jeux
+            <li class="secondNavLink"> Jeux
                 <ul class="little">
-                    <li><a href="/index.php?c=home&a=news">News</a></li>
-                    <li><a href="/index.php?c=home&a=tests">Tests</a></li>
-                    <li><a href="/index.php?c=home&a=help">Soluces</a></li>
-                    <li><a href="/index.php?c=home&a=nextgame">Calendrier des sorties</a></li>
+                    <li><a href="/index.php?c=home&a=news" class="secondNavLink">News</a></li>
+                    <li><a href="/index.php?c=home&a=tests" class="secondNavLink">Tests</a></li>
+                    <li><a href="/index.php?c=home&a=help" class="secondNavLink">Soluces</a></li>
+                    <li><a href="/index.php?c=home&a=nextgame" class="secondNavLink">Calendrier des sorties</a></li>
                 </ul>
             </li>
-            <li><a href="/index.php?c=home&a=series">Séries et films</a></li>
+            <li><a href="/index.php?c=home&a=series" class="secondNavLink">Séries et films</a></li>
             <div>
                 <form action="/index.php?c=search&a=searching" method="post">
                     <input type="search" name="search" id="search" placeholder="Recherche" >
@@ -96,14 +97,15 @@ echo"</pre>";
 
 
             <?php if (UserController::userConnected()) {?>
-            <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
+            <li><a href="/index.php?c=logout&a=logout" class="secondNavLink">Déconnexion</a></li>
                 <?php
             }
             else { ?>
-                <li><a href="/index.php?c=home&a=login">Connexion/Inscription</a></li>
+                <li><a href="/index.php?c=home&a=login" class="secondNavLink">Connexion/Inscription</a></li>
             <?php }
                 if(UserController::writerConnected() || UserController::adminConnected()) { ?>
-                    <li><a href="/index.php?c=admin&a=index">Espace des rédacteurs</a></li>
+                    <li><a href="/index.php?c=admin&a=index" class="secondNavLink">Espace des rédacteurs</a></li>
+                    <span class="burger"><i class="fas fa-bars"></i></span>
             <?php
             }
             ?>

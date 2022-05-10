@@ -16,13 +16,13 @@
                     <div>
                         <p class="artTitle"><?= $article->getTitle() ?></p>
                 </a>
-                <p class="artResume"><?= $article->getResume() ?></p>
+                        <p class="artResume"><?= $article->getResume() ?></p>
             </div>
     </div>
     <?php
             }
         ?>
-    </div>
+
 
     <div class="right">
         <h2>Nos derniers tests</h2>
@@ -60,19 +60,19 @@
                         </div>
                         <div>
                             <p class="artTitle"><?= $article->getTitle() ?></p></a>
-                    <p class="artResume"><?= $article->getResume() ?></p>
-                </div>
+                            <p class="artResume"><?= $article->getResume() ?></p>
+                        </div>
     </div>
             <?php
                }
             ?>
-    </div>
+</div>
 
-    <div class="right">
-        <h2>Les jeux les plus attendus</h2>
-        <br>
-        <h3>Par vous :</h3>
-        <h3>Par la rédaction :</h3>
-    </div>
+<!--    <div class="right">-->
+<!--        <h2>Les jeux les plus attendus</h2>-->
+<!--        <br>-->
+<!--        <h3>Par vous :</h3>-->
+<!--        <h3>Par la rédaction :</h3>-->
+<!--    </div>-->
 </div>
 
