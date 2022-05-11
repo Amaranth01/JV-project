@@ -105,8 +105,17 @@ class UserManager
      */
     public static function getUser(int $id): ?User
     {
-        $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "user WHERE id = '$id'");
-        return $stmt ? self::createUser($stmt->fetch()) : null;
+        $user = null;
+         $stmt = DB::getPDO()->prepare("
+            SELECT * FROM " . self::PREFIXTABLE . "user WHERE id = :id
+         ");
+
+         $stmt->bindParam('id', $id);
+
+         if($stmt->execute() && $data = $stmt->fetch()) {
+             $user = self::createUser($data);
+         }
+         return $user;
     }
 
     /**
