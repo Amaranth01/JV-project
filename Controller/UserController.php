@@ -136,21 +136,23 @@ class UserController extends AbstractController
      */
     public function deleteUser(int $id)
     {
+        //Check if user is connected
         if (!isset($_SESSION['user'])) {
             $this->render('home/index');
             exit();
         }
 
-        //Verify that the user has admin status
+        //Verify that the user has admin status and if the id is the same une URL and session user
         if(self::getConnectedUser() && self::adminConnected() && self::writerConnected() && $_SESSION['user']->getId() !== $_GET['id'] ) {
             $_SESSION['errors']= "Il faut être connecté pour supprimer un compte et propriétaire du compte !";
             $this->render('home/index');
             exit();
         }
-
+        // Compare the id in session
         if ($_SESSION['user']->getId() === $id) {
             $userManager = new UserManager();
             $delete = $userManager->deleteUser($id);
+            //destroy the session after the delete action
             session_destroy();
             $this->render('home/index');
         }
@@ -161,17 +163,18 @@ class UserController extends AbstractController
      */
     public function updateUsername($id)
     {
+        //check if the field is present
         if (!isset($_POST['newUsername'])) {
             $this->render('home/index');
             exit();
         }
-
+        //check if the field is empty
         if (empty($_POST['newUsername'])) {
             $_SESSION['errors'] = "Le champs du pseudo doit être complété";
             $this->render('home/index');
             exit();
         }
-
+        //Clean the field
         $newUsername = $this->clean($_POST['newUsername']);
 
         $user = new UserManager();
@@ -185,11 +188,12 @@ class UserController extends AbstractController
      */
     public function updateEmail($id)
     {
+        //check if the field is present
         if (!isset($_POST['newEmail'])) {
             $this->render('home/index');
             exit();
         }
-
+        //check if the field is empty
         if (empty($_POST['newEmail'])) {
             $_SESSION['errors'] = "Le champs de l'email doit être complété";
             $this->render('home/index');
@@ -209,11 +213,12 @@ class UserController extends AbstractController
      */
     public function updatePassword($id)
     {
+        //check if the fields are present
         if (!isset($_POST['newPassword']) && !isset($_POST['newPasswordR'])) {
             $this->render('home/index');
             exit();
         }
-
+        //check if the fields are empty
         if (empty($_POST['newPassword'])) {
             $_SESSION['errors'] = "Le champs du pseudo doit être complété";
             $this->render('home/index');
@@ -245,12 +250,14 @@ class UserController extends AbstractController
      */
     public function userImage($id)
     {
+        //Check if the user is connected
         if(!isset($_SESSION['user'])) {
             $_SESSION['errors'] = "Seul un utilisateur peut changer son image";
             $this->render('home/index');
         }
 
         $user = new UserManager();
+        //change the avatar
         $newImage = $this->addAvatar();
         $user->userImage($newImage, $id);
         $this->render('user/userSpace');
@@ -323,20 +330,22 @@ class UserController extends AbstractController
      */
     public function updateUserRole()
     {
+        //check if the admin is connected
         if(self::adminConnected()) {
             $errorMessage = "Seul un administrateur peut mettre à jour un utilisateur";
             $_SESSION['errors'] [] = $errorMessage;
             $this->render('home/index');
         }
-
+        //check if the field is present
         if (!isset($_POST['username'])) {
             $this->render('home/index');
             exit();
         }
+        //clean the data
         $username = $this->clean($this->getFormField('username'));
         $user = new UserManager();
         $newRole = $_POST['role'];
-
+        //Compare the username
         if ($username !== UserManager::getUserByName($_POST['username'])->getUsername())  {
             $_SESSION['errors'] = "Le pseudo est incorrecte";
             $this->render('admin/adminSpace');
@@ -348,6 +357,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * Send a Token when the user is register
      * @param $username
      * @param $mail
      * @param $token
@@ -356,6 +366,7 @@ class UserController extends AbstractController
      */
     private function sendMailToken($username, $mail, $token, $id): bool
     {
+        //Configure the token link
         $url = Config::APP_URL . '/?c=user&a=activate-account&id=' . $id . '&token=' . $token;
 
         $message = "
@@ -383,10 +394,11 @@ class UserController extends AbstractController
             'Content-type' => 'text/html; charset=utf-8'
         ];
 
-        return mail($to, $subject,  $message, $header, "-f no-reply@email.com");
+        return mail($to, $subject, $message, $header, "-f no-reply@email.com");
     }
 
     /**
+     * Activates the account after accepting the token
      * @param int $id
      * @param string $token
      */
@@ -394,14 +406,14 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $user = UserManager::getUser($id);
-
-
+        //Compare role id if is not the same, users are redirecting to home page
         if($user->getRole()->getId() !== RoleManager::getRoleByName('none')->getId()) {
             $this->render('home/index');
             exit();
         }
 
         if($user->getToken() === $token) {
+            ////Change the role of the user
             $userManager->updateRoleToken(1, $id);
             $_SESSION['success'] = 'Votre comte a été activé';
             $this->render('home/index');
