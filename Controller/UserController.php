@@ -136,28 +136,24 @@ class UserController extends AbstractController
      */
     public function deleteUser(int $id)
     {
-        //Verify that the user has admin status
-        if(self::getConnectedUser() && self::adminConnected() && self::writerConnected()) {
-            $_SESSION['errors']= "Il faut être connecté pour supprimer un compte";
-            $this->render('home/index');
-        }
-
-        if($id !== UserManager::getUser($id)) {
-            $_SESSION['errors'] = "Merci de ne pas supprimer un compte qui n'est pas le votre !";
-            $this->render('home/index');
-        }
-
-        if (UserManager::getUser($id)) {
-            //Retrieve the user by his id to delete him
-            $user = UserManager::getUser($id);
-            $deleted = UserManager::deleteUser($user);
-            $_SESSION['success'] = "Votre compte a été prise en compte, elle sera effective à la prochaine déconnexion ";
-            session_destroy();
+        if (!isset($_SESSION['user'])) {
             $this->render('home/index');
             exit();
         }
 
+        //Verify that the user has admin status
+        if(self::getConnectedUser() && self::adminConnected() && self::writerConnected() && $_SESSION['user']->getId() !== $_GET['id'] ) {
+            $_SESSION['errors']= "Il faut être connecté pour supprimer un compte et propriétaire du compte !";
+            $this->render('home/index');
+            exit();
+        }
 
+        if ($_SESSION['user']->getId() === $id) {
+            $userManager = new UserManager();
+            $delete = $userManager->deleteUser($id);
+            session_destroy();
+            $this->render('home/index');
+        }
     }
 
     /**

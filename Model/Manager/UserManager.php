@@ -163,17 +163,17 @@ class UserManager
     }
 
     /**
-     * Delete a user
-     * @param User $user
+     * Delete a user by its id
+     * @param int $id
      * @return bool
      */
-    public static function deleteUser(User $user): bool {
-        if(self::getUser($user->getId())) {
-            return DB::getPDO()->exec("
-            DELETE FROM jvp_user WHERE id = {$user->getId()}
-        ");
-        }
-        return false;
+    public static function deleteUser(int $id): bool {
+        $stmt = DB::getPDO()->prepare("DELETE FROM jvp_user WHERE id = :id");
+
+        $stmt->bindParam('id', $id);
+
+        return $stmt->execute();
+
     }
 
     /**
