@@ -9,8 +9,8 @@
                 </div>
 
                 <div>
-                    <label for="user-password">Votre mot de passe</label>
-                    <input type="password" name="password" id="user-password" required>
+                    <label for="userPassword">Votre mot de passe</label>
+                    <input type="password" name="password" id="userPassword" required>
                 </div>
 
                 <div>

@@ -14,16 +14,22 @@ class CommentController extends AbstractController
         $this->render('comment/allComment');
     }
 
+    /**
+     * Get the comment id for the redirect
+     * @param int $id
+     */
     public function updateComment(int $id)
     {
         $this->render('comment/editComment', $data=[$id]);
     }
 
     /**
+     * Add a comment
      * @param int $id
      */
     public function addComment(int $id)
     {
+        //Get and cleans data
         $content = $this->clean($this->getFormField('content'));
 
         //Check that the fields are free, otherwise we exit
@@ -61,18 +67,20 @@ class CommentController extends AbstractController
 
     public function editComment($id)
     {
-
+        //Checks if the writer is logged in
         if(!self::writerConnected()) {
             $_SESSION['errors'] = "Seul un administrateur peut éditer un commentaire";
             $this->render('home/index');
         }
+        //Check that the field is present
         if(!isset($_POST['content'])) {
             $this->render('home/index');
             exit();
         }
-
+        ////Get and cleans data
         $newContent = $this->clean($_POST['content']);
 
+        ////Creating a new comment object
         $comment = new CommentManager($newContent, $id);
         $comment->editComment($newContent, $id);
         $this->render('home/index');
@@ -80,12 +88,14 @@ class CommentController extends AbstractController
 
     public function deleteComment(int $id)
     {
+        ////Checks if the writer is logged in
          if(self::writerConnected()) {
             $errorMessage = "Seul un rédacteur peut supprimer un article";
             $_SESSION['errors'] [] = $errorMessage;
             $this->render('home/index');
         }
 
+        //Checks that the comment exists by its id
         if(CommentManager::commentExist($id)) {
             $comment = CommentManager::getComment($id);
             $deleted = CommentManager::deleteComment($comment);

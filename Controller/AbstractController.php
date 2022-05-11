@@ -8,6 +8,7 @@ use Mosquitto\Exception;
 class AbstractController
 {
     /**
+     * Show views
      * @param string $template
      * @param array $data
      * @return void
@@ -21,6 +22,7 @@ class AbstractController
     }
 
     /**
+     * Clean the data
      * @param string $data
      * @return string
      */
@@ -38,6 +40,7 @@ class AbstractController
     }
 
     /**
+     * Checks if the form has been submitted
      * @return bool
      */
     public function formSubmitted(): bool
@@ -46,6 +49,7 @@ class AbstractController
     }
 
     /**
+     * Get field data
      * @param string $field
      * @param null $default
      * @return mixed|string
@@ -58,6 +62,10 @@ class AbstractController
         return $_POST[$field];
     }
 
+    /**
+     * Returns random text for the token
+     * @return string
+     */
     public function randomChars(): string
     {
         try {
@@ -99,11 +107,24 @@ class AbstractController
     }
 
     /**
+     * Checks if a writer is already logged in
      * @return bool
      */
     public static function writerConnected(): bool
     {
         return isset($_SESSION['user']) && $_SESSION['user']->getRole()->getRoleName() === 'writer';
 
+    }
+
+    /**
+     * Returns a logged-in writer, or null if not logged in.
+     * @return User|null
+     */
+    public function getConnectedWriter(): ?User
+    {
+        if(!self::writerConnected()) {
+            return null;
+        }
+        return ($_SESSION['user']);
     }
 }

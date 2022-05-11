@@ -4,8 +4,8 @@
     <form action="/index.php?c=user&a=register" method="post">
 
         <div>
-            <label for="username-register">Votre pseudo</label>
-            <input type="text" name="username" id="username-register" required>
+            <label for="usernameRegister">Votre pseudo</label>
+            <input type="text" name="username" id="usernameRegister" required>
         </div>
 
         <div>
@@ -14,8 +14,8 @@
         </div>
 
         <div>
-            <label for="password-register">Votre mot de passe</label>
-            <input type="password" name="password" id="password-register" required>
+            <label for="passwordRegister">Votre mot de passe</label>
+            <input type="password" name="password" id="passwordRegister" required>
         </div>
 
         <div>

@@ -68,7 +68,7 @@ class UserController extends AbstractController
                 ;
                 //If no email is found, we launch the addUser function
 
-                if(0 == UserManager::getUserByMail($user->getEmail())) {
+                if(null == UserManager::getUserByMail($user->getEmail())) {
                     if(self::sendMailToken($username, $mail, $token, $user->getId())) {
 
                         UserManager::addUser($user);
@@ -95,6 +95,7 @@ class UserController extends AbstractController
         public function connexion()
         {
             if($this->formSubmitted()) {
+                //Recovers and cleans data
                 $username = $this->clean($this->getFormField('username'));
                 $password = $this->getFormField('password');
 
@@ -136,17 +137,27 @@ class UserController extends AbstractController
     public function deleteUser(int $id)
     {
         //Verify that the user has admin status
-        if(self::adminConnected()) {
-            $errorMessage = "Seul un administrateur peut supprimer un utilisateur";
-            $_SESSION['errors'] [] = $errorMessage;
+        if(self::getConnectedUser() && self::adminConnected() && self::writerConnected()) {
+            $_SESSION['errors']= "Il faut être connecté pour supprimer un compte";
             $this->render('home/index');
         }
 
-        if(UserManager::getUser($id)) {
-            $user = UserManager::getUser($id);
-            $deleted = UserManager::deleteUser($user);
+        if($id !== UserManager::getUser($id)) {
+            $_SESSION['errors'] = "Merci de ne pas supprimer un compte qui n'est pas le votre !";
             $this->render('home/index');
         }
+
+        if (UserManager::getUser($id)) {
+            //Retrieve the user by his id to delete him
+            $user = UserManager::getUser($id);
+            $deleted = UserManager::deleteUser($user);
+            $_SESSION['success'] = "Votre compte a été prise en compte, elle sera effective à la prochaine déconnexion ";
+            session_destroy();
+            $this->render('home/index');
+            exit();
+        }
+
+
     }
 
     /**
@@ -178,7 +189,6 @@ class UserController extends AbstractController
      */
     public function updateEmail($id)
     {
-
         if (!isset($_POST['newEmail'])) {
             $this->render('home/index');
             exit();
@@ -234,6 +244,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * @param $id
      * @throws Exception
      */
     public function userImage($id)
@@ -244,7 +255,7 @@ class UserController extends AbstractController
         }
 
         $user = new UserManager();
-        $newImage = $this->addImage();
+        $newImage = $this->addAvatar();
         $user->userImage($newImage, $id);
         $this->render('user/userSpace');
     }
@@ -253,22 +264,27 @@ class UserController extends AbstractController
      * @return string
      * @throws Exception
      */
-    public function addImage(): string
+    public function addAvatar(): string
     {
         $name = "";
+        //Checking the presence of the form field
         if(isset($_FILES['img']) && $_FILES['img']['error'] === 0){
 
+            //Defining allowed file types
             $allowedMimeTypes = ['image/jpg', 'image/jpeg', 'image/png'];
             if(in_array($_FILES['img']['type'], $allowedMimeTypes)) {
-
+                //Setting the maximum size
                 $maxSize = 1024 * 1024;
                 if ((int)$_FILES['img']['size']<=$maxSize) {
+                    //Get the temporary file name
                     $tmp_name = $_FILES['img']['tmp_name'];
+                    //Assignment of the final name
                     $name = $this->getRandomName($_FILES['img']['name']);
-
+                    //Checks if the destination file exists, otherwise it is created
                     if(!is_dir('uploads')){
                         mkdir('uploads');
                     }
+                    //File move
                     move_uploaded_file($tmp_name,'../public/assets/img/avatar/' . $name);
                 }
                 else {
@@ -288,16 +304,21 @@ class UserController extends AbstractController
     /**
      * @param string $rName
      * @return string
+     * @throws Exception
      */
     private function getRandomName(string $rName): string
     {
+        //Get file extension
         $infos = pathinfo($rName);
         try {
+            //Generates a random string of 15 chars
             $bytes = random_bytes(15);
         }
         catch (Exception $e) {
+            //Is used on failure
             $bytes = openssl_random_pseudo_bytes(15);
         }
+        //Convert binary data to hexadecimal
         return bin2hex($bytes) . '.' . $infos['extension'];
     }
 

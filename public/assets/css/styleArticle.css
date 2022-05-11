@@ -8,11 +8,21 @@ html {
     font-size: 65.5%;
 }
 
+h3 {
+    font-size: 2rem;
+    text-align: center;
+}
+
 #article {
     border: blue double 6px;
     width: 80vw;
     margin: 0 auto;
     background-color: #f1e2e2;
+}
+
+#article > p > img {
+    width: 80vw;
+    height: auto;
 }
 
 #titleArticle {

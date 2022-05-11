@@ -24,9 +24,10 @@ class HomeController extends AbstractController
     }
 
     public function news()
-    {   //vérifie si page est dans l'URL
+    {
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/news', $data = [
                     'article' => ArticleManager::findAllArticle(0),
@@ -34,14 +35,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/news', $data = [
                 'article' => ArticleManager::findAllArticle(0, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticle() /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/news', $data = [
             'article' => ArticleManager::findAllArticle(0),
             'page' => ArticleManager::countArticle() /3,
@@ -55,9 +56,9 @@ class HomeController extends AbstractController
 
     public function series()
     {
-        //vérifie si page est dans l'URL
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/series', $data = [
                     'article' => ArticleManager::getArticleBySectionId(5, 3),
@@ -65,14 +66,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/series', $data = [
                 'article' => ArticleManager::getArticleBySectionId(5, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleBySection(5) /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/series', $data = [
             'article' => ArticleManager::getArticleBySectionId(5,3),
             'page' => ArticleManager::countArticleBySection(5) /3,
@@ -86,9 +87,9 @@ class HomeController extends AbstractController
 
     public function help()
     {
-        //vérifie si page est dans l'URL
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/game/help', $data = [
                     'article' => ArticleManager::getArticleBySectionId(3, 3),
@@ -96,14 +97,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/game/help', $data = [
                 'article' => ArticleManager::getArticleBySectionId(3, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleBySection(3) /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/game/help', $data = [
             'article' => ArticleManager::getArticleBySectionId(3,3),
             'page' => ArticleManager::countArticleBySection(3) /3,
@@ -112,9 +113,9 @@ class HomeController extends AbstractController
 
     public function nextgame()
     {
-        //vérifie si page est dans l'URL
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/game/nextgame', $data = [
                     'article' => ArticleManager::getArticleBySectionId(4, 3),
@@ -122,14 +123,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/game/nextgame', $data = [
                 'article' => ArticleManager::getArticleBySectionId(4, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleBySection(4) /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/game/nextgame', $data = [
             'article' => ArticleManager::getArticleBySectionId(4,3),
             'page' => ArticleManager::countArticleBySection(4) /3,
@@ -138,9 +139,9 @@ class HomeController extends AbstractController
 
     public function pc()
     {
-        //vérifie si page est dans l'URL
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/game/pc', $data = [
                     'article' => ArticleManager::getArticleByPlatformId(1, 3),
@@ -148,14 +149,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/game/pc', $data = [
                 'article' => ArticleManager::getArticleByPlatformId(1, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleByPlatform(1) /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/game/pc', $data = [
             'article' => ArticleManager::getArticleByPlatformId(1,3),
             'page' => ArticleManager::countArticleByPlatform(1) /3,
@@ -164,9 +165,9 @@ class HomeController extends AbstractController
 
     public function playstation()
     {
-        //vérifie si page est dans l'URL
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/game/playstation', $data = [
                     'article' => ArticleManager::getArticleByPlatformId(2, 3),
@@ -174,14 +175,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/game/playstation', $data = [
                 'article' => ArticleManager::getArticleByPlatformId(2, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleByPlatform(2) /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/game/playstation', $data = [
             'article' => ArticleManager::getArticleByPlatformId(2,3),
             'page' => ArticleManager::countArticleByPlatform(2) /3,
@@ -190,9 +191,9 @@ class HomeController extends AbstractController
 
     public function xbox()
     {
-        //vérifie si page est dans l'URL
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/game/xbox', $data = [
                     'article' => ArticleManager::getArticleByPlatformId(3, 3),
@@ -200,14 +201,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/game/xbox', $data = [
                 'article' => ArticleManager::getArticleByPlatformId(3, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleByPlatform(3) /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/game/xbox', $data = [
             'article' => ArticleManager::getArticleByPlatformId(3,3),
             'page' => ArticleManager::countArticleByPlatform(3) /3,
@@ -216,9 +217,9 @@ class HomeController extends AbstractController
 
     public function nintendo()
     {
-        //vérifie si page est dans l'URL
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/game/nintendo', $data = [
                     'article' => ArticleManager::getArticleByPlatformId(4, 3),
@@ -226,14 +227,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/game/nintendo', $data = [
                 'article' => ArticleManager::getArticleByPlatformId(4, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleByPlatform(4) /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/game/nintendo', $data = [
             'article' => ArticleManager::getArticleByPlatformId(4,3),
             'page' => ArticleManager::countArticleByPlatform(4) /3,
@@ -242,9 +243,9 @@ class HomeController extends AbstractController
 
     public function tests()
     {
-        //vérifie si page est dans l'URL
+        //Checks if the parameter is in the url
         if (isset($_GET['page'])) {
-
+            //If page parameter is equal to 1 then displays the first results
             if ($_GET['page'] === 1) {
                 $this->render('pages/game/tests', $data = [
                     'article' => ArticleManager::getArticleBySectionId(2, 3),
@@ -252,14 +253,14 @@ class HomeController extends AbstractController
                 ]);
                 exit();
             }
-            //calcul le nombre d'article par page
+            //If parameter present calculation of the number of articles per page
             $this->render('pages/game/tests', $data = [
                 'article' => ArticleManager::getArticleBySectionId(2, 3, ($_GET['page'] -1) * 3),
                 'page' => ArticleManager::countArticleBySection(2) /3 ,
             ]);
             exit();
         }
-        //si page pas set
+        //If page parameter is absent then displays the first results defined in SQL
         $this->render('pages/game/tests', $data = [
             'article' => ArticleManager::getArticleBySectionId(2,3),
             'page' => ArticleManager::countArticleBySection(2) /3,
