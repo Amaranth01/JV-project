@@ -8,10 +8,16 @@ use App\Model\Entity\Category;
 class CategoryManager
 {
 
+    public const PREFIXTABLE = 'jvp_';
+
+    /**
+     * @param string $name
+     * @return Category
+     */
     public static function getCategoryByName(string $name): Category {
         $category = new Category();
         $request  = DB::getPDO()->query("
-            SELECT * FROM jvp_category WHERE category_name = '".$name."'
+            SELECT * FROM " . self::PREFIXTABLE . "category WHERE category_name = '".$name."'
         ");
         if ($request && $categoryData = $request->fetch()) {
             $category->setId($categoryData['id']);
@@ -20,9 +26,12 @@ class CategoryManager
         return $category;
     }
 
-    public static function getAllCategories()
+    /**
+     * @return array
+     */
+    public static function getAllCategories(): array
     {
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_category ORDER BY id");
+        $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "category ORDER BY id");
         $categories = [];
         foreach ($stmt->fetchAll() as $data) {
             $categories[] = (new Category())

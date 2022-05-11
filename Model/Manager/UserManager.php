@@ -8,6 +8,7 @@ use PDOStatement;
 
 class UserManager
 {
+    public const PREFIXTABLE = 'jvp_';
     /**
      * @param array $data
      * @return User
@@ -32,7 +33,7 @@ class UserManager
     public static function getAllUser(): array
     {
         $user = [];
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user");
+        $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "user");
 
         if($stmt) {
             foreach ($stmt->fetchAll() as $data) {
@@ -49,7 +50,7 @@ class UserManager
      */
     public static function getUserByMail(string $email): ?User
     {
-        $stmt = DB::getPDO()->prepare("SELECT * FROM jvp_user WHERE email = :email ");
+        $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::PREFIXTABLE . "user WHERE email = :email ");
         $stmt->bindValue('email', $email);
 
         if($stmt->execute() && $data = $stmt->fetch()) {
@@ -64,7 +65,7 @@ class UserManager
      */
     public static function getUserByName(string $username): ?User
     {
-        $stmt = DB::getPDO()->prepare("SELECT * FROM jvp_user WHERE username = :username");
+        $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::PREFIXTABLE . "user WHERE username = :username");
 
         $stmt->bindValue('username', $username);
 
@@ -81,7 +82,7 @@ class UserManager
     public static function addUser(User $user): bool
     {
         $stmt = DB::getPDO()->prepare("
-            INSERT INTO jvp_user (username, email, password, token, role_id)
+            INSERT INTO " . self::PREFIXTABLE . "user (username, email, password, token, role_id)
             VALUES (:username, :email, :password,  :token, :role_id) 
         ");
 
@@ -104,7 +105,7 @@ class UserManager
      */
     public static function getUser(int $id): ?User
     {
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_user WHERE id = '$id'");
+        $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "user WHERE id = '$id'");
         return $stmt ? self::createUser($stmt->fetch()) : null;
     }
 
@@ -115,7 +116,7 @@ class UserManager
     public function updateUsername($newUsername,$id)
     {
         $stmt = DB::getPDO()->prepare("
-            UPDATE jvp_user SET username = :newUsername WHERE id = :id
+            UPDATE " . self::PREFIXTABLE . "user SET username = :newUsername WHERE id = :id
         ");
 
         $stmt->bindParam('newUsername', $newUsername);
@@ -127,7 +128,7 @@ class UserManager
     public function updateEmail($newEmail, $id)
     {
         $stmt = DB::getPDO()->prepare("
-            UPDATE jvp_user SET email = :newEmail WHERE id = :id
+            UPDATE " . self::PREFIXTABLE . "user SET email = :newEmail WHERE id = :id
         ");
 
         $stmt->bindParam('newEmail', $newEmail);
@@ -139,7 +140,7 @@ class UserManager
     public function updatePassword($newPassword, $id)
     {
         $stmt = DB::getPDO()->prepare("
-            UPDATE jvp_user SET password = :newPassword WHERE id = :id
+            UPDATE " . self::PREFIXTABLE . "user SET password = :newPassword WHERE id = :id
         ");
 
         $stmt->bindParam('newPassword', $newPassword);
@@ -154,7 +155,9 @@ class UserManager
      */
     public static function updateRoleUser($newRole, $newUsername)
     {
-        $stmt = DB::getPDO()->prepare("UPDATE jvp_user SET role_id = :newRole WHERE username = :newUsername");
+        $stmt = DB::getPDO()->prepare("
+            UPDATE " . self::PREFIXTABLE . "user SET role_id = :newRole WHERE username = :newUsername"
+        );
 
         $stmt->bindParam('newRole', $newRole);
         $stmt->bindParam('newUsername', $newUsername);
@@ -168,7 +171,7 @@ class UserManager
      * @return bool
      */
     public static function deleteUser(int $id): bool {
-        $stmt = DB::getPDO()->prepare("DELETE FROM jvp_user WHERE id = :id");
+        $stmt = DB::getPDO()->prepare("DELETE FROM " . self::PREFIXTABLE . "user WHERE id = :id");
 
         $stmt->bindParam('id', $id);
 
@@ -183,7 +186,7 @@ class UserManager
      */
     public static function userImage($newImage, $id)
     {
-        return DB::getPDO()->query("UPDATE jvp_user SET image = '$newImage' WHERE id = '$id'");
+        return DB::getPDO()->query("UPDATE " . self::PREFIXTABLE . "user SET image = '$newImage' WHERE id = '$id'");
     }
 
     /**
@@ -192,7 +195,7 @@ class UserManager
      */
     public function updateRoleToken($role, $id)
     {
-        $stmt = DB::getPDO()->prepare("UPDATE jvp_user SET role_id = :role WHERE id = :id");
+        $stmt = DB::getPDO()->prepare("UPDATE " . self::PREFIXTABLE . "user SET role_id = :role WHERE id = :id");
 
         $stmt->bindParam('role', $role);
         $stmt->bindParam('id', $id);

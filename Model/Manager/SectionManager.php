@@ -7,11 +7,12 @@ use App\Model\Entity\Section;
 
 class SectionManager
 {
+    public const PREFIXTABLE = 'jvp_';
     public static function getSectionByName(string $sectionName): Section
     {
         $section = new Section();
         $stmt  = DB::getPDO()->query("
-            SELECT * FROM jvp_section WHERE section_name = '".$sectionName."'
+            SELECT * FROM " . self::PREFIXTABLE . "section WHERE section_name = '".$sectionName."'
         ");
         if ($stmt && $sectionData = $stmt->fetch()) {
             $section->setId($sectionData['id']);

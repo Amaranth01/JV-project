@@ -9,6 +9,7 @@ use DateTime;
 
 class ArticleManager
 {
+    public const PREFIXTABLE = 'jvp_';
     /**
      * @param int $limit
      * @param int $offset
@@ -19,10 +20,10 @@ class ArticleManager
         $articles = [];
 
         if($limit === 0) {
-            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC LIMIT 3 OFFSET $offset");
+            $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article ORDER BY id DESC LIMIT 3 OFFSET $offset");
         }
         else {
-            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article ORDER BY id DESC LIMIT 4");
+            $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article ORDER BY id DESC LIMIT 4");
         }
 
             $userManager = new UserManager();
@@ -48,7 +49,7 @@ class ArticleManager
      */
     public static function getArticle(int $id): Article
     {
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE id = '$id'");
+        $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article WHERE id = '$id'");
         $stmt = $stmt->fetch();
 
         return (new Article())
@@ -63,19 +64,21 @@ class ArticleManager
 
     public static function countArticle()
     {
-        $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM jvp_article");
+        $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM " . self::PREFIXTABLE . "article");
         return $stmt->fetch()['COUNT(*)'];
     }
 
     public static function countArticleByPlatform($id)
     {
-        $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM jvp_platform_article WHERE jvp_plateform_id = $id");
+        $stmt = DB::getPDO()->query("
+            SELECT COUNT(*) FROM " . self::PREFIXTABLE . "platform_article WHERE " . self::PREFIXTABLE . "platform_id = $id"
+        );
         return $stmt->fetch()['COUNT(*)'];
     }
 
     public static function countArticleBySection($id)
     {
-        $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM jvp_section WHERE id = $id");
+        $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM " . self::PREFIXTABLE . "section WHERE id = $id");
         return $stmt->fetch()['COUNT(*)'];
     }
 
@@ -86,7 +89,7 @@ class ArticleManager
     public static function addArticle(Article $article): bool
     {
         $stmt= DB::getPDO()->prepare("
-            INSERT INTO jvp_article (title, content, resume, image, user_id, section_id) 
+            INSERT INTO " . self::PREFIXTABLE . "article (title, content, resume, image, user_id, section_id) 
             VALUES (:title, :content, :resume, :image, :user_id, :section_id )
         ");
 
@@ -105,8 +108,8 @@ class ArticleManager
             foreach ($platformFromDb as $data) {
                 if (isset($_POST['plat_' . $data->getId()])) {
                     $resultArticlePlatform = DB::getPDO()->exec("
-                    INSERT INTO jvp_platform_article (jvp_article_id, jvp_plateform_id) VALUES (" . $article->getId() . ",
-                    " . $data->getId() . ")
+                    INSERT INTO " . self::PREFIXTABLE . "platform_article (" . self::PREFIXTABLE . "article_id, 
+                    " . self::PREFIXTABLE . "platform_id) VALUES (" . $article->getId() . "," . $data->getId() . ")
                     ");
                 }
             }
@@ -115,7 +118,7 @@ class ArticleManager
             foreach ($categoryFromDb as $data) {
                 if (isset($_POST['cat_' . $data->getId()])) {
                     $resultArticleCategory = DB::getPDO()->exec("
-                    INSERT INTO jvp_category_article (jvp_article_id, jvp_category_id) VALUES (" . $article->getId() . ", 
+                    INSERT INTO " . self::PREFIXTABLE . "category_article (jvp_article_id, jvp_category_id) VALUES (" . $article->getId() . ", 
                     " . $data->getId() . ")
             ");
                 }
@@ -130,7 +133,7 @@ class ArticleManager
      */
     public static function articleExist($id)
     {
-        $stmt = DB::getPDO()->query("SELECT count(*) FROM jvp_article WHERE id = '$id'");
+        $stmt = DB::getPDO()->query("SELECT count(*) FROM " . self::PREFIXTABLE . "article WHERE id = '$id'");
         return $stmt ? $stmt->fetch(): 0;
     }
 
@@ -144,11 +147,11 @@ class ArticleManager
     {
         $article = [];
         if ($limit === 3) {
-            $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE section_id = '$id' ORDER BY id DESC 
+            $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article WHERE section_id = '$id' ORDER BY id DESC 
                     LIMIT 3 OFFSET $offset
             ");
         }
-        $stmt = DB::getPDO()->query("SELECT * FROM jvp_article WHERE section_id = '$id' ORDER BY id DESC ");
+        $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article WHERE section_id = '$id' ORDER BY id DESC ");
 
         if($stmt) {
             foreach ($stmt->fetchAll() as $data) {
@@ -175,14 +178,14 @@ class ArticleManager
         if ($limit === 3) {
             $stmt = DB::getPDO()->query("
             SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title FROM jvp_platform_article
-             INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_plateform_id
+             INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_platform_id
             = '$id' ORDER BY jvp_article.id DESC LIMIT 3 OFFSET $offset
          ");
         }
         else {
             $stmt = DB::getPDO()->query("
             SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title FROM jvp_platform_article
-             INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_plateform_id
+             INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_platform_id
             = '$id' ORDER BY jvp_article.id DESC
          ");
         }
@@ -225,7 +228,7 @@ class ArticleManager
     {
         if (self::articleExist($article->getId())) {
             return DB::getPDO()->exec(
-                "DELETE FROM jvp_article WHERE id = {$article->getId()}
+                "DELETE FROM " . self::PREFIXTABLE . "article WHERE id = {$article->getId()}
             ");
         }
         return false;
@@ -239,10 +242,13 @@ class ArticleManager
     {
         $article = [];
         $stmt = DB::getPDO()->prepare("
-            SELECT DISTINCT jvp_article.title, jvp_article.image, jvp_article.resume, jvp_article.id FROM jvp_category_article
-                INNER JOIN jvp_article ON jvp_category_article.jvp_article_id = jvp_article.id INNER JOIN jvp_category 
-                ON jvp_category_article.jvp_category_id = jvp_category.id WHERE jvp_article.title LIKE '%$contentSearch%'
-                OR jvp_category.category_name LIKE '%$contentSearch%' ORDER BY id DESC 
+            SELECT DISTINCT " . self::PREFIXTABLE . "article.title, " . self::PREFIXTABLE . "article.image, 
+            " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.id FROM " . self::PREFIXTABLE . "category_article
+            INNER JOIN " . self::PREFIXTABLE . "article ON " . self::PREFIXTABLE . "category_article.jvp_article_id = 
+            " . self::PREFIXTABLE . "article.id INNER JOIN " . self::PREFIXTABLE . "category ON 
+            " . self::PREFIXTABLE . "category_article.jvp_category_id = " . self::PREFIXTABLE . "category.id WHERE 
+            " . self::PREFIXTABLE . "article.title LIKE '%$contentSearch%' OR " . self::PREFIXTABLE . "category.category_name 
+            LIKE '%$contentSearch%' ORDER BY id DESC 
         ");
 
         $stmt->execute();
@@ -265,7 +271,7 @@ class ArticleManager
     {
         $article = [];
         $stmt = DB::getPDO()->prepare(" 
-            SELECT id, title FROM jvp_article WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 3
+            SELECT id, title FROM " . self::PREFIXTABLE . "article WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 3
         ");
         $stmt->execute();
 
