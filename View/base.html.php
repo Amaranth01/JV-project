@@ -118,6 +118,10 @@ echo"</pre>";
     <?=$html?>
 </main>
 
+<footer>
+    <a href="/index.php?c=home&a=privacy" id="privacyPolicy">Politiques de confidentialités</a>
+</footer>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/25d98733ec.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

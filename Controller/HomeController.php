@@ -277,4 +277,9 @@ class HomeController extends AbstractController
         $this->render('pages/viewArticle', $data=[$id]);
     }
 
+    public function privacy()
+    {
+        $this->render('home/privacy');
+    }
+
 }
