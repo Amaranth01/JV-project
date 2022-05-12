@@ -25,6 +25,7 @@ use App\Controller\UserController;
     }
     ?>
 <h2>Les derniers articles</h2>
+
 <div class="content">
 
         <div class="left writerLeft">
@@ -32,7 +33,7 @@ use App\Controller\UserController;
 
             foreach (ArticleManager::findAllArticle(4) as $article) {
             ?>
-            <div class="contentResumeArticleIndex">
+            <article class="contentResumeArticleIndex">
                 <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
                     <div>
                         <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article"
@@ -42,14 +43,13 @@ use App\Controller\UserController;
                         <p class="artTitle"><?= $article->getTitle() ?></p>
                 </a>
                 <p class="artResume"><?= $article->getResume() ?></p>
-            </div>
-        </div>
+            </article>
+
         <?php
         }
         ?>
-
-
         </div>
+
         <div>
             <p class="addArticle">
                 <a href="/index.php?c=admin&a=add-article" class="white">
@@ -98,5 +98,3 @@ use App\Controller\UserController;
                 </p>
             </div>
     </div>
-
-

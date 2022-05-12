@@ -177,16 +177,22 @@ class ArticleManager
         $article = [];
         if ($limit === 3) {
             $stmt = DB::getPDO()->query("
-            SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title FROM jvp_platform_article
-             INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_platform_id
-            = '$id' ORDER BY jvp_article.id DESC LIMIT 3 OFFSET $offset
+            SELECT " . self::PREFIXTABLE . "article.id, " . self::PREFIXTABLE . "article.image, 
+            " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.title FROM 
+            " . self::PREFIXTABLE . "platform_article INNER JOIN " . self::PREFIXTABLE . "article ON 
+            " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "article_id = " . self::PREFIXTABLE . "article.id  
+            WHERE " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "platform_id = '$id' ORDER BY 
+            " . self::PREFIXTABLE . "article.id DESC LIMIT 3 OFFSET $offset
          ");
         }
         else {
             $stmt = DB::getPDO()->query("
-            SELECT jvp_article.id, jvp_article.image, jvp_article.resume, jvp_article.title FROM jvp_platform_article
-             INNER JOIN jvp_article ON jvp_platform_article.jvp_article_id = jvp_article.id  WHERE jvp_platform_article.jvp_platform_id
-            = '$id' ORDER BY jvp_article.id DESC
+            SELECT " . self::PREFIXTABLE . "article.id, " . self::PREFIXTABLE . "article.image, 
+            " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.title FROM 
+            " . self::PREFIXTABLE . "platform_article INNER JOIN " . self::PREFIXTABLE . "article ON 
+            " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "article_id = " . self::PREFIXTABLE . "article.id  
+            WHERE " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "platform_id = '$id' 
+            ORDER BY " . self::PREFIXTABLE . "article.id DESC
          ");
         }
 
@@ -210,7 +216,7 @@ class ArticleManager
      */
     public static function updateArticle($newTitle, $newContent, $id)
     {
-        $stmt = DB::getPDO()->prepare("UPDATE jvp_article 
+        $stmt = DB::getPDO()->prepare("UPDATE " . self::PREFIXTABLE . "article 
         SET content = :newContent, title = :newTitle WHERE id = :id");
 
         $stmt->bindParam('newTitle', $newTitle);

@@ -117,22 +117,17 @@ footer {
 Home page
  */
 
-.content, .contentDown {
+.content {
     display: flex;
-    align-items: center;
-    margin-left: 4rem;
+    justify-content: space-around;
+}
+
+.left, .right {
+    width: 45%;
 }
 
 .contentDown {
-    margin-left: 4vw;
-}
-
-.left, .right{
-    width: 45%;
-    height: 50vh;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-
+    margin-left: 2vw;
 }
 
 .contentResumeArticleIndex {
@@ -230,10 +225,6 @@ form > .searching {
 
     .content {
         flex-direction: column;
-    }
-
-    .contentDown {
-        margin-top: 173vh;
     }
 
     h2 {

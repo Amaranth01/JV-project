@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JV Project</title>
+
     <link rel="stylesheet" href="/assets/css/styleMenu.css">
     <link rel="stylesheet" href="/assets/css/styleForm.css">
     <link rel="stylesheet" href="/assets/css/styleAdmin.css">
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="/assets/css/styleArticle.css">
     <link rel="stylesheet" href="/assets/css/darkMode.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/logo.png">
+    <script src="/assets/js/tarte.js"></script>
 </head>
 <body>
 <?php
@@ -117,7 +119,7 @@ echo"</pre>";
 <main class="container">
     <?=$html?>
 </main>
-
+<div id="tarteaucitron"></div>
 <footer>
     <a href="/index.php?c=home&a=privacy" id="privacyPolicy">Politiques de confidentialités</a>
 </footer>
@@ -126,7 +128,7 @@ echo"</pre>";
 <script src="https://kit.fontawesome.com/25d98733ec.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script src="/assets/js/app.js"></script>
+
 <script src="/assets/js/theme.js"></script>
 <script src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="/assets/js/wysiwyg.js"></script>

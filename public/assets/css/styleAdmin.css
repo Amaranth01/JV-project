@@ -32,12 +32,6 @@ html {
     margin-left: 3vw;
 }
 
-.leftWriter {
-    width: 45vw;
-    margin-top: 5rem;
-    margin-bottom: 1rem;
-}
-
 /*list article*/
 table {
     display: flex;
@@ -116,40 +110,4 @@ th, td {
 .commentWriter {
     font-weight: bold;
     font-style: italic;
-}
-
-@media screen and (max-width: 1130px) {
-    .titleCommentWriter {
-        margin-top: 10rem;
-    }
-}
-
-@media screen and (max-width: 976px) {
-    .titleCommentWriter {
-        margin-top: 15rem;
-    }
-}
-
-@media screen and (max-width: 850px) {
-    .titleCommentWriter {
-        margin-top: 20rem;
-    }
-}
-
-@media screen and (max-width: 509px) {
-    .writerLeft {
-        margin-bottom: 5rem;
-    }
-}
-
-@media screen and (max-width: 436px) {
-    .writerLeft {
-        margin-bottom: 15rem;
-    }
-}
-
-@media screen and (max-width: 330px) {
-    .writerLeft {
-        margin-bottom: 18rem;
-    }
 }
