@@ -178,7 +178,8 @@ class UserManager
      * @param int $id
      * @return bool
      */
-    public static function deleteUser(int $id): bool {
+    public static function deleteUser(int $id): bool
+    {
         $stmt = DB::getPDO()->prepare("DELETE FROM " . self::PREFIXTABLE . "user WHERE id = :id");
 
         $stmt->bindParam('id', $id);
@@ -190,7 +191,7 @@ class UserManager
     /**
      * @param $newImage
      * @param $id
-     * @return false|PDOStatement
+     * @return void
      */
     public static function userImage($newImage, $id)
     {

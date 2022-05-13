@@ -15,14 +15,18 @@ class UserController extends AbstractController
         $this->render('user/userSpace');
     }
 
-    public function delete() {
+    public function delete()
+    {
         $this->render('user/delete');
     }
 
-    public function activated() {
+    public function activated()
+    {
         $this->render('user/activated');
     }
 
+    /**
+     */
     public function register()
     {
         //Cleans and return the security of elements
@@ -34,7 +38,6 @@ class UserController extends AbstractController
             $passwordR = $this->getFormField('passwordR');
 
             $mail = filter_var($email, FILTER_SANITIZE_EMAIL);
-
             // Send a message if the email address is not valid.
             if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['errors'] = "L'adresse mail n'est pas valide";
@@ -53,9 +56,7 @@ class UserController extends AbstractController
             // Passwords do not match
             if ($password !== $passwordR) {
                 $_SESSION['errors'] = "Les mots de passe ne correspondent pas";
-            }
-
-            else {
+            } else {
                 //If no error is detected the program goes to else and authorizes the recording
                 $token = self::randomChars();
                 $user = new User();
@@ -65,26 +66,23 @@ class UserController extends AbstractController
                     ->setEmail($mail)
                     ->setPassword(password_hash($password, PASSWORD_DEFAULT))
                     ->setToken($token)
-                    ->setRole($role)
-                ;
+                    ->setRole($role);
 
-                //If no email is found, we launch the addUser function
-                if(null == UserManager::getUserByMail($user->getEmail())) {
-                    if(self::sendMailToken($username, $mail, $token, $user->getId())) {
+                UserManager::addUser($user);
 
-                        UserManager::addUser($user);
-                        //If the ID is not null, we pass the user in the session
-                        if (null!== $user->getId()) {
-                            $_SESSION['success'] = "Félicitations votre compte a bien été créé, un mail vous sera envoyé
-                         pour activer votre compte";
-                            $user->setPassword('');
-                        }
-                        else {
-                            $_SESSION['errors'] = "Impossible de vous enregistrer";
-                        }
+                $id = UserManager::getUserByMail($mail)->getId();
+
+                if (self::sendMailToken($username, $mail, $token, $id)) {
+
+                    //If the ID is not null, we pass the user in the session
+                    if (null !== $user->getId()) {
+                        $_SESSION['success'] = "Félicitations votre compte a bien été créé, un mail vous sera envoyé
+                         pour activer votre compte. L'action peut prendre quelques minutes. Vérifiez votre boîte de spam.";
+                        $user->setPassword('');
+                    } else {
+                        $_SESSION['errors'] = "Impossible de vous enregistrer";
                     }
-                }
-                else {
+                } else {
                     $_SESSION['errors'] = "Cette adresse mail existe déjà !";
                 }
             }
@@ -95,7 +93,7 @@ class UserController extends AbstractController
 
     public function connexion()
     {
-        if($this->formSubmitted()) {
+        if ($this->formSubmitted()) {
             //Recovers and cleans data
             $username = $this->clean($this->getFormField('username'));
             $password = $this->getFormField('password');
@@ -113,19 +111,16 @@ class UserController extends AbstractController
             if (null === $user) {
                 $errorMessage = "Pseudo inconnu";
                 $_SESSION['errors'] = $errorMessage;
-            }
-            else {
+            } else {
                 //Compare the password entered and written in the DB
                 if (password_verify($password, $user->getPassword())) {
                     $user->setPassword('');
                     $_SESSION['user'] = $user;
-                }
-                else {
+                } else {
                     $_SESSION['errors'] = "Le nom d'utilisateur, ou le mot de passe est incorrect";
                 }
             }
-        }
-        else {
+        } else {
             $successMessage = "Vous êtes connecté";
             $_SESSION['success'] = $successMessage;
         }
@@ -144,8 +139,8 @@ class UserController extends AbstractController
         }
 
         //Verify that the user has admin status and if the id is the same une URL and session user
-        if(self::getConnectedUser() && self::adminConnected() && self::writerConnected() && $_SESSION['user']->getId() !== $_GET['id'] ) {
-            $_SESSION['errors']= "Il faut être connecté pour supprimer un compte et propriétaire du compte !";
+        if (self::getConnectedUser() && self::adminConnected() && self::writerConnected() && $_SESSION['user']->getId() !== $_GET['id']) {
+            $_SESSION['errors'] = "Il faut être connecté pour supprimer un compte et propriétaire du compte !";
             $this->render('home/index');
             exit();
         }
@@ -252,7 +247,7 @@ class UserController extends AbstractController
     public function userImage($id)
     {
         //Check if the user is connected
-        if(!isset($_SESSION['user'])) {
+        if (!isset($_SESSION['user'])) {
             $_SESSION['errors'] = "Seul un utilisateur peut changer son image";
             $this->render('home/index');
         }
@@ -272,34 +267,31 @@ class UserController extends AbstractController
     {
         $name = "";
         //Checking the presence of the form field
-        if(isset($_FILES['img']) && $_FILES['img']['error'] === 0){
+        if (isset($_FILES['img']) && $_FILES['img']['error'] === 0) {
 
             //Defining allowed file types
             $allowedMimeTypes = ['image/jpg', 'image/jpeg', 'image/png'];
-            if(in_array($_FILES['img']['type'], $allowedMimeTypes)) {
+            if (in_array($_FILES['img']['type'], $allowedMimeTypes)) {
                 //Setting the maximum size
                 $maxSize = 1024 * 1024;
-                if ((int)$_FILES['img']['size']<=$maxSize) {
+                if ((int)$_FILES['img']['size'] <= $maxSize) {
                     //Get the temporary file name
                     $tmp_name = $_FILES['img']['tmp_name'];
                     //Assignment of the final name
                     $name = $this->getRandomName($_FILES['img']['name']);
                     //Checks if the destination file exists, otherwise it is created
-                    if(!is_dir('uploads')){
+                    if (!is_dir('uploads')) {
                         mkdir('uploads');
                     }
                     //File move
-                    move_uploaded_file($tmp_name,'../public/assets/img/avatar/' . $name);
+                    move_uploaded_file($tmp_name, '../public/assets/img/avatar/' . $name);
+                } else {
+                    $_SESSION['errors'] = "Le poids est trop lourd, maximum autorisé : 1 Mo";
                 }
-                else {
-                    $_SESSION['errors'] =  "Le poids est trop lourd, maximum autorisé : 1 Mo";
-                }
-            }
-            else {
+            } else {
                 $_SESSION['errors'] = "Mauvais type de fichier. Seul les formats JPD, JPEG et PNG sont acceptés";
             }
-        }
-        else {
+        } else {
             $_SESSION['errors'] = "Une erreur s'est produite";
         }
         return $name;
@@ -317,8 +309,7 @@ class UserController extends AbstractController
         try {
             //Generates a random string of 15 chars
             $bytes = random_bytes(15);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             //Is used on failure
             $bytes = openssl_random_pseudo_bytes(15);
         }
@@ -332,7 +323,7 @@ class UserController extends AbstractController
     public function updateUserRole()
     {
         //check if the admin is connected
-        if(self::adminConnected()) {
+        if (self::adminConnected()) {
             $errorMessage = "Seul un administrateur peut mettre à jour un utilisateur";
             $_SESSION['errors'] [] = $errorMessage;
             $this->render('home/index');
@@ -347,11 +338,10 @@ class UserController extends AbstractController
         $user = new UserManager();
         $newRole = $_POST['role'];
         //Compare the username
-        if ($username !== UserManager::getUserByName($_POST['username'])->getUsername())  {
+        if ($username !== UserManager::getUserByName($_POST['username'])->getUsername()) {
             $_SESSION['errors'] = "Le pseudo est incorrecte";
             $this->render('admin/adminSpace');
-        }
-        else {
+        } else {
             $user->updateRoleUser($newRole, $username);
         }
         $this->render('admin/adminSpace');
@@ -380,7 +370,10 @@ class UserController extends AbstractController
                 <p>
                     Afin de finaliser votre inscription sur le site jv-project, 
                     <br>
-                    merci de cliquer <a href=\"$url\">sur ce lien</a> pour confirmer votre adresse email.
+                    merci de cliquer <a href=\"$url\">sur ce lien</a> pour confirmer votre adresse email. Si le lien ne 
+                    s'affiche pas, coller l'adresse ci-dessous dans votre navigateur. 
+                    <br>
+                    https://jv-project.vanessa-amaranth.com/?c=user&a=activate-account&id= $id &token=$token;
                 </p>
             </body>
         </html>
@@ -408,12 +401,12 @@ class UserController extends AbstractController
         $userManager = new UserManager();
         $user = UserManager::getUser($id);
         //Compare role id if is not the same, users are redirecting to home page
-        if($user->getRole()->getId() !== RoleManager::getRoleByName('none')->getId()) {
+        if ($user->getRole()->getId() !== RoleManager::getRoleByName('none')->getId()) {
             $this->render('home/index');
             exit();
         }
 
-        if($user->getToken() === $token) {
+        if ($user->getToken() === $token) {
             ////Change the role of the user
             $userManager->updateRoleToken(1, $id);
             $_SESSION['success'] = 'Votre comte a été activé';

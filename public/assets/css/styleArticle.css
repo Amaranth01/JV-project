@@ -61,12 +61,6 @@ h3 {
     width: 65vw;
 }
 
-.userComment, .commentContent {
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    margin-left: 0.5rem;
-}
-
 .artImage {
     width: 9vw;
     margin-top: 0.5rem;
@@ -109,6 +103,14 @@ h3 {
 .styleNumber {
     margin-left: 25vw;
     margin-top: 2rem;
+}
+
+#commentContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    padding: 0.5rem;
 }
 
 @media screen and (max-width: 1144px) {

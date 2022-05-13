@@ -29,13 +29,14 @@ use App\Model\Manager\UserManager;
 
         <?php
             foreach (CommentManager::getCommentByArticleId($data[0]) as $comment) {?>
-        <div>
-            <img src="/assets/img/avatar/<?=UserManager::getUser($_SESSION['user']->getId())->getImage()?>"
+        <div id="commentContent">
+            <img src="/assets/img/avatar/<?=$comment->getUser()->getImage()?>"
                  alt="Accès à l'espace utilisateur" id="userImage">
-            <span class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?></span>
+            <p class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?></p>
+            <br><br>
+            <p class="commentContent">"<?= $comment->getContent()?>"</p>
         </div>
 
-        <p class="commentContent"><?= $comment->getContent()?></p>
         <?php
             }
         }
