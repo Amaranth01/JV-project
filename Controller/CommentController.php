@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\Entity\Comment;
 use App\Model\Manager\ArticleManager;
 use App\Model\Manager\CommentManager;
+use App\Model\Manager\RoleManager;
 use App\Model\Manager\UserManager;
 
 class CommentController extends AbstractController
@@ -89,9 +90,8 @@ class CommentController extends AbstractController
     public function deleteComment(int $id)
     {
         ////Checks if the writer is logged in
-         if(self::writerConnected()) {
-            $errorMessage = "Seul un rédacteur peut supprimer un article";
-            $_SESSION['errors'] [] = $errorMessage;
+         if(RoleManager::getRoleByName('user')) {
+            $_SESSION['errors'] = "Seul un rédacteur peut supprimer un article";
             $this->render('home/index');
         }
 

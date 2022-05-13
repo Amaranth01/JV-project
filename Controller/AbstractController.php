@@ -110,6 +110,18 @@ class AbstractController
     }
 
     /**
+     * Returns a logged-in admin, or null if not logged in.
+     * @return User|null
+     */
+    public function getConnectedAdmin(): ?User
+    {
+        if(!self::adminConnected()) {
+            return null;
+        }
+        return ($_SESSION['user']);
+    }
+
+    /**
      * Checks if a writer is already logged in
      * @return bool
      */

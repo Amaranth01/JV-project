@@ -322,17 +322,18 @@ class UserController extends AbstractController
      */
     public function updateUserRole()
     {
-        //check if the admin is connected
-        if (self::adminConnected()) {
-            $errorMessage = "Seul un administrateur peut mettre à jour un utilisateur";
-            $_SESSION['errors'] [] = $errorMessage;
-            $this->render('home/index');
-        }
         //check if the field is present
         if (!isset($_POST['username'])) {
             $this->render('home/index');
             exit();
         }
+
+        //check if the admin is connected
+        if (RoleManager::getRoleByName('writer') == 'writer' && RoleManager::getRoleByName('user') == 'user') {
+            $_SESSION['errors'] = "Seul un administrateur peut mettre à jour un utilisateur";
+            $this->render('home/index');
+        }
+
         //clean the data
         $username = $this->clean($this->getFormField('username'));
         $user = new UserManager();

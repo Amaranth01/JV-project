@@ -19,7 +19,7 @@
         <th><?=$comment->getUser()->getUsername()?></th>
         <th><?=$comment->getArticle()->getTitle()?></th>
         <th><a href="/index.php?c=comment&a=update-comment&id=<?=$comment->getId()?>">Editer</a></th>
-        <th>Lien</th>
+        <th><a href="/index.php?c=comment&a=delete-comment&id=<?=$comment->getId()?>">Supprimer</th>
     </tr>
 
      <?php

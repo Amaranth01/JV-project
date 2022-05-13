@@ -195,7 +195,7 @@ class UserManager
      */
     public static function userImage($newImage, $id)
     {
-        $stmt = DB::getPDO()->prepare("UPDATE " . self::PREFIXTABLE . "user SET image = '$newImage' WHERE id = '$id'");
+        $stmt = DB::getPDO()->prepare("UPDATE " . self::PREFIXTABLE . "user SET image = :image  WHERE id = :id");
 
         $stmt->bindParam(':image', $newImage);
         $stmt->bindParam(':id', $id);

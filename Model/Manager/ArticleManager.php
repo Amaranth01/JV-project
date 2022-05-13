@@ -89,16 +89,17 @@ class ArticleManager
     public static function addArticle(Article $article): bool
     {
         $stmt= DB::getPDO()->prepare("
-            INSERT INTO " . self::PREFIXTABLE . "article (title, content, resume, image, user_id, section_id) 
-            VALUES (:title, :content, :resume, :image, :user_id, :section_id )
+            INSERT INTO " . self::PREFIXTABLE . "article (title, content, resume, image, user_id, section_id, date) 
+            VALUES (:title, :content, :resume, :image, :user_id, :section_id, :date )
         ");
 
-        $stmt->bindValue('title', $article->getTitle());
-        $stmt->bindValue('content', $article->getContent());
-        $stmt->bindValue('resume', $article->getResume());
-        $stmt->bindValue('image', $article->getImage());
-        $stmt->bindValue('user_id', $article->getUser()->getId());
-        $stmt->bindValue('section_id', $article->getSection()->getId());
+        $stmt->bindValue(':title', $article->getTitle());
+        $stmt->bindValue(':content', $article->getContent());
+        $stmt->bindValue(':resume', $article->getResume());
+        $stmt->bindValue(':image', $article->getImage());
+        $stmt->bindValue(':user_id', $article->getUser()->getId());
+        $stmt->bindValue(':section_id', $article->getSection()->getId());
+        $stmt->bindValue(':date', (new DateTime())->format('Y-m-d H:i:s'));
 
         $result = $stmt->execute();
         $article->setID(DB::getPDO()->lastInsertId());
