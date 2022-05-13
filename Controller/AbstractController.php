@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Entity\User;
 use Mosquitto\Exception;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class AbstractController
 {
@@ -32,10 +33,6 @@ class AbstractController
         $data = strip_tags($data);
         $data = htmlentities($data);
 
-        if ($data < 0 || $data > 100) {
-            $data = 15;
-        }
-
         return $data;
     }
 
@@ -56,7 +53,13 @@ class AbstractController
      */
     public function getFormField(string $field, $default = null)
     {
+        if($field === 'email')
+            var_dump([
+                'from params' => $field,
+                'from_function' => $_POST[$field],
+            ]);
         if(!isset($_POST[$field])) {
+            var_dump("hello world");
             return (null === $default) ? '' : $default;
         }
         return $_POST[$field];

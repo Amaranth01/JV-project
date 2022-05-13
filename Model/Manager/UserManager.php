@@ -24,7 +24,7 @@ class UserManager
             ->setImage($data['image'])
             ->setToken($data['token'])
             ->setRole($role)
-            ;
+        ;
     }
 
     /**
@@ -51,7 +51,7 @@ class UserManager
     public static function getUserByMail(string $email): ?User
     {
         $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::PREFIXTABLE . "user WHERE email = :email ");
-        $stmt->bindValue('email', $email);
+        $stmt->bindValue(':email', $email);
 
         if($stmt->execute() && $data = $stmt->fetch()) {
             return self::createUser($data);
@@ -66,8 +66,7 @@ class UserManager
     public static function getUserByName(string $username): ?User
     {
         $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::PREFIXTABLE . "user WHERE username = :username");
-
-        $stmt->bindValue('username', $username);
+        $stmt->bindValue(':username', $username);
 
         if($stmt->execute() && $data = $stmt->fetch()) {
             return self::createUser($data);
@@ -86,11 +85,11 @@ class UserManager
             VALUES (:username, :email, :password,  :token, :role_id) 
         ");
 
-        $stmt->bindValue('username', $user->getUsername());
-        $stmt->bindValue('email', $user->getEmail());
-        $stmt->bindValue('password', $user->getPassword());
-        $stmt->bindValue('token', $user->getToken());
-        $stmt->bindValue('role_id', $user->getRole()->getId());
+        $stmt->bindValue(':username', $user->getUsername());
+        $stmt->bindValue(':email', $user->getEmail());
+        $stmt->bindValue(':password', $user->getPassword());
+        $stmt->bindValue(':token', $user->getToken());
+        $stmt->bindValue(':role_id', $user->getRole()->getId());
 
         $stmt = $stmt->execute();
         $user->setId(DB::getPDO()->lastInsertId());
@@ -195,7 +194,12 @@ class UserManager
      */
     public static function userImage($newImage, $id)
     {
-        return DB::getPDO()->query("UPDATE " . self::PREFIXTABLE . "user SET image = '$newImage' WHERE id = '$id'");
+        $stmt = DB::getPDO()->prepare("UPDATE " . self::PREFIXTABLE . "user SET image = '$newImage' WHERE id = '$id'");
+
+        $stmt->bindParam(':image', $newImage);
+        $stmt->bindParam(':id', $id);
+
+        $stmt->execute();
     }
 
     /**

@@ -28,6 +28,7 @@ class UserController extends AbstractController
         //Cleans and return the security of elements
         if ($this->formSubmitted()) {
             $username = $this->clean($this->getFormField('username'));
+
             $email = $this->clean($this->getFormField('email'));
             $password = $this->getFormField('password');
             $passwordR = $this->getFormField('passwordR');
@@ -66,8 +67,8 @@ class UserController extends AbstractController
                     ->setToken($token)
                     ->setRole($role)
                 ;
-                //If no email is found, we launch the addUser function
 
+                //If no email is found, we launch the addUser function
                 if(null == UserManager::getUserByMail($user->getEmail())) {
                     if(self::sendMailToken($username, $mail, $token, $user->getId())) {
 
@@ -92,44 +93,44 @@ class UserController extends AbstractController
 
     }
 
-        public function connexion()
-        {
-            if($this->formSubmitted()) {
-                //Recovers and cleans data
-                $username = $this->clean($this->getFormField('username'));
-                $password = $this->getFormField('password');
+    public function connexion()
+    {
+        if($this->formSubmitted()) {
+            //Recovers and cleans data
+            $username = $this->clean($this->getFormField('username'));
+            $password = $this->getFormField('password');
 
-                //Check that the fields are not empty
-                if (empty($password) && empty($username)) {
-                    $errorMessage = "Veuillez remplir tous les champs";
-                    $_SESSION['errors'] = $errorMessage;
-                    $this->render('home/index');
-                    exit();
-                }
+            //Check that the fields are not empty
+            if (empty($password) && empty($username)) {
+                $errorMessage = "Veuillez remplir tous les champs";
+                $_SESSION['errors'] = $errorMessage;
+                $this->render('home/index');
+                exit();
+            }
 
-                //Traces the user by his username to verify that he exists
-                $user = UserManager::getUserByName($username);
-                if (null === $user) {
-                    $errorMessage = "Pseudo inconnu";
-                    $_SESSION['errors'] = $errorMessage;
-                }
-                else {
-                    //Compare the password entered and written in the DB
-                    if (password_verify($password, $user->getPassword())) {
-                        $user->setPassword('');
-                        $_SESSION['user'] = $user;
-                    }
-                    else {
-                        $_SESSION['errors'] = "Le nom d'utilisateur, ou le mot de passe est incorrect";
-                    }
-                }
+            //Traces the user by his username to verify that he exists
+            $user = UserManager::getUserByName($username);
+            if (null === $user) {
+                $errorMessage = "Pseudo inconnu";
+                $_SESSION['errors'] = $errorMessage;
             }
             else {
-                $successMessage = "Vous êtes connecté";
-                $_SESSION['success'] = $successMessage;
+                //Compare the password entered and written in the DB
+                if (password_verify($password, $user->getPassword())) {
+                    $user->setPassword('');
+                    $_SESSION['user'] = $user;
+                }
+                else {
+                    $_SESSION['errors'] = "Le nom d'utilisateur, ou le mot de passe est incorrect";
+                }
             }
-            $this->render('home/index');
         }
+        else {
+            $successMessage = "Vous êtes connecté";
+            $_SESSION['success'] = $successMessage;
+        }
+        $this->render('home/index');
+    }
 
     /**
      * @param int $id
