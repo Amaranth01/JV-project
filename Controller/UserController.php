@@ -29,6 +29,16 @@ class UserController extends AbstractController
      */
     public function register()
     {
+        if (!isset($_POST['submit'])) {
+            $this->render('pages/register');
+            exit();
+        }
+
+        if (!isset($_POST['email']) || !isset($_POST['username']) || !isset($_POST['password'])) {
+            $this->render('pages/register');
+            exit();
+        }
+
         //Cleans and return the security of elements
         if ($this->formSubmitted()) {
             $username = $this->clean($this->getFormField('username'));
@@ -38,24 +48,46 @@ class UserController extends AbstractController
             $passwordR = $this->getFormField('passwordR');
 
             $mail = filter_var($email, FILTER_SANITIZE_EMAIL);
+            $userManager = new UserManager();
+
             // Send a message if the email address is not valid.
             if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['errors'] = "L'adresse mail n'est pas valide";
+                $this->render('pages/register');
+                exit();
+            }
+
+            if($userManager->usernameExist($username) !== null) {
+                $_SESSION['errors'] = "Ce nom d'utlisateur existe déjà";
+                $this->render('pages/register');
+                exit();
+            }
+
+            if($userManager->userMailExist($mail) !==null) {
+                $_SESSION['errors'] = "Cette adresse mail existe déjà";
+                $this->render('pages/register');
+                exit();
             }
 
             // Returns an error if the username is not 2 characters
-            if (!strlen($username) >= 2) {
-                $_SESSION['errors'] = "Le nom, ou pseudo, doit faire au moins 2 caractères";
+            if (!strlen($username) >= 6 && strlen($username) <=50) {
+                $_SESSION['errors'] = "Le nom, ou pseudo, doit faire au moins 6 caractères et 50 maximum";
+                $this->render('pages/register');
+                exit();
             }
 
             // Returns an error if the password does not contain all the requested characters.
             if (!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
                 $_SESSION['errors'] = "Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial";
+                $this->render('pages/register');
+                exit();
             }
 
             // Passwords do not match
             if ($password !== $passwordR) {
                 $_SESSION['errors'] = "Les mots de passe ne correspondent pas";
+                $this->render('pages/register');
+                exit();
             } else {
                 //If no error is detected the program goes to else and authorizes the recording
                 $token = self::randomChars();
@@ -82,8 +114,6 @@ class UserController extends AbstractController
                     } else {
                         $_SESSION['errors'] = "Impossible de vous enregistrer";
                     }
-                } else {
-                    $_SESSION['errors'] = "Cette adresse mail existe déjà !";
                 }
             }
         }
@@ -93,6 +123,13 @@ class UserController extends AbstractController
 
     public function connexion()
     {
+        if(RoleManager::getRoleByName('none')) {
+            $_SESSION['errors'] = "Veuillez activer votre compte pour vous connecter";
+            session_destroy();
+            $this->render('pages/login');
+            exit();
+        }
+
         if ($this->formSubmitted()) {
             //Recovers and cleans data
             $username = $this->clean($this->getFormField('username'));
@@ -111,7 +148,10 @@ class UserController extends AbstractController
             if (null === $user) {
                 $errorMessage = "Pseudo inconnu";
                 $_SESSION['errors'] = $errorMessage;
-            } else {
+            }
+
+            else {
+
                 //Compare the password entered and written in the DB
                 if (password_verify($password, $user->getPassword())) {
                     $user->setPassword('');
@@ -120,10 +160,12 @@ class UserController extends AbstractController
                     $_SESSION['errors'] = "Le nom d'utilisateur, ou le mot de passe est incorrect";
                 }
             }
+
         } else {
             $successMessage = "Vous êtes connecté";
             $_SESSION['success'] = $successMessage;
         }
+
         $this->render('home/index');
     }
 

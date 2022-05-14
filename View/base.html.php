@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <script src="assets/js/tarteaucitron/tarteaucitron.js"></script>
+    <script src="/assets/js/tarteaucitron.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -127,7 +129,6 @@ echo"</pre>";
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/25d98733ec.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 
 <script src="/assets/js/theme.js"></script>
 <script src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>

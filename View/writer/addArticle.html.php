@@ -15,13 +15,13 @@
 <form action="/index.php?c=article&a=add-article" method="post" enctype="multipart/form-data" class="white">
 
     <label for="img">Image de couverture : </label>
-    <input type="file" name="img" id="img" accept=".jpg, .jpeg, .png">
+    <input type="file" name="img" id="img" accept=".jpg, .jpeg, .png" required>
 
     <label for="title">Titre : </label>
-    <input type="text" name="title" id="title">
+    <input type="text" name="title" id="title" required>
 
     <label for="editor">Contenu : </label>
-    <textarea name="content" id="editor" cols="30" rows="10"></textarea>
+    <textarea name="content" id="editor" cols="30" rows="10" required></textarea>
 
     <div id="category">
         <p>Type de jeu</p>
@@ -31,7 +31,7 @@
          */
         foreach ($data['categories'] as $category) { ?>
                 <label for="cat_<?=$category->getId() ?>"><?=$category->getCategoryName() ?></label>
-                <input type="checkbox" name="cat_<?=$category->getId() ?>" value="<?=$category->getId() ?>">
+                <input type="checkbox" name="cat_<?=$category->getId() ?>" value="<?=$category->getId() ?>" required>
             <?php
             }
         ?>
@@ -46,7 +46,7 @@
 
         foreach ($data['platforms'] as $platform) { ?>
                 <label for="plat_<?=$platform->getId()?>"><?=$platform->getPlatformName()?></label>
-                <input type="checkbox" name="plat_<?=$platform->getId()?>" value="<?=$platform->getId()?>">
+                <input type="checkbox" name="plat_<?=$platform->getId()?>" value="<?=$platform->getId()?>" required>
             <?php
             }
         ?>
@@ -56,10 +56,10 @@
         <p>Sections</p>
 
         <label for="news">News</label>
-        <input type="checkbox" name="section" id="news" value="News">
+        <input type="checkbox" name="section" id="news" value="News" >
 
         <label for="test">Test</label>
-        <input type="checkbox" name="section" id="test" value="test">
+        <input type="checkbox" name="section" id="test" value="test" >
 
         <label for="help">Soluce</label>
         <input type="checkbox" name="section" id="help" value="help">
@@ -73,7 +73,7 @@
 
     <div id="resume">
         <label for="resume">Résumé de l'article</label>
-        <textarea name="resume" id="resume" cols="60" rows="10" maxlength="255"></textarea>
+        <textarea name="resume" id="resume" cols="60" rows="10" maxlength="255" required></textarea>
     </div>
 
     <input type="submit" name="submit" value="Publier" class="button">

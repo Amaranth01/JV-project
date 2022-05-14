@@ -4,23 +4,23 @@
     <form action="/index.php?c=user&a=register" method="post">
 
         <div>
-            <label for="usernameRegister">Votre pseudo</label>
-            <input type="text" name="username" id="usernameRegister" required>
+            <label for="username">Votre pseudo</label>
+            <input type="text" name="username" id="username" minlength="6" required>
         </div>
 
         <div>
-            <label for="email-register">Votre email</label>
-            <input type="email" name="email" id="email-register" required>
+            <label for="email">Votre email</label>
+            <input type="email" name="email" id="email" required>
         </div>
 
         <div>
-            <label for="passwordRegister">Votre mot de passe</label>
-            <input type="password" name="password" id="passwordRegister" required>
+            <label for="password">Votre mot de passe</label>
+            <input type="password" name="password" id="password" required>
         </div>
 
         <div>
-            <label for="passwordRegisterRepeat">Répétez votre mot de passe</label>
-            <input type="password" name="passwordR" id="passwordRegisterRepeat" required>
+            <label for="passwordR">Répétez votre mot de passe</label>
+            <input type="password" name="passwordR" id="passwordR" required>
         </div>
 
         <div>

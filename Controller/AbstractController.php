@@ -53,11 +53,6 @@ class AbstractController
      */
     public function getFormField(string $field, $default = null)
     {
-        if($field === 'email')
-            var_dump([
-                'from params' => $field,
-                'from_function' => $_POST[$field],
-            ]);
         if(!isset($_POST[$field])) {
             var_dump("hello world");
             return (null === $default) ? '' : $default;

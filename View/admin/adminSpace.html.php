@@ -23,6 +23,7 @@
             <option value="1">Utilisateur</option>
             <option value="2">Rédacteur</option>
             <option value="3">Administrateur</option>
+            <option value="4">None</option>
         </select>
         <br>
         <input type="submit" name="submit" value="Mettre à jour" class="button">

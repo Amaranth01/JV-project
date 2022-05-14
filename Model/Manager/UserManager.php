@@ -109,12 +109,36 @@ class UserManager
             SELECT * FROM " . self::PREFIXTABLE . "user WHERE id = :id
          ");
 
-         $stmt->bindParam('id', $id);
+         $stmt->bindParam(':id', $id);
 
          if($stmt->execute() && $data = $stmt->fetch()) {
              $user = self::createUser($data);
          }
          return $user;
+    }
+
+    /**
+     * @param $email
+     * @param $username
+     * @param $role
+     * @return bool
+     */
+    public static function userMailExist($email): bool
+    {
+        $stmt = DB::getPDO()->prepare(" SELECT * FROM " . self::PREFIXTABLE . "user WHERE email = :email");
+
+        $stmt->bindValue(":email", $email);
+
+        return $stmt->execute();
+    }
+
+    public static function usernameExist($username): bool
+    {
+        $stmt = DB::getPDO()->prepare(" SELECT * FROM " . self::PREFIXTABLE . "user WHERE username = :username");
+
+        $stmt->bindValue(":username", $username);
+
+        return $stmt->execute();
     }
 
     /**
@@ -127,8 +151,8 @@ class UserManager
             UPDATE " . self::PREFIXTABLE . "user SET username = :newUsername WHERE id = :id
         ");
 
-        $stmt->bindParam('newUsername', $newUsername);
-        $stmt->bindParam('id', $id);
+        $stmt->bindParam(':newUsername', $newUsername);
+        $stmt->bindParam(':id', $id);
 
         $stmt->execute();
     }
@@ -139,8 +163,8 @@ class UserManager
             UPDATE " . self::PREFIXTABLE . "user SET email = :newEmail WHERE id = :id
         ");
 
-        $stmt->bindParam('newEmail', $newEmail);
-        $stmt->bindParam('id', $id);
+        $stmt->bindParam(':newEmail', $newEmail);
+        $stmt->bindParam(':id', $id);
 
         $stmt->execute();
     }
@@ -151,8 +175,8 @@ class UserManager
             UPDATE " . self::PREFIXTABLE . "user SET password = :newPassword WHERE id = :id
         ");
 
-        $stmt->bindParam('newPassword', $newPassword);
-        $stmt->bindParam('id', $id);
+        $stmt->bindParam(':newPassword', $newPassword);
+        $stmt->bindParam(':id', $id);
 
         $stmt->execute();
     }
@@ -167,8 +191,8 @@ class UserManager
             UPDATE " . self::PREFIXTABLE . "user SET role_id = :newRole WHERE username = :newUsername"
         );
 
-        $stmt->bindParam('newRole', $newRole);
-        $stmt->bindParam('newUsername', $newUsername);
+        $stmt->bindParam(':newRole', $newRole);
+        $stmt->bindParam(':newUsername', $newUsername);
 
         $stmt->execute();
     }
@@ -182,7 +206,7 @@ class UserManager
     {
         $stmt = DB::getPDO()->prepare("DELETE FROM " . self::PREFIXTABLE . "user WHERE id = :id");
 
-        $stmt->bindParam('id', $id);
+        $stmt->bindParam(':id', $id);
 
         return $stmt->execute();
 
@@ -211,8 +235,8 @@ class UserManager
     {
         $stmt = DB::getPDO()->prepare("UPDATE " . self::PREFIXTABLE . "user SET role_id = :role WHERE id = :id");
 
-        $stmt->bindParam('role', $role);
-        $stmt->bindParam('id', $id);
+        $stmt->bindParam(':role', $role);
+        $stmt->bindParam(':id', $id);
 
         $stmt->execute();
     }
