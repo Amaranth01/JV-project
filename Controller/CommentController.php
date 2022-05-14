@@ -90,9 +90,10 @@ class CommentController extends AbstractController
     public function deleteComment(int $id)
     {
         ////Checks if the writer is logged in
-         if(RoleManager::getRoleByName('user')) {
+         if(self::writerConnected()) {
             $_SESSION['errors'] = "Seul un rédacteur peut supprimer un article";
             $this->render('home/index');
+            exit();
         }
 
         //Checks that the comment exists by its id

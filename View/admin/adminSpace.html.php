@@ -44,7 +44,7 @@
                     <td><?= $user->getEmail() ?></td>
                     <td><?= $user->getRole()->getRoleName()?></td>
                     <td>
-                        <a href="/index.php?c=user&a=delete-user&id=<?= $user->getId() ?>">Supprimer</a>
+                        <a href="/index.php?c=user&a=admin-delete-user&id=<?= $user->getId() ?>">Supprimer</a>
                     </td>
                 </tr>
         <?php

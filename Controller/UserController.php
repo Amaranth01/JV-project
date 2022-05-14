@@ -140,7 +140,7 @@ class UserController extends AbstractController
 
         //Verify that the user has admin status and if the id is the same une URL and session user
         if (self::getConnectedUser() && self::adminConnected() && self::writerConnected() && $_SESSION['user']->getId() !== $_GET['id']) {
-            $_SESSION['errors'] = "Il faut être connecté pour supprimer un compte et propriétaire du compte !";
+            $_SESSION['errors'] = "Il faut être connecté et propriétaire du compte pour le supprimer !";
             $this->render('home/index');
             exit();
         }
@@ -152,6 +152,16 @@ class UserController extends AbstractController
             session_destroy();
             $this->render('home/index');
         }
+        $this->render('home/index');
+    }
+
+    public function adminDeleteUser(int $id)
+    {
+        if (self::adminConnected()) {
+            $userManager = new UserManager();
+            $deleted = $userManager->deleteUser($id);
+        }
+        $this->render('admin/adminSpace');
     }
 
     /**
@@ -374,7 +384,7 @@ class UserController extends AbstractController
                     merci de cliquer <a href=\"$url\">sur ce lien</a> pour confirmer votre adresse email. Si le lien ne 
                     s'affiche pas, coller l'adresse ci-dessous dans votre navigateur. 
                     <br>
-                    https://jv-project.vanessa-amaranth.com/?c=user&a=activate-account&id= $id &token=$token;
+                    https://jv-project.vanessa-amaranth.com/?c=user&a=activate-account&id= $id &token=$token
                 </p>
             </body>
         </html>
