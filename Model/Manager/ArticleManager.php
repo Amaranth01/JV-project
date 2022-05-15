@@ -315,7 +315,7 @@ class ArticleManager
             SELECT id, title FROM " . self::PREFIXTABLE . "article WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 3
         ");
         $stmt->execute();
-
+        //Get the requested data in an array
         foreach ($stmt->fetchAll() as $data) {
             $article[] = [
                 "id" => $data['id'],

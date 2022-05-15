@@ -8,6 +8,7 @@ use App\Model\Entity\Role;
 class RoleManager
 {
     public const PREFIXTABLE = 'jvp_';
+
     /**
      * @param int $id
      * @return Role

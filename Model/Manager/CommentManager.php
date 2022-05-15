@@ -67,6 +67,7 @@ class CommentManager
     }
 
     /**
+     * get the comments for the view
      * @param int $id
      * @return Comment
      */
@@ -83,6 +84,7 @@ class CommentManager
     }
 
     /**
+     * Sort the comment by the article for tghe view
      * @param $id
      * @return array
      */
@@ -105,6 +107,7 @@ class CommentManager
     }
 
     /**
+     * Update Comment
      * @param $newContent
      * @param $id
      */

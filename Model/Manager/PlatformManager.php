@@ -10,6 +10,7 @@ class PlatformManager
     public const PREFIXTABLE = 'jvp_';
 
     /**
+     * Get the platform for the sort
      * @return array
      */
     public static function getAllPlatforms(): array

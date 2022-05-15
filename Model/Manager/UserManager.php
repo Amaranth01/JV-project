@@ -9,7 +9,9 @@ use PDOStatement;
 class UserManager
 {
     public const PREFIXTABLE = 'jvp_';
+
     /**
+     *Get all data about user
      * @param array $data
      * @return User
      */
@@ -213,6 +215,7 @@ class UserManager
     }
 
     /**
+     * Get image name for a user
      * @param $newImage
      * @param $id
      * @return void

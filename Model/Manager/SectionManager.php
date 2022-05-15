@@ -8,6 +8,11 @@ use App\Model\Entity\Section;
 class SectionManager
 {
     public const PREFIXTABLE = 'jvp_';
+
+    /**
+     * @param string $sectionName
+     * @return Section
+     */
     public static function getSectionByName(string $sectionName): Section
     {
         $section = new Section();

@@ -11,6 +11,7 @@ class CategoryManager
     public const PREFIXTABLE = 'jvp_';
 
     /**
+     * Search the categories for the sort
      * @return array
      */
     public static function getAllCategories(): array
