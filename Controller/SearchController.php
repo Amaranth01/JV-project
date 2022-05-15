@@ -17,14 +17,14 @@ class SearchController extends AbstractController
             $result = ArticleManager::searchArticle($contentSearch);
             if ($result === []) {
                 //If the result is null redirect to the null search page
-                $this->render('pages/searchNull');
+                $this->render('pages/SearchNull');
                 exit();
             }
             //Otherwise, redirect to the search page
             $this->render('pages/search', $result);
         }
         else {
-            $this->render('pages/searchNull');
+            $this->render('pages/SearchNull');
         }
     }
 }

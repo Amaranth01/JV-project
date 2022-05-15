@@ -71,7 +71,7 @@ class ArticleController extends AbstractController
             if(in_array($_FILES['img']['type'], $allowedMimeTypes)) {
                 //Setting the maximum size
                 $maxSize = 1024 * 1024;
-                if ((int)$_FILES['img']['size']<=$maxSize) {
+                if ((int)$_FILES['img']['size'] <= $maxSize) {
                     //Get the temporary file name
                     $tmp_name = $_FILES['img']['tmp_name'];
                     //Assignment of the final name

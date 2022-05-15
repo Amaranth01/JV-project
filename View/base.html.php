@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JV Project</title>
 
+    <link rel="stylesheet" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/styleMenu.css">
     <link rel="stylesheet" href="/assets/css/styleForm.css">
     <link rel="stylesheet" href="/assets/css/styleAdmin.css">

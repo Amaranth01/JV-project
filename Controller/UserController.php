@@ -121,7 +121,6 @@ class UserController extends AbstractController
             }
         }
         $this->render('home/index');
-
     }
 
     public function connexion()
