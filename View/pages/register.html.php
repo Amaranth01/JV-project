@@ -14,6 +14,11 @@
         </div>
 
         <div>
+            <label for="emailR">Répétez votre email</label>
+            <input type="email" name="emailR" id="emailR" required>
+        </div>
+
+        <div>
             <label for="password">Votre mot de passe</label>
             <input type="password" name="password" id="password" required>
         </div>

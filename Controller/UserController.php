@@ -48,6 +48,7 @@ class UserController extends AbstractController
             $passwordR = $this->getFormField('passwordR');
 
             $mail = filter_var($email, FILTER_SANITIZE_EMAIL);
+            $mailR = filter_var($email, FILTER_SANITIZE_EMAIL);
             $userManager = new UserManager();
 
             // Send a message if the email address is not valid.
@@ -65,6 +66,12 @@ class UserController extends AbstractController
 
             if($userManager->userMailExist($mail)) {
                 $_SESSION['errors'] = "Cette adresse mail existe déjà";
+                $this->render('pages/register');
+                exit();
+            }
+
+            if ($mail !== $mailR) {
+                $_SESSION['errors'] = "Les adresses mails ne correspondent pas";
                 $this->render('pages/register');
                 exit();
             }
