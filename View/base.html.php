@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <script src="assets/js/tarteaucitron/tarteaucitron.js"></script>
     <script src="/assets/js/tarteaucitron.js"></script>
@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="/assets/css/styleArticle.css">
     <link rel="stylesheet" href="/assets/css/darkMode.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/logo.png">
-    <script src="/assets/js/tarte.js"></script>
 </head>
 <body>
 <?php
@@ -47,9 +46,6 @@ if (isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
-echo "<pre>";
-var_dump($_SESSION['user']);
-echo "</pre>";
 ?>
 <!--First menu-->
 <div>
