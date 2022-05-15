@@ -120,7 +120,12 @@ if (isset($_SESSION['success'])) {
 </main>
 <div id="tarteaucitron"></div>
 <footer>
-    <a href="/index.php?c=home&a=privacy" id="privacyPolicy">Politiques de confidentialités</a>
+    <p>
+        <a href="/index.php?c=home&a=privacy" id="privacyPolicy">Politiques de confidentialités</a>
+    </p>
+    <p>
+        <a href="/index.php?c=home&a=legal-notice" id="privacyPolicy">Mention légale</a>
+    </p>
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

@@ -10,6 +10,7 @@ class AdminController extends AbstractController
 {
     public function index()
     {
+        //redirecting to writer's space
         $this->render('writer/writer');
     }
 
@@ -30,6 +31,9 @@ class AdminController extends AbstractController
         $this->render('writer/updateArticle', $data=[$id]);
     }
 
+    /**
+     * View all articles with pagination
+     */
     public function listArticle()
     {
         //Checks if the parameter is in the url
@@ -44,20 +48,21 @@ class AdminController extends AbstractController
             }
             //If parameter present calculation of the number of articles per page
             $this->render('writer/listArticle', $data = [
-                'article' => ArticleManager::findAllArticle(0, ($_GET['page'] -1) * 3),
-                'page' => ArticleManager::countArticle() /3 ,
+                'article' => ArticleManager::findAllArticle(0, ($_GET['page'] -1) * 6),
+                'page' => ArticleManager::countArticle() /6 ,
             ]);
             exit();
         }
         //If page parameter is absent then displays the first results defined in SQL
         $this->render('writer/listArticle', $data = [
             'article' => ArticleManager::findAllArticle(0),
-            'page' => ArticleManager::countArticle() /3,
+            'page' => ArticleManager::countArticle() /6,
         ]);
     }
 
     public function adminSpace()
     {
+        //redirecting to admin's space
         $this->render('admin/adminSpace');
     }
 }

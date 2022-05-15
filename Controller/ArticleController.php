@@ -15,6 +15,7 @@ class ArticleController extends AbstractController
 
     public function index()
     {
+        //Redirecting to the writer's space
         $this->render('writer/writer');
     }
 
@@ -65,7 +66,7 @@ class ArticleController extends AbstractController
         //Checking the presence of the form field
         if(isset($_FILES['img']) && $_FILES['img']['error'] === 0){
 
-            //Defining allowed file types
+            //Defining allowed file types for the secured
             $allowedMimeTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 
             if(in_array($_FILES['img']['type'], $allowedMimeTypes)) {
@@ -152,17 +153,23 @@ class ArticleController extends AbstractController
      */
     public function deleteArticle(int $id)
     {
-        //Verify that the user has admin status
-        if(!self::writerConnected()) {
-            $errorMessage = "Seul un administrateur peut supprimer un article";
-            $_SESSION['errors'] [] = $errorMessage;
+        //Verify if a user is connected
+        if(!isset($_SESSION['user'])) {
+            $_SESSION['errors'] = "Seul un rédacteur peut supprimer un article";
             $this->render('home/index');
         }
-        //Check that the article exists
-        if(ArticleManager::articleExist($id)) {
-            $article = ArticleManager::getArticle($id);
-            $deleted = ArticleManager::deleteArticle($article);
-            $this->render('writer/writer');
+        //verify who is connected
+        if($_SESSION['user']->getRole()->getRoleName() === 'user') {
+            $_SESSION['errors'] = "Seul un rédacteur peut supprimer un article";
+            $this->render('home/index');
+        }
+        if (self::writerConnected()) {
+            //Check that the article exists
+            if(ArticleManager::articleExist($id)) {
+                $article = ArticleManager::getArticle($id);
+                $deleted = ArticleManager::deleteArticle($article);
+                $this->render('writer/writer');
+            }
         }
     }
 

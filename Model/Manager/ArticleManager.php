@@ -172,7 +172,7 @@ class ArticleManager
     public static function getArticleBySectionId(int $id, int $limit = 0, int $offset = 0 ): array
     {
         $article = [];
-        if ($limit === 3) {
+        if ($limit === 6) {
             $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article WHERE section_id = '$id' ORDER BY id DESC 
                     LIMIT 3 OFFSET $offset
             ");
