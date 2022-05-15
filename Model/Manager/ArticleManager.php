@@ -10,7 +10,9 @@ use DateTime;
 class ArticleManager
 {
     public const PREFIXTABLE = 'jvp_';
+
     /**
+     * Search all articles to display them
      * @param int $limit
      * @param int $offset
      * @return array
@@ -20,7 +22,7 @@ class ArticleManager
         $articles = [];
 
         if($limit === 0) {
-            $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article ORDER BY id DESC LIMIT 3 OFFSET $offset");
+            $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article ORDER BY id DESC LIMIT 6 OFFSET $offset");
         }
         else {
             $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article ORDER BY id DESC LIMIT 4");
@@ -62,12 +64,21 @@ class ArticleManager
             ;
     }
 
+    /**
+     * Count the article for pagination
+     * @return mixed
+     */
     public static function countArticle()
     {
         $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM " . self::PREFIXTABLE . "article");
         return $stmt->fetch()['COUNT(*)'];
     }
 
+    /**
+     * Count the article by platform for the pagination
+     * @param $id
+     * @return mixed
+     */
     public static function countArticleByPlatform($id)
     {
         $stmt = DB::getPDO()->query("
@@ -76,6 +87,11 @@ class ArticleManager
         return $stmt->fetch()['COUNT(*)'];
     }
 
+    /**
+     * Count the article by section for the pagination
+     * @param $id
+     * @return mixed
+     */
     public static function countArticleBySection($id)
     {
         $stmt = DB::getPDO()->query("SELECT COUNT(*) FROM " . self::PREFIXTABLE . "section WHERE id = $id");
@@ -83,6 +99,7 @@ class ArticleManager
     }
 
     /**
+     * Add an article to the DB
      * @param Article $article
      * @return bool
      */
@@ -105,9 +122,12 @@ class ArticleManager
         $article->setID(DB::getPDO()->lastInsertId());
 
         if($result) {
+            //Get platforms for the sort
             $platformFromDb = PlatformManager::getAllPlatforms();
             foreach ($platformFromDb as $data) {
+                //Get the prefix plat_ and get the id of the platform
                 if (isset($_POST['plat_' . $data->getId()])) {
+                    //Execute the result
                     $resultArticlePlatform = DB::getPDO()->exec("
                     INSERT INTO " . self::PREFIXTABLE . "platform_article (" . self::PREFIXTABLE . "article_id, 
                     " . self::PREFIXTABLE . "platform_id) VALUES (" . $article->getId() . "," . $data->getId() . ")
@@ -115,9 +135,12 @@ class ArticleManager
                 }
             }
 
+            //Get category for the sort
             $categoryFromDb = CategoryManager::getAllCategories();
             foreach ($categoryFromDb as $data) {
+                ////Get the prefix cat_ and get the id of the platform
                 if (isset($_POST['cat_' . $data->getId()])) {
+                    //Execute the result
                     $resultArticleCategory = DB::getPDO()->exec("
                     INSERT INTO " . self::PREFIXTABLE . "category_article (jvp_article_id, jvp_category_id) VALUES (" . $article->getId() . ", 
                     " . $data->getId() . ")
@@ -129,6 +152,7 @@ class ArticleManager
     }
 
     /**
+     * Check if the article exist
      * @param $id
      * @return int|mixed
      */
@@ -139,6 +163,7 @@ class ArticleManager
     }
 
     /**
+     *
      * @param int $id
      * @param int $limit
      * @param int $offset
@@ -168,6 +193,7 @@ class ArticleManager
     }
 
     /**
+     * Search an article by their section ID
      * @param int $id
      * @param int $limit
      * @param int $offset
@@ -176,17 +202,19 @@ class ArticleManager
     public static function getArticleByPlatformId(int $id, int $limit = 0, int $offset = 0): array
     {
         $article = [];
-        if ($limit === 3) {
+        //Shows only 6 article
+        if ($limit === 6) {
             $stmt = DB::getPDO()->query("
             SELECT " . self::PREFIXTABLE . "article.id, " . self::PREFIXTABLE . "article.image, 
             " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.title FROM 
             " . self::PREFIXTABLE . "platform_article INNER JOIN " . self::PREFIXTABLE . "article ON 
             " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "article_id = " . self::PREFIXTABLE . "article.id  
             WHERE " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "platform_id = '$id' ORDER BY 
-            " . self::PREFIXTABLE . "article.id DESC LIMIT 3 OFFSET $offset
+            " . self::PREFIXTABLE . "article.id DESC LIMIT 6 OFFSET $offset
          ");
         }
         else {
+            //shows all articles
             $stmt = DB::getPDO()->query("
             SELECT " . self::PREFIXTABLE . "article.id, " . self::PREFIXTABLE . "article.image, 
             " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.title FROM 
@@ -197,7 +225,7 @@ class ArticleManager
          ");
         }
 
-
+        //Get the requested data in an array
         foreach ($stmt->fetchAll() as $data) {
             $article[] = (new Article())
                 ->setId($data['id'])
@@ -211,6 +239,7 @@ class ArticleManager
     }
 
     /**
+     * update an article in DB
      * @param $newTitle
      * @param $newContent
      * @param $id
@@ -228,11 +257,13 @@ class ArticleManager
     }
 
     /**
+     * Delete an article from the DB
      * @param Article $article
      * @return false|int
      */
     public static function deleteArticle(Article $article): bool
     {
+        //Check if the article exist
         if (self::articleExist($article->getId())) {
             return DB::getPDO()->exec(
                 "DELETE FROM " . self::PREFIXTABLE . "article WHERE id = {$article->getId()}
@@ -242,6 +273,7 @@ class ArticleManager
     }
 
     /**
+     * Search an article for the search tool
      * @param $contentSearch
      * @return array
      */
@@ -260,6 +292,7 @@ class ArticleManager
 
         $stmt->execute();
 
+        //Get the requested data in an array
         foreach ($stmt->fetchAll() as $data) {
             $article [] = (new Article())
                 ->setTitle($data['title'])
@@ -271,6 +304,7 @@ class ArticleManager
     }
 
     /**
+     * Get article after the search
      * @param $search
      * @return array
      */

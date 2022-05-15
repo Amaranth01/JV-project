@@ -119,26 +119,26 @@ class UserManager
 
     /**
      * @param $email
-     * @param $username
-     * @param $role
      * @return bool
      */
     public static function userMailExist($email): bool
     {
-        $stmt = DB::getPDO()->prepare(" SELECT * FROM " . self::PREFIXTABLE . "user WHERE email = :email");
-
+        $stmt = DB::getPDO()->prepare(" SELECT count(*) as cnt FROM " . self::PREFIXTABLE . "user WHERE email = :email");
         $stmt->bindValue(":email", $email);
-
-        return $stmt->execute();
+        $stmt->execute();
+        return (int)$stmt->fetch()['cnt'] > 0;
     }
 
+    /**
+     * @param $username
+     * @return bool
+     */
     public static function usernameExist($username): bool
     {
-        $stmt = DB::getPDO()->prepare(" SELECT * FROM " . self::PREFIXTABLE . "user WHERE username = :username");
-
+        $stmt = DB::getPDO()->prepare(" SELECT count(*) as cnt FROM " . self::PREFIXTABLE . "user WHERE username = :username");
         $stmt->bindValue(":username", $username);
-
-        return $stmt->execute();
+        $stmt->execute();
+        return (int)$stmt->fetch()['cnt'] > 0;
     }
 
     /**

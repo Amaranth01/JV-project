@@ -57,20 +57,20 @@ class UserController extends AbstractController
                 exit();
             }
 
-            if($userManager->usernameExist($username) !== null) {
+            if($userManager->usernameExist($username)) {
                 $_SESSION['errors'] = "Ce nom d'utlisateur existe déjà";
                 $this->render('pages/register');
                 exit();
             }
 
-            if($userManager->userMailExist($mail) !==null) {
+            if($userManager->userMailExist($mail)) {
                 $_SESSION['errors'] = "Cette adresse mail existe déjà";
                 $this->render('pages/register');
                 exit();
             }
 
             // Returns an error if the username is not 2 characters
-            if (!strlen($username) >= 6 && strlen($username) <=50) {
+            if (!strlen($username) >= 6 && strlen($username) <= 50) {
                 $_SESSION['errors'] = "Le nom, ou pseudo, doit faire au moins 6 caractères et 50 maximum";
                 $this->render('pages/register');
                 exit();
@@ -108,9 +108,12 @@ class UserController extends AbstractController
 
                     //If the ID is not null, we pass the user in the session
                     if (null !== $user->getId()) {
-                        $_SESSION['success'] = "Félicitations votre compte a bien été créé, un mail vous sera envoyé
-                         pour activer votre compte. L'action peut prendre quelques minutes. Vérifiez votre boîte de spam.";
+                        $_SESSION['success'] = "
+                            Félicitations votre compte a bien été créé, un mail vous sera envoyé
+                            pour activer votre compte. L'action peut prendre quelques minutes. Vérifiez votre boîte de spam.
+                        ";
                         $user->setPassword('');
+                        $_SESSION['activation-token'] = $token;
                     } else {
                         $_SESSION['errors'] = "Impossible de vous enregistrer";
                     }
@@ -123,49 +126,44 @@ class UserController extends AbstractController
 
     public function connexion()
     {
-        if(RoleManager::getRoleByName('none')) {
-            $_SESSION['errors'] = "Veuillez activer votre compte pour vous connecter";
-            session_destroy();
-            $this->render('pages/login');
-            exit();
+        if(isset($_SESSION['activation-token'])) {
+            $_SESSION['errors'] = "Vous devez activer votre compte avant de vous connecter";
         }
+        else {
+            if ($this->formSubmitted()) {
+                //Recovers and cleans data
+                $username = $this->clean($this->getFormField('username'));
+                $password = $this->getFormField('password');
 
-        if ($this->formSubmitted()) {
-            //Recovers and cleans data
-            $username = $this->clean($this->getFormField('username'));
-            $password = $this->getFormField('password');
-
-            //Check that the fields are not empty
-            if (empty($password) && empty($username)) {
-                $errorMessage = "Veuillez remplir tous les champs";
-                $_SESSION['errors'] = $errorMessage;
-                $this->render('home/index');
-                exit();
-            }
-
-            //Traces the user by his username to verify that he exists
-            $user = UserManager::getUserByName($username);
-            if (null === $user) {
-                $errorMessage = "Pseudo inconnu";
-                $_SESSION['errors'] = $errorMessage;
-            }
-
-            else {
-
-                //Compare the password entered and written in the DB
-                if (password_verify($password, $user->getPassword())) {
-                    $user->setPassword('');
-                    $_SESSION['user'] = $user;
-                } else {
-                    $_SESSION['errors'] = "Le nom d'utilisateur, ou le mot de passe est incorrect";
+                //Check that the fields are not empty
+                if (empty($password) && empty($username)) {
+                    $errorMessage = "Veuillez remplir tous les champs";
+                    $_SESSION['errors'] = $errorMessage;
+                    $this->render('home/index');
+                    exit();
                 }
+
+                //Traces the user by his username to verify that he exists
+                $user = UserManager::getUserByName($username);
+                if (null === $user) {
+                    $errorMessage = "Pseudo inconnu";
+                    $_SESSION['errors'] = $errorMessage;
+                } else {
+
+                    //Compare the password entered and written in the DB
+                    if (password_verify($password, $user->getPassword())) {
+                        $user->setPassword('');
+                        $_SESSION['user'] = $user;
+                    } else {
+                        $_SESSION['errors'] = "Le nom d'utilisateur, ou le mot de passe est incorrect";
+                    }
+                }
+
+            } else {
+                $successMessage = "Vous êtes connecté";
+                $_SESSION['success'] = $successMessage;
             }
-
-        } else {
-            $successMessage = "Vous êtes connecté";
-            $_SESSION['success'] = $successMessage;
         }
-
         $this->render('home/index');
     }
 
@@ -424,7 +422,7 @@ class UserController extends AbstractController
                     Afin de finaliser votre inscription sur le site jv-project, 
                     <br>
                     merci de cliquer <a href=\"$url\">sur ce lien</a> pour confirmer votre adresse email. Si le lien ne 
-                    s'affiche pas, coller l'adresse ci-dessous dans votre navigateur. 
+                    s'affiche pas, collez l'adresse ci-dessous dans votre navigateur. 
                     <br>
                     https://jv-project.vanessa-amaranth.com/?c=user&a=activate-account&id= $id &token=$token
                 </p>
@@ -432,7 +430,6 @@ class UserController extends AbstractController
         </html>
         ";
 
-        $to = $mail;
         $subject = "Vérification de votre adresse mail";
         $header = [
             'Reply-to' => "no-reply@email.com",
@@ -441,7 +438,7 @@ class UserController extends AbstractController
             'Content-type' => 'text/html; charset=utf-8'
         ];
 
-        return mail($to, $subject, $message, $header, "-f no-reply@email.com");
+        return mail($mail, $subject, $message, $header, "-f no-reply@email.com");
     }
 
     /**

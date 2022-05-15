@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a37efc71-466c-4c70-85a5-319a9b0a4ff6" name="jv_project" url="http://gigot.o2switch.net">
+        <fileTransfer rootFolder="/jv-project.vanessa-amaranth.com" host="gigot.o2switch.net" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

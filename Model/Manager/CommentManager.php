@@ -9,6 +9,11 @@ class CommentManager
 {
     public const PREFIXTABLE = 'jvp_';
 
+    /**
+     * Add a comment to the article
+     * @param Comment $comment
+     * @return bool
+     */
     public function addNewComment(Comment $comment): bool
     {
         $stmt = DB::getPDO()->prepare("
@@ -21,6 +26,11 @@ class CommentManager
         return $stmt->execute();
     }
 
+    /**
+     * Show the comment by a limit number or not
+     * @param int $limit
+     * @return array
+     */
     public static function findAllComment(int $limit = 0): array
     {
         $comment = [];
@@ -33,6 +43,7 @@ class CommentManager
 
         if ($stmt) {
 
+            //Get the requested data in an array
             foreach ($stmt->fetchAll() as $data) {
                 $comment[] = (new Comment())
                     ->setId($data['id'])
@@ -45,6 +56,7 @@ class CommentManager
     }
 
     /**
+     * check if the comment Exist
      * @param int $id
      * @return int|mixed
      */
@@ -54,6 +66,10 @@ class CommentManager
         return $stmt ? $stmt->fetch(): 0;
     }
 
+    /**
+     * @param int $id
+     * @return Comment
+     */
     public static function getComment(int $id): Comment
     {
         $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "comment WHERE id = '$id'");
@@ -88,6 +104,10 @@ class CommentManager
         return $comment;
     }
 
+    /**
+     * @param $newContent
+     * @param $id
+     */
     public static function editComment($newContent, $id)
     {
         $stmt = DB::getPDO()->prepare("
