@@ -15,9 +15,9 @@ class CommentManager
            INSERT INTO " . self::PREFIXTABLE . "comment(content, article_id ,user_id) VALUES (:content, :article_id ,:user_id) 
         ");
 
-        $stmt->bindValue('content', $comment->getContent());
-        $stmt->bindValue('user_id', $comment->getUser()->getId());
-        $stmt->bindValue('article_id', $comment->getArticle()->getId());
+        $stmt->bindValue(':content', $comment->getContent());
+        $stmt->bindValue(':user_id', $comment->getUser()->getId());
+        $stmt->bindValue(':article_id', $comment->getArticle()->getId());
         return $stmt->execute();
     }
 

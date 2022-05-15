@@ -220,9 +220,9 @@ class ArticleManager
         $stmt = DB::getPDO()->prepare("UPDATE " . self::PREFIXTABLE . "article 
         SET content = :newContent, title = :newTitle WHERE id = :id");
 
-        $stmt->bindParam('newTitle', $newTitle);
-        $stmt->bindParam('newContent', $newContent);
-        $stmt->bindParam('id', $id);
+        $stmt->bindParam(':newTitle', $newTitle);
+        $stmt->bindParam(':newContent', $newContent);
+        $stmt->bindParam(':id', $id);
 
         $stmt->execute();
     }
