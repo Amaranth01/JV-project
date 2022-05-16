@@ -1,5 +1,5 @@
 tinymce.init({
-    selector: 'textarea#editor',
+    selector: '#editor',
     height: 700,
     //Select plugins to include on load
     plugins: [

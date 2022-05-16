@@ -118,7 +118,7 @@ if (isset($_SESSION['success'])) {
 <main class="container">
     <?= $html ?>
 </main>
-<div id="tarteaucitron"></div>
+
 <footer>
     <p>
         <a href="/index.php?c=home&a=privacy" id="privacyPolicy">Politiques de confidentialités</a>
@@ -137,6 +137,7 @@ if (isset($_SESSION['success'])) {
 <script src="/assets/js/wysiwyg.js"></script>
 <script src="/assets/js/button.js"></script>
 <script src="/assets/js/search.js"></script>
+<script src="/assets/js/app.js"></script>
 
 </body>
 </html>

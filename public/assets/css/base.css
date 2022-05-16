@@ -7,3 +7,16 @@
 html {
     font-size: 65.5%;
 }
+
+h1, h2 {
+    margin-top: 1.5rem;
+    font-size: 3rem;
+    text-align: center;
+    font-family: Arial, serif;
+    color: blue;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin-top: 5rem;
+}

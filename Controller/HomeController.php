@@ -287,4 +287,9 @@ class HomeController extends AbstractController
         $this->render('home/legalNotice');
     }
 
+    public function checkEmail()
+    {
+        $this->render('user/checkEmail');
+    }
+
 }

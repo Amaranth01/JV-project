@@ -28,3 +28,7 @@
 .dark .white, .dark .pagination {
     color: white;
 }
+
+.dark div > p, .dark form > label {
+    color: white;
+}

@@ -1,4 +1,5 @@
 .message {
+    position: absolute;
     width: 15vw;
     font-size: 1.5rem;
     padding: 1rem;

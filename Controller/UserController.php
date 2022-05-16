@@ -25,6 +25,11 @@ class UserController extends AbstractController
         $this->render('user/activated');
     }
 
+    public function forgottenPassword()
+    {
+        $this->render('user/forgotPassword');
+    }
+
     /**
      */
     public function register()
@@ -293,7 +298,8 @@ class UserController extends AbstractController
         $user = new UserManager();
         $user->updatePassword($newPassword, $id);
         $_SESSION['success'] = "Votre mot de passe a bien été mis à jour";
-        $this->render('home/index');
+
+        $this->render('pages/login');
     }
 
     /**
@@ -445,6 +451,86 @@ class UserController extends AbstractController
         ];
 
         return mail($mail, $subject, $message, $header, "-f no-reply@email.com");
+    }
+
+    /**
+     * @param $mail
+     * @param $token
+     * @param $id
+     * @return bool
+     */
+    private function sendMailPassword($mail,$id ,$token): bool
+    {
+        //Configure the token link
+        $url = Config::APP_URL . '/?c=user&a=forgotten-password&id=' . $id . '&token=' . $token;
+
+        $message = "
+            <html lang=fr >
+              <head>
+                <title>Vérification de votre compte</title>
+            </head>
+            <body>
+                <span>Bonjour</span>
+                <p>
+                    Afin de réinitialiser votre mot de passe, 
+                    <br>
+                    merci de cliquer <a href=\"$url\">sur ce lien</a> pour vous rendre sur la page de réinitialisation. Si le lien ne 
+                    s'affiche pas, collez l'adresse ci-dessous dans votre navigateur. 
+                    <br>
+                    https://jv-project.vanessa-amaranth.com/?c=user&a=forgotten-password&id= $id &token=$token
+                </p>
+            </body>
+        </html>
+        ";
+
+        $subject = "Réinitialisation de votre mot de passe";
+        $header = [
+            'Reply-to' => "no-reply@email.com",
+            'X-Mailer' => 'PHP/' . phpversion(),
+            'Mime-version' => '1.0',
+            'Content-type' => 'text/html; charset=utf-8'
+        ];
+
+        return mail($mail, $subject, $message, $header, "-f no-reply@email.com");
+    }
+
+    public function checkEmail()
+    {
+        $email = $this->clean($this->getFormField('email'));
+        //secured the email
+        $mail = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+        // Send a message if the email address is not valid.
+        if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['errors'] = "L'adresse mail n'est pas valide";
+            $this->render('pages/register');
+            exit();
+        }
+
+        if(!UserManager::userMailExist($mail)) {
+            $_SESSION['errors'] = "Cette adresse mail n'existe pas dans notre base de données";
+            $this->render('pages/register');
+            exit();
+        }
+
+        $token = self::randomChars();
+        $user = new User();
+        $user->setToken($token);
+
+        $id = UserManager::getUserByMail($mail)->getId();
+
+
+        if (self::sendMailPassword($mail, $id, $token)) {
+
+            //If the ID is not null, we pass the user in the session
+            if (null !== $user->getId()) {
+                $_SESSION['success'] = "
+                            Un mail vous sera envoyé pour la réinitialisation de votre mot de passe. 
+                            L'action peut prendre quelques minutes. Vérifiez votre boîte de spam.
+                        ";
+            }
+        }
+        $this->render('home/index');
     }
 
     /**

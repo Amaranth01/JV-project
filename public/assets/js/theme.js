@@ -20,7 +20,6 @@ const disableDarkMode = function () {
 // If the user already visited and enabled switchMode
 if (switchMode === 'enable') {
     enableDarkMode();
-    console.log(switchMode)
 }
 else {
     disableDarkMode();

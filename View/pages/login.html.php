@@ -26,4 +26,8 @@
             <a href="/index.php?c=home&a=register" class="createAccount">Créer un compte</a>
         </p>
 
+        <p>
+            <a href="/index.php?c=home&a=check-email"> Mot de passe oublié ?</a>
+        </p>
+
     </div>
