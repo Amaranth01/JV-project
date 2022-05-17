@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <script src="assets/js/tarteaucitron/tarteaucitron.js"></script>
+    <script src="/assets/js/tarteaucitron/tarteaucitron.js"></script>
     <script src="/assets/js/tarteaucitron.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport"

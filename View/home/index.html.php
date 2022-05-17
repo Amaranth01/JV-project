@@ -4,48 +4,39 @@
     <div class="left">
         <h2>Nos derniers articles</h2>
             <?php
+                foreach ($data['article'] as $article) { ?>
+                    <article class="contentResumeArticleIndex">
+                        <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
+                            <div>
+                                <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
+                            </div>
+                            <div>
+                                <p class="artTitle"><?= $article->getTitle() ?></p>
 
-                use App\Model\Manager\ArticleManager;
-
-                foreach (ArticleManager::findAllArticle(4) as $article) {
-                ?>
-                <article class="contentResumeArticleIndex">
-                    <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
-                        <div>
-                            <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article"
-                                 class="artImage">
-                        </div>
-                        <div>
-                            <p class="artTitle"><?= $article->getTitle() ?></p>
-                    </a>
-                            <p class="artResume"><?= $article->getResume() ?></p>
-                </article>
-
-        <?php
-                }
-            ?>
+                                <p class="artResume"><?= $article->getResume() ?></p>
+                            </div>
+                        </a>
+                    </article> <?php
+                } ?>
     </div>
 
     <div class="right">
         <h2>Nos derniers tests</h2>
                 <?php
-                    foreach (ArticleManager::getArticleBySectionId(2) as $article) {
-                        ?>
-            <article class="contentResumeArticleIndex">
-                <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
-                    <div>
-                        <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
+                    foreach ($data['sectionTwo'] as $article) { ?>
+                        <article class="contentResumeArticleIndex">
+                            <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
+                                <div>
+                                    <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
 
-                    </div>
-                    <div>
-                        <p class="artTitle"><?= $article->getTitle() ?></p></a>
-                <p class="artResume"><?= $article->getResume() ?></p>
-            </article>
-
-
-                <?php
-                    }
-                ?>
+                                </div>
+                                <div>
+                                    <p class="artTitle"><?= $article->getTitle() ?></p>
+                                     <p class="artResume"><?= $article->getResume() ?></p>
+                                 </div>
+                            </a>
+                        </article> <?php
+                    } ?>
     </div>
 
 </div>
@@ -54,21 +45,20 @@
         <div class="left">
             <h2>Nos dernières séries</h2>
                 <?php
-                   foreach (ArticleManager::getArticleBySectionId(5) as $article) {
-                       ?>
-                    <article class="contentResumeArticleIndex">
-                        <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
-                            <div>
-                                <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
-                            </div>
-                            <div>
-                                <p class="artTitle"><?= $article->getTitle() ?></p></a>
-                                <p class="artResume"><?= $article->getResume() ?></p>
-                     </article>
+                   foreach ($data['sectionFive'] as $article) { ?>
+                        <article class="contentResumeArticleIndex">
+                            <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
+                                <div>
+                                    <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
+                                </div>
+                                <div>
+                                    <p class="artTitle"><?= $article->getTitle() ?></p>
+                                    <p class="artResume"><?= $article->getResume() ?></p>
+                                </div>
+                            </a>
+                        </article> <?php
+                } ?>
         </div>
-                <?php
-                   }
-                ?>
 
 <!--    <div class="right">-->
 <!--        <h2>Les jeux les plus attendus</h2>-->

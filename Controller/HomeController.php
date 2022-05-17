@@ -4,13 +4,18 @@ namespace App\Controller;
 
 use App\Controller\AbstractController;
 use App\Model\Manager\ArticleManager;
+use App\Model\Manager\CommentManager;
 use App\Model\Manager\PlatformManager;
 
 class HomeController extends AbstractController
 {
     public function index ()
     {
-        $this->render('home/index');
+        $this->render('home/index', $data = [
+            'article' => ArticleManager::findAllArticle(4),
+            'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+            'sectionFive' => ArticleManager::getArticleBySectionId(5),
+        ]);
     }
 
     public function login()
@@ -274,7 +279,10 @@ class HomeController extends AbstractController
 
     public function viewArticle($id)
     {
-        $this->render('pages/viewArticle', $data=[$id]);
+        $this->render('pages/viewArticle', $data=[
+            'article' => ArticleManager::getArticle($id),
+            'comment' => CommentManager::getCommentByArticleId($id),
+        ]);
     }
 
     public function privacy()

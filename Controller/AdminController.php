@@ -28,7 +28,9 @@ class AdminController extends AbstractController
      */
     public function updateArticle($id)
     {
-        $this->render('writer/updateArticle', $data=[$id]);
+        $this->render('writer/updateArticle', $data=[
+            'article' => ArticleManager::getArticle($id),
+        ]);
     }
 
     /**

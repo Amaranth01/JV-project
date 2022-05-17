@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Config;
 use App\Model\Entity\User;
+use App\Model\Manager\ArticleManager;
 use App\Model\Manager\RoleManager;
 use App\Model\Manager\UserManager;
 use Exception;
@@ -150,7 +151,7 @@ class UserController extends AbstractController
                 if (empty($password) && empty($username)) {
                     $errorMessage = "Veuillez remplir tous les champs";
                     $_SESSION['errors'] = $errorMessage;
-                    $this->render('home/index');
+                    $this->render('pages/login');
                     exit();
                 }
 
@@ -175,7 +176,11 @@ class UserController extends AbstractController
                 $_SESSION['success'] = $successMessage;
             }
         }
-        $this->render('home/index');
+        $this->render('home/index', $data = [
+            'article' => ArticleManager::findAllArticle(4),
+            'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+            'sectionFive' => ArticleManager::getArticleBySectionId(5),
+        ]);
     }
 
     /**
@@ -185,14 +190,22 @@ class UserController extends AbstractController
     {
         //Check if user is connected
         if (!isset($_SESSION['user'])) {
-            $this->render('home/index');
+            $this->render('home/index', $data = [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
             exit();
         }
 
         //Verify that the user has admin status and if the id is the same une URL and session user
         if (self::getConnectedUser() && self::adminConnected() && self::writerConnected() && $_SESSION['user']->getId() !== $_GET['id']) {
             $_SESSION['errors'] = "Il faut être connecté et propriétaire du compte pour le supprimer !";
-            $this->render('home/index');
+            $this->render('home/index', $data = [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
             exit();
         }
         // Compare the id in session
@@ -201,9 +214,17 @@ class UserController extends AbstractController
             $delete = $userManager->deleteUser($id);
             //destroy the session after the delete action
             session_destroy();
-            $this->render('home/index');
+            $this->render('home/index', $data = [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
-        $this->render('home/index');
+        $this->render('home/index', $data = [
+            'article' => ArticleManager::findAllArticle(4),
+            'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+            'sectionFive' => ArticleManager::getArticleBySectionId(5),
+        ]);
     }
 
     public function adminDeleteUser(int $id)
@@ -222,13 +243,12 @@ class UserController extends AbstractController
     {
         //check if the field is present
         if (!isset($_POST['newUsername'])) {
-            $this->render('home/index');
-            exit();
+            $this->render('user/userSpace');
         }
         //check if the field is empty
         if (empty($_POST['newUsername'])) {
             $_SESSION['errors'] = "Le champs du pseudo doit être complété";
-            $this->render('home/index');
+            $this->render('user/userSpace');
             exit();
         }
         //Clean the field
@@ -237,7 +257,7 @@ class UserController extends AbstractController
         $user = new UserManager();
         $user->updateUsername($newUsername, $id);
         $_SESSION['success'] = "Votre pseudo a bien été mis à jour";
-        $this->render('home/index');
+        $this->render('user/userSpace');
     }
 
     /**
@@ -247,13 +267,13 @@ class UserController extends AbstractController
     {
         //check if the field is present
         if (!isset($_POST['newEmail'])) {
-            $this->render('home/index');
+            $this->render('user/userSpace');
             exit();
         }
         //check if the field is empty
         if (empty($_POST['newEmail'])) {
             $_SESSION['errors'] = "Le champs de l'email doit être complété";
-            $this->render('home/index');
+            $this->render('user/userSpace');
             exit();
         }
 
@@ -262,7 +282,7 @@ class UserController extends AbstractController
         $user->updateEmail($newEmail, $id);
         $_SESSION['success'] = "Votre mail a bien été mis à jour, un email vous sera envoyé pour confirmer votre nouvelle 
             adresse";
-        $this->render('home/index');
+        $this->render('user/userSpace');
     }
 
     /**
@@ -272,13 +292,13 @@ class UserController extends AbstractController
     {
         //check if the fields are present
         if (!isset($_POST['newPassword']) && !isset($_POST['newPasswordR'])) {
-            $this->render('home/index');
+            $this->render('user/userSpace');
             exit();
         }
         //check if the fields are empty
         if (empty($_POST['newPassword'])) {
             $_SESSION['errors'] = "Le champs du pseudo doit être complété";
-            $this->render('home/index');
+            $this->render('user/userSpace');
             exit();
         }
 
@@ -299,7 +319,7 @@ class UserController extends AbstractController
         $user->updatePassword($newPassword, $id);
         $_SESSION['success'] = "Votre mot de passe a bien été mis à jour";
 
-        $this->render('pages/login');
+        $this->render('user/userSpace');
     }
 
     /**
