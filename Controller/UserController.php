@@ -32,6 +32,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * Add user and secured the form
      */
     public function register()
     {
@@ -41,6 +42,12 @@ class UserController extends AbstractController
         }
 
         if (!isset($_POST['email']) || !isset($_POST['username']) || !isset($_POST['password'])) {
+            $this->render('pages/register');
+            exit();
+        }
+
+        if (empty(($_POST['email']) || empty($_POST['username']) || empty($_POST['password']))) {
+            $_SESSION['errors'] = "Merci de remplir tous les champs";
             $this->render('pages/register');
             exit();
         }
@@ -564,7 +571,11 @@ class UserController extends AbstractController
         $user = UserManager::getUser($id);
         //Compare role id if is not the same, users are redirecting to home page
         if ($user->getRole()->getId() !== RoleManager::getRoleByName('none')->getId()) {
-            $this->render('home/index');
+            $this->render('home/index', $data = [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
             exit();
         }
 
@@ -572,7 +583,11 @@ class UserController extends AbstractController
             ////Change the role of the user
             $userManager->updateRoleToken(1, $id);
             $_SESSION['success'] = 'Votre comte a été activé';
-            $this->render('home/index');
+            $this->render('home/index', $data = [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
     }
 }

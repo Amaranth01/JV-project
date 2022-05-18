@@ -29,7 +29,7 @@
         </div>
 
         <div>
-            <input type="submit" name="submit" value="Inscription" class="button">
+            <input type="submit" name="submit" value="Inscription" id="buttonForm" class="button">
         </div>
 
     </form>

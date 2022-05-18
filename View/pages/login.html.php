@@ -4,17 +4,17 @@
 
             <form action="/index.php?c=user&a=connexion" method="post">
                 <div>
-                    <label for="username-login">Votre pseudo</label>
-                    <input type="text" name="username" id="username-login" required>
+                    <label for="username">Votre pseudo</label>
+                    <input type="text" name="username" id="username" >
                 </div>
 
                 <div>
-                    <label for="userPassword">Votre mot de passe</label>
-                    <input type="password" name="password" id="userPassword" required>
+                    <label for="Password">Votre mot de passe</label>
+                    <input type="password" name="password" id="Password" required>
                 </div>
 
                 <div>
-                    <input type="submit" name="submit" value="Connexion" class="button">
+                    <input type="submit" name="submit" value="Connexion" id="buttonForm" class="button">
                 </div>
             </form>
     </div>

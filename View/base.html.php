@@ -138,6 +138,7 @@ if (isset($_SESSION['success'])) {
 <script src="/assets/js/button.js"></script>
 <script src="/assets/js/search.js"></script>
 <script src="/assets/js/app.js"></script>
+<script src="/assets/js/form.js"></script>
 
 </body>
 </html>

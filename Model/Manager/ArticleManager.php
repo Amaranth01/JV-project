@@ -174,7 +174,7 @@ class ArticleManager
         $article = [];
         if ($limit === 6) {
             $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article WHERE section_id = '$id' ORDER BY id DESC 
-                    LIMIT 3 OFFSET $offset
+                    LIMIT 6 OFFSET $offset
             ");
         }
         $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "article WHERE section_id = '$id' ORDER BY id DESC ");
@@ -265,9 +265,7 @@ class ArticleManager
     {
         //Check if the article exist
         if (self::articleExist($article->getId())) {
-            return DB::getPDO()->exec(
-                "DELETE FROM " . self::PREFIXTABLE . "article WHERE id = {$article->getId()}
-            ");
+            return DB::getPDO()->exec("DELETE FROM " . self::PREFIXTABLE . "article WHERE id = {$article->getId()} ");
         }
         return false;
     }
@@ -312,7 +310,7 @@ class ArticleManager
     {
         $article = [];
         $stmt = DB::getPDO()->prepare(" 
-            SELECT id, title FROM " . self::PREFIXTABLE . "article WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 3
+            SELECT id, title FROM " . self::PREFIXTABLE . "article WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 6
         ");
         $stmt->execute();
         //Get the requested data in an array

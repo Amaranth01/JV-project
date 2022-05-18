@@ -27,7 +27,7 @@ class AbstractController
      * @param string $data
      * @return string
      */
-    protected function clean(string $data): string
+    public function clean(string $data): string
     {
         $data = trim($data);
         $data = strip_tags($data);

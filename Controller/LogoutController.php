@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Manager\ArticleManager;
+
 class LogoutController extends AbstractController
 {
     function logout()
@@ -16,7 +18,11 @@ class LogoutController extends AbstractController
         //Destroy the session
         session_destroy();
         //Redirecting to home page
-        $this->render('home/index');
+        $this->render('home/index', $data = [
+            'article' => ArticleManager::findAllArticle(4),
+            'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+            'sectionFive' => ArticleManager::getArticleBySectionId(5),
+        ]);
         //Send a success message
         $_SESSION['success'] = "Vous êtes déconnecté";
     }
