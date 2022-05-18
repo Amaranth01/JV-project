@@ -3,9 +3,7 @@
 
 <?php
 
-    use App\Model\Manager\ArticleManager;
-
-    foreach (ArticleManager::searchArticle($_POST['search']) as $article) {
+foreach ($data['article'] as $article) {
 ?>
         <div class="contentResumeArticleIndex center">
             <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">

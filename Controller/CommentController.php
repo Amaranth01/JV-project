@@ -92,7 +92,11 @@ class CommentController extends AbstractController
         ////Checks if the writer is logged in
          if(self::writerConnected()) {
             $_SESSION['errors'] = "Seul un rédacteur peut supprimer un article";
-            $this->render('home/index');
+             $this->render('home/index', $data = [
+                 'article' => ArticleManager::findAllArticle(4),
+                 'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                 'sectionFive' => ArticleManager::getArticleBySectionId(5),
+             ]);
             exit();
         }
 

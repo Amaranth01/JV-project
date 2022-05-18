@@ -25,8 +25,7 @@ class ArticleController extends AbstractController
         $title = $this->clean($this->getFormField('title'));
         $resume = $this->clean($this->getFormField('resume'));
         //Cleans the field and allows some tags
-        $content = strip_tags($_POST['content'],
-            '<div><p><img><h1><h2><h3><h4><h5><br><span><strong><a><em>');
+        $content = strip_tags($_POST['content'],'<div><p><img><h1><h2><h3><h4><h5><br><span><strong><a><em>');
 
         //Checking if the writer is logged in
         $user = self::getConnectedWriter();

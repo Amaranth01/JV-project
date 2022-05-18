@@ -21,7 +21,9 @@ class SearchController extends AbstractController
                 exit();
             }
             //Otherwise, redirect to the search page
-            $this->render('pages/search', $result);
+            $this->render('pages/search', $data = [
+                'article' => ArticleManager::searchArticle($_POST['search'])
+            ]);
         }
         else {
             $this->render('pages/SearchNull');
