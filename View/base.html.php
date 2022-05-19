@@ -31,7 +31,6 @@ if (isset($_SESSION['errors'])) {
     unset($_SESSION['errors']);
     ?>
     <div class="message error">
-        <button name="button" class="close">X</button>
         <?= $errors ?>
     </div> <?php
 }
@@ -42,7 +41,6 @@ if (isset($_SESSION['success'])) {
     unset($_SESSION['success']);
     ?>
     <div class="message success">
-        <button name="button" class="close">X</button>
         <?= $success ?>
     </div> <?php
 }
@@ -106,11 +104,10 @@ if (isset($_SESSION['success'])) {
             <?php }
             if (UserController::writerConnected() || UserController::adminConnected()) { ?>
                 <li><a href="/index.php?c=admin&a=index" class="secondNavLink">Espace des rédacteurs</a></li>
-                <span class="burger"><i class="fas fa-bars"></i></span>
                 <?php
             }
             ?>
-
+            <span class="burger"><i class="fas fa-bars "></i></span>
         </ul>
     </nav>
 </div>
@@ -135,7 +132,6 @@ if (isset($_SESSION['success'])) {
 <script src="/assets/js/theme.js"></script>
 <script src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="/assets/js/wysiwyg.js"></script>
-<script src="/assets/js/button.js"></script>
 <script src="/assets/js/search.js"></script>
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/form.js"></script>

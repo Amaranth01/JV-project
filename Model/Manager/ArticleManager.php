@@ -206,23 +206,23 @@ class ArticleManager
         if ($limit === 6) {
             $stmt = DB::getPDO()->query("
             SELECT " . self::PREFIXTABLE . "article.id, " . self::PREFIXTABLE . "article.image, 
-            " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.title FROM 
-            " . self::PREFIXTABLE . "platform_article INNER JOIN " . self::PREFIXTABLE . "article ON 
-            " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "article_id = " . self::PREFIXTABLE . "article.id  
-            WHERE " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "platform_id = '$id' ORDER BY 
-            " . self::PREFIXTABLE . "article.id DESC LIMIT 6 OFFSET $offset
-         ");
+                " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.title FROM 
+                " . self::PREFIXTABLE . "platform_article INNER JOIN " . self::PREFIXTABLE . "article ON 
+                " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "article_id = " . self::PREFIXTABLE . "article.id  
+                WHERE " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "platform_id = '$id' ORDER BY 
+                " . self::PREFIXTABLE . "article.id DESC LIMIT 6 OFFSET $offset
+            ");
         }
         else {
             //shows all articles
             $stmt = DB::getPDO()->query("
             SELECT " . self::PREFIXTABLE . "article.id, " . self::PREFIXTABLE . "article.image, 
-            " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.title FROM 
-            " . self::PREFIXTABLE . "platform_article INNER JOIN " . self::PREFIXTABLE . "article ON 
-            " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "article_id = " . self::PREFIXTABLE . "article.id  
-            WHERE " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "platform_id = '$id' 
-            ORDER BY " . self::PREFIXTABLE . "article.id DESC
-         ");
+                " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.title FROM 
+                " . self::PREFIXTABLE . "platform_article INNER JOIN " . self::PREFIXTABLE . "article ON 
+                " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "article_id = " . self::PREFIXTABLE . "article.id  
+                WHERE " . self::PREFIXTABLE . "platform_article." . self::PREFIXTABLE . "platform_id = '$id' 
+                ORDER BY " . self::PREFIXTABLE . "article.id DESC
+            ");
         }
 
         //Get the requested data in an array
@@ -280,13 +280,13 @@ class ArticleManager
         $article = [];
         $stmt = DB::getPDO()->prepare("
             SELECT DISTINCT " . self::PREFIXTABLE . "article.title, " . self::PREFIXTABLE . "article.image, 
-            " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.id FROM " . self::PREFIXTABLE . "category_article
-            INNER JOIN " . self::PREFIXTABLE . "article ON " . self::PREFIXTABLE . "category_article.jvp_article_id = 
-            " . self::PREFIXTABLE . "article.id INNER JOIN " . self::PREFIXTABLE . "category ON 
-            " . self::PREFIXTABLE . "category_article.jvp_category_id = " . self::PREFIXTABLE . "category.id WHERE 
-            " . self::PREFIXTABLE . "article.title LIKE '%$contentSearch%' OR " . self::PREFIXTABLE . "category.category_name 
-            LIKE '%$contentSearch%' ORDER BY id DESC 
-        ");
+                " . self::PREFIXTABLE . "article.resume, " . self::PREFIXTABLE . "article.id FROM " . self::PREFIXTABLE . "category_article
+                INNER JOIN " . self::PREFIXTABLE . "article ON " . self::PREFIXTABLE . "category_article.jvp_article_id = 
+                " . self::PREFIXTABLE . "article.id INNER JOIN " . self::PREFIXTABLE . "category ON 
+                " . self::PREFIXTABLE . "category_article.jvp_category_id = " . self::PREFIXTABLE . "category.id WHERE 
+                " . self::PREFIXTABLE . "article.title LIKE '%$contentSearch%' OR " . self::PREFIXTABLE . "category.category_name 
+                LIKE '%$contentSearch%' ORDER BY id DESC 
+            ");
 
         $stmt->execute();
 

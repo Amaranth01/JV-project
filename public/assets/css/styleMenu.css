@@ -194,9 +194,14 @@ form > .searching {
 @media screen and (max-width: 770px) {
     a.secondNavLink {
         display: none;
+        flex-direction: column;
     }
 
     .burger {
+        display: flex;
+    }
+
+    .burger:checked + a.secondNavLink {
         display: flex;
     }
 
