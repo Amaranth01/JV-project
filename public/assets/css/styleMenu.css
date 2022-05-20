@@ -196,14 +196,12 @@ form > .searching {
     .displayLink {
         display: none;
         flex-direction: column;
+        background-color: #cbc7c7;
+        width: 4rem;
     }
 
     .burger {
         display: flex;
-    }
-
-    .burger:checked + .displayLink {
-        position: absolute;
     }
 
     .content, .contentDown {
