@@ -97,17 +97,17 @@ if (isset($_SESSION['success'])) {
 
 
             <?php if (UserController::userConnected()) { ?>
-                <li><a href="/index.php?c=logout&a=logout" class="secondNavLink">Déconnexion</a></li>
+                <li><a href="/index.php?c=logout&a=logout" class="displayLink">Déconnexion</a></li>
                 <?php
             } else { ?>
-                <li><a href="/index.php?c=home&a=login" class="secondNavLink">Connexion/Inscription</a></li>
+                <li><a href="/index.php?c=home&a=login" class="displayLink">Connexion/Inscription</a></li>
             <?php }
             if (UserController::writerConnected() || UserController::adminConnected()) { ?>
-                <li><a href="/index.php?c=admin&a=index" class="secondNavLink">Espace des rédacteurs</a></li>
+                <li><a href="/index.php?c=admin&a=index" class="displayLink">Espace des rédacteurs</a></li>
                 <?php
             }
             ?>
-            <span class="burger"><i class="fas fa-bars "></i></span>
+            <button class="burger"><i class="fas fa-bars "></i></button>
         </ul>
     </nav>
 </div>

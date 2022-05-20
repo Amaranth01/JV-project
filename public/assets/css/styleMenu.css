@@ -192,7 +192,8 @@ form > .searching {
 }
 
 @media screen and (max-width: 770px) {
-    a.secondNavLink {
+
+    .displayLink {
         display: none;
         flex-direction: column;
     }
@@ -201,12 +202,13 @@ form > .searching {
         display: flex;
     }
 
-    .burger:checked + a.secondNavLink {
-        display: flex;
+    .burger:checked + .displayLink {
+        position: absolute;
     }
 
-    .content {
+    .content, .contentDown {
         flex-direction: column;
+        margin-left: 5rem;
     }
 
     h2 {

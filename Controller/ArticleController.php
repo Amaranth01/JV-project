@@ -85,15 +85,21 @@ class ArticleController extends AbstractController
                     move_uploaded_file($tmp_name,'../public/uploads/' . $name);
                 }
                 else {
-                    $error[] =  "Le poids est trop lourd, maximum autorisé : 1 Mo";
+                    $_SESSION['errors'] =  "Le poids est trop lourd, maximum autorisé : 1 Mo";
+                    $this->render('writer/writer');
+                    exit();
                 }
             }
             else {
-                $error[] = "Mauvais type de fichier. Seul les formats JPD, JPEG et PNG sont acceptés";
+                $_SESSION['errors'] = "Mauvais type de fichier. Seul les formats JPG, JPEG et PNG sont acceptés";
+                $this->render('writer/writer');
+                exit();
             }
         }
         else {
-            $error[] = "Une erreur s'est produite";
+            $_SESSION['errors'] = "Une erreur s'est produite";
+            $this->render('writer/writer');
+            exit();
         }
         $_SESSION['error'] = $error;
         return $name;
