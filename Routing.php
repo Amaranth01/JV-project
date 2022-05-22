@@ -72,7 +72,7 @@ class Routing
 
         //Returns the error page if the controller is not found, and we quit the script
         if($controller instanceof ErrorController) {
-            $controller->error404($paramController);
+            $controller->error404();
             exit();
         }
 

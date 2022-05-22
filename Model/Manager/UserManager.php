@@ -4,7 +4,6 @@ namespace App\Model\Manager;
 
 use App\Model\DB;
 use App\Model\Entity\User;
-use PDOStatement;
 
 class UserManager
 {
@@ -15,7 +14,7 @@ class UserManager
      * @param array $data
      * @return User
      */
-    public static function createUser(array $data): User
+    public static function dataUser(array $data): User
     {
         $role = RoleManager::getRoleById($data['role_id']);
         return (new User())
@@ -39,7 +38,7 @@ class UserManager
 
         if($stmt) {
             foreach ($stmt->fetchAll() as $data) {
-                $user[] = self::createUser($data);
+                $user[] = self::dataUser($data);
             }
         }
         return $user;
@@ -56,23 +55,7 @@ class UserManager
         $stmt->bindValue(':email', $email);
 
         if($stmt->execute() && $data = $stmt->fetch()) {
-            return self::createUser($data);
-        }
-        return null;
-    }
-
-    /**
-     * Returns a user by their token
-     * @param string $token
-     * @return User|null
-     */
-    public static function getUserByToken(string $token): ?User
-    {
-        $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::PREFIXTABLE . "user WHERE token = :token ");
-        $stmt->bindValue(':token', $token);
-
-        if($stmt->execute() && $data = $stmt->fetch()) {
-            return self::createUser($data);
+            return self::dataUser($data);
         }
         return null;
     }
@@ -87,7 +70,7 @@ class UserManager
         $stmt->bindValue(':username', $username);
 
         if($stmt->execute() && $data = $stmt->fetch()) {
-            return self::createUser($data);
+            return self::dataUser($data);
         }
         return null;
     }
@@ -130,7 +113,7 @@ class UserManager
          $stmt->bindParam(':id', $id);
 
          if($stmt->execute() && $data = $stmt->fetch()) {
-             $user = self::createUser($data);
+             $user = self::dataUser($data);
          }
          return $user;
     }

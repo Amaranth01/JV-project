@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\AbstractController;
 use App\Controller\UserController;
 
     if (!UserController::userConnected()) {

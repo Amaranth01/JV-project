@@ -13,10 +13,10 @@ function validatePassword() {
         return true;
     }
 
-    if(password.value.length < 6 && password.value.length > 30) {
+    if(password.value.length < 6 && password.value.length > 50) {
         password.style.background = 'red';
         passwordRepeat.style.background = 'red'
-        message = 'Le mot de passe doit faire au moins 6 caractères et 30 maximum';
+        message = 'Le mot de passe doit faire au moins 6 caractères et 50 maximum';
     } else {
         return true;
     }
@@ -49,8 +49,6 @@ function validateForm() {
         message ='Veuillez inscrire votre mot de passe dans les deux champs';
     }
 }
-
-
 validatePassword();
 validateEmail();
 validateForm();

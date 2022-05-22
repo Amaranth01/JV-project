@@ -3,11 +3,10 @@
 namespace App\Controller;
 
 use App\Model\Entity\User;
-use Mosquitto\Exception;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class AbstractController
 {
+
     /**
      * Show views
      * @param string $template
@@ -55,7 +54,6 @@ class AbstractController
     public function getFormField(string $field, $default = null)
     {
         if(!isset($_POST[$field])) {
-            var_dump("hello world");
             return (null === $default) ? '' : $default;
         }
         return $_POST[$field];

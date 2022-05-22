@@ -7,6 +7,12 @@ use App\Model\Manager\ArticleManager;
 
 class SearchController extends AbstractController
 {
+
+    function index()
+    {
+        $this->render('pages/SearchNull');
+    }
+
     public function searching()
     {
         //Checks that the field exists and is not fast
@@ -26,7 +32,9 @@ class SearchController extends AbstractController
             ]);
         }
         else {
-            $this->render('pages/SearchNull');
+            self::index();
         }
     }
+
+
 }

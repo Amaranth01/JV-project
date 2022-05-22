@@ -41,15 +41,9 @@ class UserController extends AbstractController
             exit();
         }
 
-        if (!isset($_POST['email']) || !isset($_POST['username']) || !isset($_POST['password'])) {
-            $this->render('pages/register');
-            exit();
-        }
-
         if (empty(($_POST['email']) || empty($_POST['username']) || empty($_POST['password']))) {
             $_SESSION['errors'] = "Merci de remplir tous les champs";
             $this->render('pages/register');
-            exit();
         }
 
         //Cleans and return the security of elements
@@ -63,13 +57,6 @@ class UserController extends AbstractController
             $mail = filter_var($email, FILTER_SANITIZE_EMAIL);
             $mailR = filter_var($email, FILTER_SANITIZE_EMAIL);
             $userManager = new UserManager();
-
-            // Send a message if the email address is not valid.
-            if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['errors'] = "L'adresse mail n'est pas valide";
-                $this->render('pages/register');
-                exit();
-            }
 
             if($userManager->usernameExist($username)) {
                 $_SESSION['errors'] = "Ce nom d'utlisateur existe déjà";
@@ -452,21 +439,21 @@ class UserController extends AbstractController
 
         $message = "
             <html lang=fr >
-              <head>
-                <title>Vérification de votre compte</title>
-            </head>
-            <body>
-                <span>Bonjour $username,</span>
-                <p>
-                    Afin de finaliser votre inscription sur le site jv-project, 
-                    <br>
-                    merci de cliquer <a href=\"$url\">sur ce lien</a> pour confirmer votre adresse email. Si le lien ne 
-                    s'affiche pas, collez l'adresse ci-dessous dans votre navigateur. 
-                    <br>
-                    https://jv-project.vanessa-amaranth.com/?c=user&a=activate-account&id= $id &token=$token
-                </p>
-            </body>
-        </html>
+                <head>
+                    <title>Vérification de votre compte</title>
+                </head>
+                <body>
+                    <span>Bonjour $username,</span>
+                    <p>
+                        Afin de finaliser votre inscription sur le site jv-project, 
+                        <br>
+                        merci de cliquer <a href=\"$url\">sur ce lien</a> pour confirmer votre adresse email. Si le lien ne 
+                        s'affiche pas, collez l'adresse ci-dessous dans votre navigateur. 
+                        <br>
+                        https://jv-project.vanessa-amaranth.com/?c=user&a=activate-account&id=$id&token=$token
+                    </p>
+                </body>
+            </html>
         ";
 
         $subject = "Vérification de votre adresse mail";
@@ -486,7 +473,7 @@ class UserController extends AbstractController
      * @param $id
      * @return bool
      */
-    private function sendMailPassword($mail,$id ,$token): bool
+    private function mailResetPassword($mail,$id ,$token): bool
     {
         //Configure the token link
         $url = Config::APP_URL . '/?c=user&a=forgotten-password&id=' . $id . '&token=' . $token;
@@ -561,14 +548,16 @@ class UserController extends AbstractController
         $mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
         $user = UserManager::getUserByMail($mail);
 
+        //check if the mail exist or not in DB
         if(!$user) {
             $_SESSION['error'] = "Votre compte n'a pas pu être trouvé";
             exit;
         }
-
+        //Get token
         $token = $user->getToken();
 
-        if (self::sendMailPassword($mail, $user->getId(), $token)) {
+        //send the mail
+        if (self::mailResetPassword($mail, $user->getId(), $token)) {
             $_SESSION['success'] = "
                 Un mail vous sera envoyé pour la réinitialisation de votre mot de passe. 
                 L'action peut prendre quelques minutes. Vérifiez votre boîte de spam.
@@ -596,6 +585,7 @@ class UserController extends AbstractController
         //Get the field
         $password = $this->getFormField('password');
         $passwordR = $this->getFormField('passwordR');
+        //secured the form
         $userId = (int)$_POST['id'];
         $token = $this->clean($_POST['token']);
         $user = UserManager::getUser($userId);

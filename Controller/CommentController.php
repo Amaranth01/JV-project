@@ -10,6 +10,11 @@ use App\Model\Manager\UserManager;
 
 class CommentController extends AbstractController
 {
+    function index()
+    {
+        $this->render('home/index');
+    }
+
     public function allComment()
     {
         $this->render('comment/allComment');
@@ -107,4 +112,6 @@ class CommentController extends AbstractController
             $this->render('home/index');
         }
     }
+
+
 }

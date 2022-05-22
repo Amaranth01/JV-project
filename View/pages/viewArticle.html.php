@@ -16,6 +16,17 @@ use App\Controller\UserController;
     <div id="comment">
         <h2>Commentaires : </h2>
 
+        <?php
+            foreach ($data['comment'] as $comment) {?>
+                <div id="commentContent">
+                    <img src="/assets/img/avatar/<?=$comment->getUser()->getImage()?>"
+                         alt="Accès à l'espace utilisateur" id="userImage">
+                    <p class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?></p>
+                    <br><br>
+                    <p class="commentContent">"<?= $comment->getContent()?>"</p>
+                </div> <?php
+            }?>
+
         <?php if (UserController::userConnected()) {?>
             <form action="/index.php?c=comment&a=add-comment&id=<?=$data['article']->getId()?>" method="post" class="comment">
                 <label for="comment">Laissez votre commentaire ici</label>
@@ -24,19 +35,7 @@ use App\Controller\UserController;
                 <input type="submit" name="submit" value="Envoyer" class="button">
             </form>
 
-        <?php
-            foreach ($data['comment'] as $comment) {?>
-        <div id="commentContent">
-            <img src="/assets/img/avatar/<?=$comment->getUser()->getImage()?>"
-                 alt="Accès à l'espace utilisateur" id="userImage">
-            <p class="userComment">Ecrit par : <?=$comment->getUser()->getUsername()?></p>
-            <br><br>
-            <p class="commentContent">"<?= $comment->getContent()?>"</p>
-        </div>
-
-        <?php
-            }
-        }
+        <?php }
             else { ?>
                 <p class="account">Il faut être connecté pour commenter un article.
                     <a href="/index.php?c=home&a=register" class="createAccount">Créer un compte</a>

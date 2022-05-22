@@ -95,7 +95,6 @@ if (isset($_SESSION['success'])) {
             <!--            <li><a href="/index.php?c=home&a=poll">Sondages</a></li>-->
             <button class="darkMode"><i class="fas fa-adjust"></i></button>
 
-
             <?php if (UserController::userConnected()) { ?>
                 <li><a href="/index.php?c=logout&a=logout" class="displayLink">Déconnexion</a></li>
                 <?php
@@ -103,10 +102,8 @@ if (isset($_SESSION['success'])) {
                 <li><a href="/index.php?c=home&a=login" class="displayLink">Connexion/Inscription</a></li>
             <?php }
             if (UserController::writerConnected() || UserController::adminConnected()) { ?>
-                <li><a href="/index.php?c=admin&a=index" class="displayLink">Espace des rédacteurs</a></li>
-                <?php
-            }
-            ?>
+                <li><a href="/index.php?c=admin&a=index" class="displayLink">Espace des rédacteurs</a></li><?php
+            } ?>
             <button class="burger"><i class="fas fa-bars "></i></button>
         </ul>
     </nav>
@@ -118,10 +115,10 @@ if (isset($_SESSION['success'])) {
 
 <footer>
     <p>
-        <a href="/index.php?c=home&a=privacy" id="privacyPolicy">Politiques de confidentialités</a>
+        <a href="/index.php?c=home&a=privacy" id="privacyPolicy">Politique de confidentialité</a>
     </p>
     <p>
-        <a href="/index.php?c=home&a=legal-notice" id="privacyPolicy">Mention légale</a>
+        <a href="/index.php?c=home&a=legal-notice" id="privacyPolicy">Mentions légales</a>
     </p>
 </footer>
 

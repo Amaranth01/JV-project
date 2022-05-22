@@ -4,13 +4,17 @@ namespace App\Controller;
 
 class ErrorController extends AbstractController
 {
-
-    /**
-     * Redirecting to the error page
-     * @param string|null $paramController
-     */
-    public function error404(?string $paramController)
+    function index()
     {
         $this->render('error/404');
     }
+    /**
+     * Redirecting to the error page
+     */
+    public function error404()
+    {
+        self::index();
+    }
+
+
 }
