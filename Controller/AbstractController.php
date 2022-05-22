@@ -20,6 +20,7 @@ class AbstractController
         require __DIR__ . '/../View/' . $template . '.html.php';
         $html = ob_get_clean();
         require __DIR__ . '/../View/base.html.php';
+        exit;
     }
 
     /**

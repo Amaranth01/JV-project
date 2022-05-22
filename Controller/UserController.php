@@ -26,7 +26,7 @@ class UserController extends AbstractController
         $this->render('user/activated');
     }
 
-    public function forgottenPassword()
+    public function forgottenPassword($token)
     {
         $this->render('user/forgotPassword');
     }
@@ -313,12 +313,12 @@ class UserController extends AbstractController
         $newPasswordR = $this->getFormField('newPasswordR');
 
         if (!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $newPassword)) {
-            $error[] = "Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial";
+            $_SESSION['errors'] = "Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial";
         }
 
         // Passwords do not match
         if ($newPassword !== $newPasswordR) {
-            $error[] = "Les mots de passe ne correspondent pas";
+            $_SESSION['errors'] = "Les mots de passe ne correspondent pas";
         }
         $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
@@ -504,7 +504,7 @@ class UserController extends AbstractController
                     merci de cliquer <a href=\"$url\">sur ce lien</a> pour vous rendre sur la page de réinitialisation. Si le lien ne 
                     s'affiche pas, collez l'adresse ci-dessous dans votre navigateur. 
                     <br>
-                    https://jv-project.vanessa-amaranth.com/?c=user&a=forgotten-password&id= $id &token=$token
+                    https://jv-project.vanessa-amaranth.com/?c=user&a=forgotten-password&id=$id&token=$token
                 </p>
             </body>
         </html>
@@ -519,45 +519,6 @@ class UserController extends AbstractController
         ];
 
         return mail($mail, $subject, $message, $header, "-f no-reply@email.com");
-    }
-
-    public function checkEmail()
-    {
-        $email = $this->clean($this->getFormField('email'));
-        //secured the email
-        $mail = filter_var($email, FILTER_SANITIZE_EMAIL);
-
-        // Send a message if the email address is not valid.
-        if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['errors'] = "L'adresse mail n'est pas valide";
-            $this->render('pages/register');
-            exit();
-        }
-
-        if(!UserManager::userMailExist($mail)) {
-            $_SESSION['errors'] = "Cette adresse mail n'existe pas dans notre base de données";
-            $this->render('pages/register');
-            exit();
-        }
-
-        $token = self::randomChars();
-        $user = new User();
-        $user->setToken($token);
-
-        $id = UserManager::getUserByMail($mail)->getId();
-
-
-        if (self::sendMailPassword($mail, $id, $token)) {
-
-            //If the ID is not null, we pass the user in the session
-            if (null !== $user->getId()) {
-                $_SESSION['success'] = "
-                            Un mail vous sera envoyé pour la réinitialisation de votre mot de passe. 
-                            L'action peut prendre quelques minutes. Vérifiez votre boîte de spam.
-                        ";
-            }
-        }
-        $this->render('home/index');
     }
 
     /**
@@ -589,5 +550,84 @@ class UserController extends AbstractController
                 'sectionFive' => ArticleManager::getArticleBySectionId(5),
             ]);
         }
+    }
+
+    /**
+     * Verify if the user mail is correct and send a mail for reset password
+     */
+    public function checkEmail()
+    {
+        $mail = $this->clean($this->getFormField('email'));
+        $mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
+        $user = UserManager::getUserByMail($mail);
+
+        if(!$user) {
+            $_SESSION['error'] = "Votre compte n'a pas pu être trouvé";
+            exit;
+        }
+
+        $token = $user->getToken();
+
+        if (self::sendMailPassword($mail, $user->getId(), $token)) {
+            $_SESSION['success'] = "
+                Un mail vous sera envoyé pour la réinitialisation de votre mot de passe. 
+                L'action peut prendre quelques minutes. Vérifiez votre boîte de spam.
+            ";
+        }
+
+        $this->render('home/index', [
+            'article' => ArticleManager::findAllArticle(4),
+            'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+            'sectionFive' => ArticleManager::getArticleBySectionId(5),
+        ]);
+    }
+
+
+    /**
+     * Reset the password
+     */
+    public function forgotPassword()
+    {
+        //check if the field is empty
+        if(empty($_POST['password'] )|| empty($_POST['passwordR'])) {
+            $this->render('user/forgotPassword');
+        }
+
+        //Get the field
+        $password = $this->getFormField('password');
+        $passwordR = $this->getFormField('passwordR');
+        $userId = (int)$_POST['id'];
+        $token = $this->clean($_POST['token']);
+        $user = UserManager::getUser($userId);
+
+        // Check if user exists.
+        if(!$user) {
+            $_SESSION['error'] = "Votre compte n'a pas été trouvé";
+            $this->render('user/forgotPassword');
+        }
+
+        // Check if token is the right one.
+        if($token !== $user->getToken()) {
+            $_SESSION['error'] = "Le token fourni n'est pas valide, faites une nouvelle demande";
+            $this->render('user/forgotPassword');
+        }
+
+        // Passwords do not match
+        if ($password !== $passwordR) {
+            $_SESSION['errors'] = "Les mots de passe ne correspondent pas";
+            $this->render('user/forgotPassword');
+        }
+
+        //Verify if the special char and uppercase are presents
+        if (!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
+            $_SESSION['errors'] = "Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial";
+            $this->render('user/forgotPassword');
+        }
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $userManager = new UserManager();
+        $userManager->updatePassword($password, $userId);
+        $_SESSION['success'] = "Votre mot de passe a bien été mis à jour";
+        $this->render('pages/login');
     }
 }

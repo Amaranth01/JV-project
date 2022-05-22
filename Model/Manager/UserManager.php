@@ -62,6 +62,22 @@ class UserManager
     }
 
     /**
+     * Returns a user by their token
+     * @param string $token
+     * @return User|null
+     */
+    public static function getUserByToken(string $token): ?User
+    {
+        $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::PREFIXTABLE . "user WHERE token = :token ");
+        $stmt->bindValue(':token', $token);
+
+        if($stmt->execute() && $data = $stmt->fetch()) {
+            return self::createUser($data);
+        }
+        return null;
+    }
+
+    /**
      * @param string $username
      * @return User|null
      */
@@ -243,4 +259,5 @@ class UserManager
 
         $stmt->execute();
     }
+
 }

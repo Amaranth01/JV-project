@@ -27,7 +27,7 @@
         </p>
 
         <p>
-            <a href="/index.php?c=home&a=check-email"> Mot de passe oublié ?</a>
+            <a href="/index.php?c=home&a=check-email" id="forgot"> Mot de passe oublié ?</a>
         </p>
 
     </div>
