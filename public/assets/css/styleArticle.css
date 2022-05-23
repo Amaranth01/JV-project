@@ -6,8 +6,9 @@ h3 {
 #article {
     border: blue double 6px;
     width: 80vw;
-    margin: 0 auto;
     background-color: #f1e2e2;
+    margin-top: 2rem;
+    margin-left: 10vw;
 }
 
 #article > p > img {
@@ -53,7 +54,6 @@ h3 {
 
 .artImage {
     width: 9vw;
-    margin-top: 0.5rem;
 }
 
 .artTitle {
@@ -117,10 +117,6 @@ h3 {
 
     .artResume {
         font-size: 1.5rem;
-    }
-
-    .contentResumeArticleIndex {
-        width: 65vw;
     }
 
     #article > h2 {

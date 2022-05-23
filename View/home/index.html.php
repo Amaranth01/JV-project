@@ -11,8 +11,7 @@
                                 <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
                             </div>
                             <div>
-                                <p class="artTitle"><?= $article->getTitle() ?></p>
-
+                                <span class="artTitle"><?= $article->getTitle() ?></span>
                                 <p class="artResume"><?= $article->getResume() ?></p>
                             </div>
                         </a>
@@ -28,7 +27,6 @@
                             <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
                                 <div>
                                     <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
-
                                 </div>
                                 <div>
                                     <p class="artTitle"><?= $article->getTitle() ?></p>
