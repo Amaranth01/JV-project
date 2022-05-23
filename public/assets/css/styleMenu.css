@@ -82,8 +82,9 @@ Footer
  */
 
 footer {
-    position: sticky;
+    position: absolute;
     bottom: 0;
+    top: 100%;
     background-color: blue;
     color: white;
     padding: 0.5rem;
@@ -117,9 +118,10 @@ Home page
     margin-top: 1rem;
     width: 45vw;
     padding: 0.5rem;
+}
+.contentResumeArticleIndex > a {
     text-align: center;
 }
-
 .center {
     margin-left: 25vw;
 }

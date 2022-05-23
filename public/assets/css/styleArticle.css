@@ -60,11 +60,13 @@ h3 {
     font-size: 2.5rem;
     font-weight: bold;
     margin-left: 0.5rem;
+    width: 100%;
 }
 
 .artResume {
     font-size: 2rem;
     margin-left: 0.5rem;
+    width: 100%;
 }
 
 .contentResumeArticle {
@@ -74,7 +76,7 @@ h3 {
     border: blue 1px solid;
     margin-top: 1rem;
     margin-left: 25vw;
-    width: 50vw;
+    text-align: center;
 }
 
 #userImage {

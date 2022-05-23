@@ -7,13 +7,9 @@
                 foreach ($data['article'] as $article) { ?>
                     <article class="contentResumeArticleIndex">
                         <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
-                            <div>
                                 <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
-                            </div>
-                            <div>
-                                <span class="artTitle"><?= $article->getTitle() ?></span>
+                                <p class="artTitle"><?= $article->getTitle() ?></p>
                                 <p class="artResume"><?= $article->getResume() ?></p>
-                            </div>
                         </a>
                     </article> <?php
                 } ?>
