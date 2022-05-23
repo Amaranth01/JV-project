@@ -68,7 +68,11 @@ class CommentController extends AbstractController
 
         $commentManager = new CommentManager();
         $commentManager->addNewComment($comment);
-        $this->render('home/index');
+        $this->render('home/index', [
+            'article' => ArticleManager::findAllArticle(4),
+            'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+            'sectionFive' => ArticleManager::getArticleBySectionId(5),
+        ]);
     }
 
     public function editComment($id)

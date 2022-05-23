@@ -32,3 +32,19 @@
 .dark .privacy {
     color: white;
 }
+
+.dark form label, .dark p {
+    color: white;
+}
+
+.dark .artTitle, .dark .artResume {
+    color: black;
+}
+
+.dark #article a {
+    color: blue;
+}
+
+.dark #article .createAccount {
+    color: white;
+}

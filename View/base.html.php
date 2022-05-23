@@ -47,8 +47,8 @@ if (isset($_SESSION['success'])) {
 ?>
 <!--First menu-->
 <div>
-    <nav>
-        <ul class="list" id="second-nav">
+    <nav id="second-nav">
+        <ul class="list" >
             <li><a href="/index.php?c=home&a=pc">PC</a></li>
             <li><a href="/index.php?c=home&a=playstation">PlayStation</a></li>
             <li><a href="/index.php?c=home&a=nintendo">Nintendo</a></li>
@@ -59,10 +59,8 @@ if (isset($_SESSION['success'])) {
                 <img src="/assets/img/avatar/<?= UserManager::getUser($_SESSION['user']->getId())->getImage() ?>"
                      alt="Accès à l'espace utilisateur" id="userSpace">
             </a>
-        </ul>
-        <?php
-        }
-        ?>
+        </ul> <?php
+        } ?>
     </nav>
 </div>
 
@@ -91,19 +89,21 @@ if (isset($_SESSION['success'])) {
                 </div>
             </div>
 
-            <!--            <li><a href="/index.php?c=home&a=tchat">Tchat</a></li>-->
-            <!--            <li><a href="/index.php?c=home&a=poll">Sondages</a></li>-->
-            <button class="darkMode"><i class="fas fa-adjust"></i></button>
+                <!--            <li><a href="/index.php?c=home&a=tchat">Tchat</a></li>-->
+                <!--            <li><a href="/index.php?c=home&a=poll">Sondages</a></li>-->
+                <button class="darkMode"><i class="fas fa-adjust"></i></button>
+            <div class="display">
+                <?php if (UserController::userConnected()) { ?>
+                    <li><a href="/index.php?c=logout&a=logout" class="displayLink">Déconnexion</a></li>
+                    <?php
+                } else { ?>
+                    <li><a href="/index.php?c=home&a=login" class="displayLink">Connexion/Inscription</a></li>
+                <?php }
+                if (UserController::writerConnected() || UserController::adminConnected()) { ?>
+                    <li><a href="/index.php?c=admin&a=index" class="displayLink">Espace des rédacteurs</a></li><?php
+                } ?>
 
-            <?php if (UserController::userConnected()) { ?>
-                <li><a href="/index.php?c=logout&a=logout" class="displayLink">Déconnexion</a></li>
-                <?php
-            } else { ?>
-                <li><a href="/index.php?c=home&a=login" class="displayLink">Connexion/Inscription</a></li>
-            <?php }
-            if (UserController::writerConnected() || UserController::adminConnected()) { ?>
-                <li><a href="/index.php?c=admin&a=index" class="displayLink">Espace des rédacteurs</a></li><?php
-            } ?>
+            </div>
             <button class="burger"><i class="fas fa-bars "></i></button>
         </ul>
     </nav>

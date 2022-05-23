@@ -30,13 +30,13 @@ h3 {
     font-size: 1.5rem;
 }
 
-#article > p, #article  > blockquote >p > span {
+#article > p, #article  > blockquote > p > span {
     font-size: 2rem;
     text-align: justify;
     padding: 0.8rem;
 }
 
-#article  > blockquote >p > span {
+#article  > blockquote > p > span {
     font-style: italic;
     font-weight: bold;
 }
@@ -121,5 +121,9 @@ h3 {
 
     .contentResumeArticleIndex {
         width: 65vw;
+    }
+
+    #article > h2 {
+        font-size: 2rem;
     }
 }

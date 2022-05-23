@@ -5,7 +5,7 @@ setTimeout(() => {
 
 //show responsive menu
 let menu = document.querySelector('.burger');
-let element = document.querySelector('.displayLink');
+let element = document.querySelector('.display');
 let a = 0;
 
 menu.addEventListener('click', function () {

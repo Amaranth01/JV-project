@@ -65,7 +65,7 @@ nav {
     font-family: Arial, serif;
 }
 
-#second-nav > li > a {
+#second-nav > ul > li > a {
     color: white;
 }
 
@@ -153,6 +153,13 @@ Home page
     font-weight: bold;
 }
 
+/*search tool*/
+
+#search {
+    width: 15vw;
+    padding: 0.7rem;
+}
+
 form > .searching {
     border-collapse: collapse;
 }
@@ -169,6 +176,7 @@ form > .searching {
     margin-top: 1rem;
 }
 
+/*mention*/
 #privacyPolicy {
     color: white;
     font-size: 1.2rem;
@@ -204,11 +212,18 @@ form > .searching {
 
 @media screen and (max-width: 770px) {
 
-    .displayLink {
+    .display {
         display: none;
-        flex-direction: column;
+        margin-top: 10rem;
+        height: 0;
+        width: 0;
+    }
+
+    .displayLink {
+        position: relative;
         background-color: #cbc7c7;
-        width: 4rem;
+        margin-left: -12rem;
+        padding: 0.5rem;
     }
 
     .burger {

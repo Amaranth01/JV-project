@@ -278,7 +278,9 @@ class HomeController extends AbstractController
     public function viewArticle($id)
     {
         $this->render('pages/viewArticle', [
+            //Get data for show article
             'article' => ArticleManager::getArticle($id),
+            //Get data for show comment
             'comment' => CommentManager::getCommentByArticleId($id),
         ]);
     }

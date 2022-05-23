@@ -19,6 +19,9 @@ class ArticleController extends AbstractController
         $this->render('writer/writer');
     }
 
+    /**
+     * Add an article
+     */
     public function addArticle()
     {
         //Retrieves and cleans form fields
@@ -87,19 +90,16 @@ class ArticleController extends AbstractController
                 else {
                     $_SESSION['errors'] =  "Le poids est trop lourd, maximum autorisé : 1 Mo";
                     $this->render('writer/writer');
-                    exit();
                 }
             }
             else {
                 $_SESSION['errors'] = "Mauvais type de fichier. Seul les formats JPG, JPEG et PNG sont acceptés";
                 $this->render('writer/writer');
-                exit();
             }
         }
         else {
             $_SESSION['errors'] = "Une erreur s'est produite";
             $this->render('writer/writer');
-            exit();
         }
         $_SESSION['error'] = $error;
         return $name;

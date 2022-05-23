@@ -12,7 +12,7 @@ tinymce.init({
         'bullist numlist | link image | preview | forecolor backcolor emoticons | fullscreen',
 
     //defines the allowed format
-    images_file_types:'jpeg,jpg,jfif,png,gif,webp',
+    images_file_types:'jpeg,jpg,png,gif,',
 
     link_default_target: '_blank'
 });
