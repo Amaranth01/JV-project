@@ -134,13 +134,20 @@ class ArticleController extends AbstractController
         //Checks if the writer is logged in
         if(!self::writerConnected()){
             $_SESSION['errors'] = "Seul un rédacteur peut modifier un article";
-            $this->render('home/index');
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
 
         //Checks if the title and content fields are present
         if(!isset($_POST['title'])&& !isset($_POST['content'])) {
-            $this->render('home/index');
-            exit();
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
         //Cleans up data
         $newTitle = $this->clean($_POST['title']);
@@ -161,12 +168,20 @@ class ArticleController extends AbstractController
         //Verify if a user is connected
         if(!isset($_SESSION['user'])) {
             $_SESSION['errors'] = "Seul un rédacteur peut supprimer un article";
-            $this->render('home/index');
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
         //verify who is connected
         if($_SESSION['user']->getRole()->getRoleName() === 'user') {
             $_SESSION['errors'] = "Seul un rédacteur peut supprimer un article";
-            $this->render('home/index');
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
         if (self::writerConnected()) {
             //Check that the article exists

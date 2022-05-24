@@ -41,6 +41,7 @@ use App\Controller\UserController;
                     </div>
                     <div>
                         <p class="artTitle"><?= $article->getTitle() ?></p>
+                    </div>
                 </a>
                 <p class="artResume"><?= $article->getResume() ?></p>
             </article>

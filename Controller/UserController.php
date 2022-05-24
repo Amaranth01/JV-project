@@ -61,40 +61,34 @@ class UserController extends AbstractController
             if($userManager->usernameExist($username)) {
                 $_SESSION['errors'] = "Ce nom d'utlisateur existe déjà";
                 $this->render('pages/register');
-                exit();
             }
 
             if($userManager->userMailExist($mail)) {
                 $_SESSION['errors'] = "Cette adresse mail existe déjà";
                 $this->render('pages/register');
-                exit();
             }
 
             if ($mail !== $mailR) {
                 $_SESSION['errors'] = "Les adresses mails ne correspondent pas";
                 $this->render('pages/register');
-                exit();
             }
 
             // Returns an error if the username is not 2 characters
             if (!strlen($username) >= 6 && strlen($username) <= 50) {
                 $_SESSION['errors'] = "Le nom, ou pseudo, doit faire au moins 6 caractères et 50 maximum";
                 $this->render('pages/register');
-                exit();
             }
 
             // Returns an error if the password does not contain all the requested characters.
             if (!preg_match('/^(?=.*[!@#$%^&*-\])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/', $password)) {
                 $_SESSION['errors'] = "Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial";
                 $this->render('pages/register');
-                exit();
             }
 
             // Passwords do not match
             if ($password !== $passwordR) {
                 $_SESSION['errors'] = "Les mots de passe ne correspondent pas";
                 $this->render('pages/register');
-                exit();
             } else {
                 //If no error is detected the program goes to else and authorizes the recording
                 $token = self::randomChars();
@@ -127,7 +121,11 @@ class UserController extends AbstractController
                 }
             }
         }
-        $this->render('home/index');
+        $this->render('home/index', [
+            'article' => ArticleManager::findAllArticle(4),
+            'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+            'sectionFive' => ArticleManager::getArticleBySectionId(5),
+        ]);
     }
 
     public function connexion()
@@ -170,7 +168,7 @@ class UserController extends AbstractController
                 $_SESSION['success'] = $successMessage;
             }
         }
-        $this->render('home/index', $data = [
+        $this->render('home/index', [
             'article' => ArticleManager::findAllArticle(4),
             'sectionTwo' => ArticleManager::getArticleBySectionId(2),
             'sectionFive' => ArticleManager::getArticleBySectionId(5),
@@ -184,37 +182,35 @@ class UserController extends AbstractController
     {
         //Check if user is connected
         if (!isset($_SESSION['user'])) {
-            $this->render('home/index', $data = [
+            $this->render('home/index', [
                 'article' => ArticleManager::findAllArticle(4),
                 'sectionTwo' => ArticleManager::getArticleBySectionId(2),
                 'sectionFive' => ArticleManager::getArticleBySectionId(5),
             ]);
-            exit();
         }
 
         //Verify that the user has admin status and if the id is the same une URL and session user
         if (self::getConnectedUser() && self::adminConnected() && self::writerConnected() && $_SESSION['user']->getId() !== $_GET['id']) {
             $_SESSION['errors'] = "Il faut être connecté et propriétaire du compte pour le supprimer !";
-            $this->render('home/index', $data = [
+            $this->render('home/index', [
                 'article' => ArticleManager::findAllArticle(4),
                 'sectionTwo' => ArticleManager::getArticleBySectionId(2),
                 'sectionFive' => ArticleManager::getArticleBySectionId(5),
             ]);
-            exit();
         }
         // Compare the id in session
         if ($_SESSION['user']->getId() === $id) {
             $userManager = new UserManager();
             $delete = $userManager->deleteUser($id);
             //destroy the session after the delete action
-            session_destroy();
-            $this->render('home/index', $data = [
+            $this->render('home/index', [
                 'article' => ArticleManager::findAllArticle(4),
                 'sectionTwo' => ArticleManager::getArticleBySectionId(2),
                 'sectionFive' => ArticleManager::getArticleBySectionId(5),
             ]);
+            session_destroy();
         }
-        $this->render('home/index', $data = [
+        $this->render('home/index', [
             'article' => ArticleManager::findAllArticle(4),
             'sectionTwo' => ArticleManager::getArticleBySectionId(2),
             'sectionFive' => ArticleManager::getArticleBySectionId(5),
@@ -268,7 +264,6 @@ class UserController extends AbstractController
         if (empty($_POST['newEmail'])) {
             $_SESSION['errors'] = "Le champs de l'email doit être complété";
             $this->render('user/userSpace');
-            exit();
         }
 
         $newEmail = $this->clean($_POST['newEmail']);
@@ -293,7 +288,6 @@ class UserController extends AbstractController
         if (empty($_POST['newPassword'])) {
             $_SESSION['errors'] = "Le champs du pseudo doit être complété";
             $this->render('user/userSpace');
-            exit();
         }
 
         $newPassword = $this->getFormField('newPassword');
@@ -325,7 +319,11 @@ class UserController extends AbstractController
         //Check if the user is connected
         if (!isset($_SESSION['user'])) {
             $_SESSION['errors'] = "Seul un utilisateur peut changer son image";
-            $this->render('home/index');
+            $this->render('home/index', $data = [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
 
         $user = new UserManager();
@@ -400,14 +398,22 @@ class UserController extends AbstractController
     {
         //check if the field is present
         if (!isset($_POST['username'])) {
-            $this->render('home/index');
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
             exit();
         }
 
         //check if the admin is connected
         if (RoleManager::getRoleByName('writer') == 'writer' && RoleManager::getRoleByName('user') == 'user') {
             $_SESSION['errors'] = "Seul un administrateur peut mettre à jour un utilisateur";
-            $this->render('home/index');
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
 
         //clean the data
@@ -519,7 +525,7 @@ class UserController extends AbstractController
         $user = UserManager::getUser($id);
         //Compare role id if is not the same, users are redirecting to home page
         if ($user->getRole()->getId() !== RoleManager::getRoleByName('none')->getId()) {
-            $this->render('home/index', $data = [
+            $this->render('home/index', [
                 'article' => ArticleManager::findAllArticle(4),
                 'sectionTwo' => ArticleManager::getArticleBySectionId(2),
                 'sectionFive' => ArticleManager::getArticleBySectionId(5),
@@ -531,7 +537,7 @@ class UserController extends AbstractController
             ////Change the role of the user
             $userManager->updateRoleToken(1, $id);
             $_SESSION['success'] = 'Votre comte a été activé';
-            $this->render('home/index', $data = [
+            $this->render('home/index', [
                 'article' => ArticleManager::findAllArticle(4),
                 'sectionTwo' => ArticleManager::getArticleBySectionId(2),
                 'sectionFive' => ArticleManager::getArticleBySectionId(5),

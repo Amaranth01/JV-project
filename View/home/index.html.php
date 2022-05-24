@@ -7,10 +7,15 @@
                 foreach ($data['article'] as $article) { ?>
                     <article class="contentResumeArticleIndex">
                         <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
-                                <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
+                            <div>
+                                <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article"
+                                     class="artImage">
+                            </div>
+                            <div>
                                 <p class="artTitle"><?= $article->getTitle() ?></p>
-                                <p class="artResume"><?= $article->getResume() ?></p>
+                            </div>
                         </a>
+                        <p class="artResume"><?= $article->getResume() ?></p>
                     </article> <?php
                 } ?>
     </div>
@@ -22,13 +27,14 @@
                         <article class="contentResumeArticleIndex">
                             <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
                                 <div>
-                                    <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
+                                    <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article"
+                                         class="artImage">
                                 </div>
                                 <div>
                                     <p class="artTitle"><?= $article->getTitle() ?></p>
-                                     <p class="artResume"><?= $article->getResume() ?></p>
-                                 </div>
+                                </div>
                             </a>
+                            <p class="artResume"><?= $article->getResume() ?></p>
                         </article> <?php
                     } ?>
     </div>
@@ -40,17 +46,18 @@
             <h2>Nos dernières séries</h2>
                 <?php
                    foreach ($data['sectionFive'] as $article) { ?>
-                        <article class="contentResumeArticleIndex">
-                            <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
-                                <div>
-                                    <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article" class="artImage">
-                                </div>
-                                <div>
-                                    <p class="artTitle"><?= $article->getTitle() ?></p>
-                                    <p class="artResume"><?= $article->getResume() ?></p>
-                                </div>
-                            </a>
-                        </article> <?php
+                       <article class="contentResumeArticleIndex">
+                           <a href="/index.php?c=home&a=view-article&id=<?= $article->getId() ?>">
+                               <div>
+                                   <img src="/uploads/<?= $article->getImage() ?>" alt="Image de couverture de l'article"
+                                        class="artImage">
+                               </div>
+                               <div>
+                                   <p class="artTitle"><?= $article->getTitle() ?></p>
+                               </div>
+                           </a>
+                           <p class="artResume"><?= $article->getResume() ?></p>
+                       </article> <?php
                 } ?>
         </div>
 

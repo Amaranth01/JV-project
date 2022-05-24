@@ -80,12 +80,19 @@ class CommentController extends AbstractController
         //Checks if the writer is logged in
         if(!self::writerConnected()) {
             $_SESSION['errors'] = "Seul un administrateur peut éditer un commentaire";
-            $this->render('home/index');
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
         //Check that the field is present
         if(!isset($_POST['content'])) {
-            $this->render('home/index');
-            exit();
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
         ////Get and cleans data
         $newContent = $this->clean($_POST['content']);
@@ -93,27 +100,34 @@ class CommentController extends AbstractController
         ////Creating a new comment object
         $comment = new CommentManager($newContent, $id);
         $comment->editComment($newContent, $id);
-        $this->render('home/index');
+        $this->render('home/index', [
+            'article' => ArticleManager::findAllArticle(4),
+            'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+            'sectionFive' => ArticleManager::getArticleBySectionId(5),
+        ]);
     }
 
     public function deleteComment(int $id)
     {
         ////Checks if the writer is logged in
-         if(self::writerConnected()) {
+         if(!self::writerConnected()) {
             $_SESSION['errors'] = "Seul un rédacteur peut supprimer un article";
-             $this->render('home/index', $data = [
+             $this->render('home/index', [
                  'article' => ArticleManager::findAllArticle(4),
                  'sectionTwo' => ArticleManager::getArticleBySectionId(2),
                  'sectionFive' => ArticleManager::getArticleBySectionId(5),
              ]);
-            exit();
         }
 
         //Checks that the comment exists by its id
         if(CommentManager::commentExist($id)) {
             $comment = CommentManager::getComment($id);
             $deleted = CommentManager::deleteComment($comment);
-            $this->render('home/index');
+            $this->render('home/index', [
+                'article' => ArticleManager::findAllArticle(4),
+                'sectionTwo' => ArticleManager::getArticleBySectionId(2),
+                'sectionFive' => ArticleManager::getArticleBySectionId(5),
+            ]);
         }
     }
 
